@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://bj1u5fxoruvto"]
+
+[ext_resource type="Texture2D" uid="uid://cfe38pd63rbia" path="res://assets/sprites/objects/collectables/Fire Flower.png" id="1_703gn"]
+[ext_resource type="Script" uid="uid://svumnogcp6y3" path="res://objects/collectables/power-ups/fire_flower.gd" id="1_bq3se"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxrhx"]
+atlas = ExtResource("1_703gn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcdsi"]
+atlas = ExtResource("1_703gn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ludie"]
+atlas = ExtResource("1_703gn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ld3v5"]
+atlas = ExtResource("1_703gn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tjbn0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxrhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcdsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ludie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ld3v5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bq3se"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxrhx"]
+size = Vector2(15, 15.75)
+
+[node name="FireFlower" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_bq3se")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_tjbn0")
+autoplay = "default"
+frame_progress = 0.444143
+
+[node name="FireFlowerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8.5)
+shape = SubResource("RectangleShape2D_bq3se")
+
+[node name="FireFlowerCollect" type="Area2D" parent="."]
+
+[node name="CollectCollision" type="CollisionShape2D" parent="FireFlowerCollect"]
+position = Vector2(8, 8.125)
+shape = SubResource("RectangleShape2D_xxrhx")
+
+[connection signal="body_entered" from="FireFlowerCollect" to="." method="_on_collect_body_entered"]

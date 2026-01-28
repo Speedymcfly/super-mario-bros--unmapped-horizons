@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cyot2awsv4653"]
+
+[ext_resource type="Texture2D" uid="uid://de21q4v6iqway" path="res://assets/sprites/objects/Question Block.png" id="1_6vv53"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8qph"]
+atlas = ExtResource("1_6vv53")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fa5s"]
+atlas = ExtResource("1_6vv53")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdqqq"]
+atlas = ExtResource("1_6vv53")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj255"]
+atlas = ExtResource("1_6vv53")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("AtlasTexture_l8qph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fa5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdqqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj255")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

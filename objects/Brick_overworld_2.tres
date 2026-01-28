@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://bry1os1ifylyw"]
+
+[ext_resource type="Texture2D" uid="uid://ye53ha4x7laf" path="res://assets/sprites/objects/Bricks.png" id="1_snwd0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ky45i"]
+atlas = ExtResource("1_snwd0")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usp00"]
+atlas = ExtResource("1_snwd0")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d802t"]
+atlas = ExtResource("1_snwd0")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cjff"]
+atlas = ExtResource("1_snwd0")
+region = Rect2(112, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("AtlasTexture_ky45i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usp00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d802t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cjff")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

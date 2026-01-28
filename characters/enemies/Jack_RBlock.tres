@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://3j6m0nnea2s4"]
+
+[ext_resource type="Texture2D" uid="uid://dmo2alxvl1acf" path="res://assets/sprites/characters/enemies/Jack-in-the-Box.png" id="1_nblt7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyicy"]
+atlas = ExtResource("1_nblt7")
+region = Rect2(48, 0, 16, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87f0o"]
+atlas = ExtResource("1_nblt7")
+region = Rect2(32, 0, 16, 40)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyicy")
+}],
+"loop": true,
+"name": &"coiled",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87f0o")
+}],
+"loop": true,
+"name": &"sprung",
+"speed": 5.0
+}]

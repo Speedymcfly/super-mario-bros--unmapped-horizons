@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://7pcey43hk8rk"]
+
+[ext_resource type="Script" uid="uid://bfh7b4h1e8qls" path="res://characters/enemies/goomba.gd" id="1_rtdx5"]
+[ext_resource type="SpriteFrames" uid="uid://dys5skw7tnce8" path="res://characters/enemies/Spiked_Gloomba_Goomba.tres" id="2_1gjhd"]
+[ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="3_egrxx"]
+[ext_resource type="AudioStream" uid="uid://d4mgl0ow0l31a" path="res://assets/audio/SFX/BrickBreak.wav" id="4_1gjhd"]
+[ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="5_ws0s0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcckm"]
+size = Vector2(14, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qna8p"]
+size = Vector2(8, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atekw"]
+size = Vector2(8, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_egrxx"]
+size = Vector2(14, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gjhd"]
+size = Vector2(4, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ws0s0"]
+size = Vector2(17, 16)
+
+[node name="Goomba" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_rtdx5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 2)
+sprite_frames = ExtResource("2_1gjhd")
+animation = &"walkingleft"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_qcckm")
+
+[node name="HurtPlayer" type="Area2D" parent="."]
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtPlayer"]
+position = Vector2(-4, 7.5)
+shape = SubResource("RectangleShape2D_qna8p")
+
+[node name="HurtPlayer2" type="Area2D" parent="."]
+
+[node name="HurtShape2" type="CollisionShape2D" parent="HurtPlayer2"]
+position = Vector2(4, 7.5)
+shape = SubResource("RectangleShape2D_atekw")
+
+[node name="SquishDetect" type="Area2D" parent="."]
+
+[node name="SquishShape" type="CollisionShape2D" parent="SquishDetect"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_egrxx")
+
+[node name="SFXSquish" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_egrxx")
+
+[node name="SFXHelmBreak" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1gjhd")
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ws0s0")
+
+[node name="Spike" type="Area2D" parent="."]
+position = Vector2(0, -3.5)
+
+[node name="SpikeShape" type="CollisionShape2D" parent="Spike"]
+shape = SubResource("RectangleShape2D_1gjhd")
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 13
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_ws0s0")
+
+[connection signal="body_entered" from="SquishDetect" to="." method="_on_squish_detect_body_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

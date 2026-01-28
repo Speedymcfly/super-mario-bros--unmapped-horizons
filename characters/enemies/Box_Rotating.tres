@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://c61l30ppsywhg"]
+
+[ext_resource type="Texture2D" uid="uid://cjehkfs7ffgmj" path="res://assets/sprites/objects/RotatingBlock.png" id="1_he6e5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyhyt"]
+atlas = ExtResource("1_he6e5")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyhyt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

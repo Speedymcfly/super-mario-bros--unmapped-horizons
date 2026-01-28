@@ -1,0 +1,143 @@
+[gd_scene load_steps=13 format=3 uid="uid://ce8cadng0n3pq"]
+
+[ext_resource type="Script" uid="uid://cy6l4q4fqerie" path="res://objects/question_block.gd" id="1_g0s8j"]
+[ext_resource type="SpriteFrames" uid="uid://ckbh58derghyn" path="res://objects/Question_Block_Castle_Modern.tres" id="2_6k1mj"]
+[ext_resource type="AudioStream" uid="uid://c08wrjy13gjfk" path="res://assets/audio/SFX/CoinCollect.wav" id="4_fvkvl"]
+[ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="4_g0s8j"]
+[ext_resource type="AudioStream" uid="uid://dukbucwu7j8s3" path="res://assets/audio/SFX/LuminaCoinCollect.wav" id="5_60q68"]
+[ext_resource type="AudioStream" uid="uid://iijy8jkdasu8" path="res://assets/audio/SFX/PowerUpAppear.wav" id="5_rixgj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxyup"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1pud"]
+size = Vector2(16, 1)
+
+[sub_resource type="Animation" id="Animation_bvavw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_g0s8j"]
+resource_name = "bump_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(8, 14), Vector2(8, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(8, 14), Vector2(8, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_8xny0"]
+resource_name = "bump_up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(8, 2), Vector2(8, 8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(8, 2), Vector2(8, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bvavw"]
+_data = {
+&"RESET": SubResource("Animation_bvavw"),
+&"bump_down": SubResource("Animation_g0s8j"),
+&"bump_up": SubResource("Animation_8xny0")
+}
+
+[node name="QuestionBlock" type="AnimatableBody2D"]
+position = Vector2(-8, -8)
+collision_layer = 15
+script = ExtResource("1_g0s8j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 8)
+sprite_frames = ExtResource("2_6k1mj")
+autoplay = "default"
+frame_progress = 0.210754
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_hxyup")
+
+[node name="JumpArea" type="Area2D" parent="."]
+
+[node name="JumpCollision" type="CollisionShape2D" parent="JumpArea"]
+position = Vector2(8, 16)
+shape = SubResource("RectangleShape2D_c1pud")
+
+[node name="SFXBump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_g0s8j")
+
+[node name="SFXCoin" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_fvkvl")
+
+[node name="SFXLuminaCoin" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_60q68")
+
+[node name="SFXPowerUp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_rixgj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bvavw")
+}
+
+[connection signal="body_entered" from="JumpArea" to="." method="_on_jump_area_body_entered"]

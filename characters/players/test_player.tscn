@@ -1,0 +1,73 @@
+[gd_scene load_steps=16 format=3 uid="uid://dowxbdk3qs37s"]
+
+[ext_resource type="Script" uid="uid://ds1v7omeaelwj" path="res://characters/players/test_player.gd" id="1_6qyji"]
+[ext_resource type="SpriteFrames" uid="uid://dstw3jwyrnybp" path="res://characters/players/SmallMarioModern.tres" id="2_acoji"]
+[ext_resource type="AudioStream" uid="uid://cowltsq0kedqi" path="res://assets/audio/SFX/Mario/MarioJump1.wav" id="7_c640x"]
+[ext_resource type="AudioStream" uid="uid://bljtvsdnm0nra" path="res://assets/audio/SFX/Mario/MarioJump2.wav" id="8_mi3x4"]
+[ext_resource type="AudioStream" uid="uid://bhk2ywgixg3c2" path="res://assets/audio/SFX/Mario/MarioThanks.wav" id="9_etgod"]
+[ext_resource type="AudioStream" uid="uid://dhnpypf7r7qmb" path="res://assets/audio/SFX/Jump.wav" id="9_ih3yd"]
+[ext_resource type="AudioStream" uid="uid://wnhbc8peqwqg" path="res://assets/audio/SFX/Luigi/LuigiThanks.wav" id="10_acoji"]
+[ext_resource type="AudioStream" uid="uid://dxvu1yqj7w8tm" path="res://assets/audio/SFX/Mario/MarioLongJump1.wav" id="11_77tw5"]
+[ext_resource type="AudioStream" uid="uid://bffouxp7gvsu0" path="res://assets/audio/SFX/Mario/MarioLongJump2.wav" id="12_o0kt0"]
+[ext_resource type="AudioStream" uid="uid://88x3fvf0ncht" path="res://assets/audio/SFX/WallJump.wav" id="14_2f0of"]
+[ext_resource type="AudioStream" uid="uid://c7gr6nnv61wfa" path="res://assets/audio/SFX/Mario/MarioThirdJump.wav" id="15_mbsat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qyji"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c640x"]
+size = Vector2(14, 31)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_etgod"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("7_c640x")
+stream_1/stream = ExtResource("8_mi3x4")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2f0of"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("11_77tw5")
+stream_1/stream = ExtResource("12_o0kt0")
+
+[node name="Test Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_6qyji")
+
+[node name="CollisionSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_6qyji")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_acoji")
+animation = &"walking"
+autoplay = "idle"
+
+[node name="CollisionBig" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_c640x")
+
+[node name="SFXJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_ih3yd")
+
+[node name="MarioJump" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_etgod")
+autoplay = true
+
+[node name="MarioLongJump" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_2f0of")
+volume_db = -10.0
+
+[node name="WallJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_2f0of")
+
+[node name="Thanks1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_etgod")
+volume_db = -5.0
+
+[node name="Thanks2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_acoji")
+volume_db = -5.0
+
+[node name="MarioThirdJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_mbsat")
+volume_db = -10.0

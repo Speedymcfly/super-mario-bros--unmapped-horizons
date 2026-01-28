@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cl2pwxekinxm2"]
+
+[ext_resource type="Texture2D" uid="uid://ba2gyngclraug" path="res://assets/sprites/objects/collectables/Lumina Coin Gold.png" id="1_8dx21"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op2sy"]
+atlas = ExtResource("1_8dx21")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq0sy"]
+atlas = ExtResource("1_8dx21")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x4ec"]
+atlas = ExtResource("1_8dx21")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcwwr"]
+atlas = ExtResource("1_8dx21")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op2sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oq0sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x4ec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcwwr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

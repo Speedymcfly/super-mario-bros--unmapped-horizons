@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1qtd5boyadop"]
+
+[ext_resource type="Texture2D" uid="uid://ba2gyngclraug" path="res://assets/sprites/objects/collectables/Lumina Coin Gold.png" id="1_jlabr"]
+[ext_resource type="Script" uid="uid://b3anwwf1p58py" path="res://objects/collectables/lumina_coin_visual.gd" id="2_cap8c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbny6"]
+atlas = ExtResource("1_jlabr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml01t"]
+atlas = ExtResource("1_jlabr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iil6g"]
+atlas = ExtResource("1_jlabr")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50abo"]
+atlas = ExtResource("1_jlabr")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tea45"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbny6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml01t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iil6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50abo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="LuminaCoinVisual" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_tea45")
+autoplay = "default"
+frame_progress = 0.269887
+centered = false
+script = ExtResource("2_cap8c")

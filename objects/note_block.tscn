@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=3 uid="uid://bbilvg2hq42ak"]
+
+[ext_resource type="Texture2D" uid="uid://ruw5phjomjx7" path="res://assets/sprites/objects/Noteblocks.png" id="1_xej17"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kyji3"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gd7vo"]
+atlas = ExtResource("1_xej17")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6myae"]
+atlas = ExtResource("1_xej17")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15q2a"]
+atlas = ExtResource("1_xej17")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l485b"]
+atlas = ExtResource("1_xej17")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_27vf8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gd7vo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6myae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15q2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l485b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Animation" id="Animation_konni"]
+resource_name = "up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_g0k20"]
+resource_name = "down"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1cgpp"]
+_data = {
+&"down": SubResource("Animation_g0k20"),
+&"up": SubResource("Animation_konni")
+}
+
+[node name="NoteBlock" type="AnimatableBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kyji3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_27vf8")
+autoplay = "default"
+frame_progress = 0.0920414
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1cgpp")
+}

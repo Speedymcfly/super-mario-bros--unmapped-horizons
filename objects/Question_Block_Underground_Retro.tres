@@ -1,0 +1,52 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://bp0vq6bp763jg"]
+
+[ext_resource type="Texture2D" uid="uid://dlra81f53oh3t" path="res://assets/sprites/objects/Question Block Retro.png" id="1_v1mn1"]
+[ext_resource type="Texture2D" uid="uid://de21q4v6iqway" path="res://assets/sprites/objects/Question Block.png" id="2_omckp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xny0"]
+atlas = ExtResource("1_v1mn1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvavw"]
+atlas = ExtResource("1_v1mn1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0s8j"]
+atlas = ExtResource("1_v1mn1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtcha"]
+atlas = ExtResource("1_v1mn1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l8ci"]
+atlas = ExtResource("2_omckp")
+region = Rect2(64, 16, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("AtlasTexture_8xny0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvavw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0s8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtcha")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3l8ci")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}]

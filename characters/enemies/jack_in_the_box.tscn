@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://wfk5yoaippdj"]
+
+[ext_resource type="Script" uid="uid://c1bcs357qjip8" path="res://characters/enemies/jack_in_the_box.gd" id="1_x12po"]
+[ext_resource type="SpriteFrames" uid="uid://3j6m0nnea2s4" path="res://characters/enemies/Jack_RBlock.tres" id="2_1fa5s"]
+[ext_resource type="SpriteFrames" uid="uid://bi5kmcoeu8loy" path="res://characters/enemies/Box_Castle.tres" id="3_1fa5s"]
+[ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="4_81bln"]
+[ext_resource type="AudioStream" uid="uid://dhjt1ndxqduj7" path="res://assets/audio/SFX/Spring.wav" id="5_l8qph"]
+[ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="6_1fa5s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_81bln"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fa5s"]
+size = Vector2(14, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8qph"]
+size = Vector2(16.1616, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x12po"]
+size = Vector2(16, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gdqqq"]
+size = Vector2(17, 17)
+
+[node name="JackInTheBox" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_x12po")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(-1, 0)
+scale = Vector2(4.675, 3.75)
+
+[node name="BoxOutCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.99, 1)
+shape = SubResource("RectangleShape2D_81bln")
+
+[node name="TrueForm" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = ExtResource("2_1fa5s")
+animation = &"sprung"
+
+[node name="Disguise" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_1fa5s")
+autoplay = "default"
+
+[node name="StompDetect" type="Area2D" parent="."]
+
+[node name="StompShape" type="CollisionShape2D" parent="StompDetect"]
+position = Vector2(0, -22.5)
+shape = SubResource("RectangleShape2D_1fa5s")
+
+[node name="Box" type="CharacterBody2D" parent="."]
+collision_layer = 3
+
+[node name="BoxCollision" type="CollisionShape2D" parent="Box"]
+position = Vector2(4.73112e-07, 0)
+scale = Vector2(0.99, 1)
+shape = SubResource("RectangleShape2D_l8qph")
+
+[node name="JumpArea" type="Area2D" parent="."]
+
+[node name="JumpCollision" type="CollisionShape2D" parent="JumpArea"]
+position = Vector2(0, 8)
+scale = Vector2(0.99, 1)
+shape = SubResource("RectangleShape2D_x12po")
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 13
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+shape = SubResource("RectangleShape2D_gdqqq")
+
+[node name="SFXBumped" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_81bln")
+
+[node name="SFXBounce" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_l8qph")
+volume_db = 5.0
+
+[node name="SFXStomped" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_1fa5s")
+
+[connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
+[connection signal="body_shape_entered" from="JumpArea" to="." method="_on_jump_area_body_shape_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

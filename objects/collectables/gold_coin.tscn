@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt3xvx4jebmjs"]
+
+[ext_resource type="Script" uid="uid://cukfam6hbo88w" path="res://objects/collectables/gold_coin.gd" id="1_7plqh"]
+[ext_resource type="SpriteFrames" uid="uid://cl2pwxekinxm2" path="res://objects/collectables/gold_coin_lumina.tres" id="2_7plqh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bojs4"]
+size = Vector2(14, 14)
+
+[node name="GoldCoin" type="Area2D"]
+collision_mask = 5
+script = ExtResource("1_7plqh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_7plqh")
+autoplay = "default"
+frame_progress = 0.349714
+
+[node name="Collect2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bojs4")
+
+[connection signal="body_entered" from="." to="." method="_on_collect_body_entered"]

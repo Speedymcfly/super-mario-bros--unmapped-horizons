@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://dbt8vj6t6v26g"]
+
+[ext_resource type="Texture2D" uid="uid://djfuogay7b2eu" path="res://assets/sprites/objects/collectables/Coin Gold.png" id="1_o5xkl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7plqh"]
+atlas = ExtResource("1_o5xkl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ahgc"]
+atlas = ExtResource("1_o5xkl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wv6kv"]
+atlas = ExtResource("1_o5xkl")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbfl7"]
+atlas = ExtResource("1_o5xkl")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7plqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ahgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wv6kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbfl7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

@@ -1,0 +1,194 @@
+[gd_scene load_steps=17 format=3 uid="uid://bu3v6j3v66qp4"]
+
+[ext_resource type="Script" uid="uid://bvoauvno5o0x4" path="res://objects/rotating_block.gd" id="1_1arrk"]
+[ext_resource type="Texture2D" uid="uid://cjehkfs7ffgmj" path="res://assets/sprites/objects/RotatingBlock.png" id="2_urh5i"]
+[ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="3_cfleo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7farq"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuhhl"]
+atlas = ExtResource("2_urh5i")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksqwu"]
+atlas = ExtResource("2_urh5i")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f16w3"]
+atlas = ExtResource("2_urh5i")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4gv7"]
+atlas = ExtResource("2_urh5i")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_375n2"]
+atlas = ExtResource("2_urh5i")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_srqkj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vuhhl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksqwu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f16w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4gv7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_375n2")
+}],
+"loop": true,
+"name": &"spinning",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1gfq"]
+size = Vector2(16, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfleo"]
+size = Vector2(17.0714, 16)
+
+[sub_resource type="Animation" id="Animation_xa1l3"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8rhyp"]
+resource_name = "bump_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u8iw1"]
+resource_name = "bump_up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xa1l3"]
+_data = {
+&"RESET": SubResource("Animation_xa1l3"),
+&"bump_down": SubResource("Animation_8rhyp"),
+&"bump_up": SubResource("Animation_u8iw1")
+}
+
+[node name="RotatingBlock" type="AnimatableBody2D"]
+collision_layer = 15
+script = ExtResource("1_1arrk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7farq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_srqkj")
+animation = &"spinning"
+autoplay = "idle"
+frame_progress = 0.424278
+
+[node name="JumpArea" type="Area2D" parent="."]
+
+[node name="JumpCollision" type="CollisionShape2D" parent="JumpArea"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_k1gfq")
+
+[node name="SideHitArea" type="Area2D" parent="."]
+collision_mask = 13
+
+[node name="SideHitCollision" type="CollisionShape2D" parent="SideHitArea"]
+position = Vector2(5.96046e-08, 0)
+scale = Vector2(1.05, 0.98)
+shape = SubResource("RectangleShape2D_cfleo")
+
+[node name="SFXBump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_cfleo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xa1l3")
+}
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 10.0
+
+[connection signal="body_entered" from="JumpArea" to="." method="_on_jump_area_body_entered"]
+[connection signal="body_entered" from="SideHitArea" to="." method="_on_side_hit_area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

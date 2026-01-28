@@ -1,0 +1,131 @@
+[gd_scene load_steps=15 format=3 uid="uid://dwgn1np3wjubc"]
+
+[ext_resource type="Script" uid="uid://dn532m4jssskx" path="res://characters/enemies/koopa_troopa_q.gd" id="1_g2xj6"]
+[ext_resource type="SpriteFrames" uid="uid://cj538fd8jnsx" path="res://characters/enemies/Noko_Blue_Q.tres" id="2_1aiwi"]
+[ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="5_g2xj6"]
+[ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="5_s4war"]
+[ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="6_k0ews"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcckm"]
+size = Vector2(14, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qna8p"]
+size = Vector2(14, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atekw"]
+size = Vector2(8, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kcxs5"]
+size = Vector2(14, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1aiwi"]
+size = Vector2(14, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ct7xd"]
+size = Vector2(15, 14)
+
+[sub_resource type="Animation" id="Animation_k0ews"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_g2xj6"]
+resource_name = "shake"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 6), Vector2(-1, 6), Vector2(1, 6), Vector2(-1, 6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s3bxb"]
+_data = {
+&"RESET": SubResource("Animation_k0ews"),
+&"shake": SubResource("Animation_g2xj6")
+}
+
+[node name="KoopaTroopaQ" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_g2xj6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6)
+sprite_frames = ExtResource("2_1aiwi")
+animation = &"walking"
+autoplay = "walking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_qcckm")
+
+[node name="HurtPlayer" type="Area2D" parent="."]
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtPlayer"]
+position = Vector2(-7, 7)
+shape = SubResource("RectangleShape2D_qna8p")
+
+[node name="HurtPlayer2" type="Area2D" parent="."]
+
+[node name="HurtShape2" type="CollisionShape2D" parent="HurtPlayer2"]
+position = Vector2(4, 7)
+shape = SubResource("RectangleShape2D_atekw")
+
+[node name="StompDetect" type="Area2D" parent="."]
+
+[node name="StompShape" type="CollisionShape2D" parent="StompDetect"]
+position = Vector2(0, -0.25)
+shape = SubResource("RectangleShape2D_kcxs5")
+
+[node name="BumpDetect" type="Area2D" parent="."]
+
+[node name="BumpShape" type="CollisionShape2D" parent="BumpDetect"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_1aiwi")
+debug_color = Color(0.749809, 0.201059, 1, 0.42)
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 5
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_ct7xd")
+
+[node name="SFXStomped" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_g2xj6")
+
+[node name="SFXBumped" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_k0ews")
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_s4war")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_s3bxb")
+}
+
+[node name="LedgeCheck" type="RayCast2D" parent="."]
+position = Vector2(-7, 11)
+target_position = Vector2(0, 8)
+
+[connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
+[connection signal="body_entered" from="BumpDetect" to="." method="_on_bump_detect_body_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

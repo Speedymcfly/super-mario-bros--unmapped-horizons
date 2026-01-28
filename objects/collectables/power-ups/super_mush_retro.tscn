@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://d32kpl6yhuxiy"]
+
+[ext_resource type="Script" uid="uid://bmwte3e68h0wr" path="res://objects/collectables/power-ups/super_mush.gd" id="1_5k52u"]
+[ext_resource type="Texture2D" uid="uid://b7rffdvnibvo7" path="res://assets/sprites/objects/collectables/Super Mushroom Retro.png" id="1_oaa8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5k52u"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4coj3"]
+size = Vector2(15, 15.75)
+
+[node name="SuperMushRetro" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_5k52u")
+
+[node name="SuperMushRetroCollision" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8.5)
+shape = SubResource("RectangleShape2D_5k52u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("1_oaa8v")
+
+[node name="SuperMushCollect" type="Area2D" parent="."]
+
+[node name="CollectCollision" type="CollisionShape2D" parent="SuperMushCollect"]
+position = Vector2(8, 8.125)
+shape = SubResource("RectangleShape2D_4coj3")
+
+[connection signal="body_entered" from="SuperMushCollect" to="." method="_on_collect_body_entered"]

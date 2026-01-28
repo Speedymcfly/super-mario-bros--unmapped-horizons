@@ -1,0 +1,65 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://dqa8mab0ab282"]
+
+[ext_resource type="Texture2D" uid="uid://dxxpgu284ckcl" path="res://assets/sprites/characters/enemies/Goombas Hit.png" id="1_7mxyk"]
+[ext_resource type="Texture2D" uid="uid://b5n36ak6cji6d" path="res://assets/sprites/characters/enemies/Goombas Squished.png" id="1_s4eug"]
+[ext_resource type="Texture2D" uid="uid://b5yu16av8yv3y" path="res://assets/sprites/characters/enemies/Goombas Walking.png" id="2_7mxyk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v002c"]
+atlas = ExtResource("1_7mxyk")
+region = Rect2(0, 48, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4eug"]
+atlas = ExtResource("1_s4eug")
+region = Rect2(0, 48, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mxyk"]
+atlas = ExtResource("2_7mxyk")
+region = Rect2(0, 48, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2rwx"]
+atlas = ExtResource("2_7mxyk")
+region = Rect2(32, 48, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fktka"]
+atlas = ExtResource("2_7mxyk")
+region = Rect2(64, 48, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5r5bw"]
+atlas = ExtResource("2_7mxyk")
+region = Rect2(96, 48, 32, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v002c")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4eug")
+}],
+"loop": true,
+"name": &"squished",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mxyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2rwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fktka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5r5bw")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 8.0
+}]
