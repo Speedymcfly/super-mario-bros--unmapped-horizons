@@ -52,7 +52,7 @@ position = Vector2(0, -22.5)
 shape = SubResource("RectangleShape2D_1fa5s")
 
 [node name="Box" type="CharacterBody2D" parent="."]
-collision_layer = 3
+collision_layer = 15
 
 [node name="BoxCollision" type="CollisionShape2D" parent="Box"]
 position = Vector2(4.73112e-07, 0)

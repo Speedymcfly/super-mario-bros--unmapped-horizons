@@ -56,6 +56,7 @@ func _ready() -> void:
 		disguise.show()
 		true_form.hide()
 		hit_detect.set_deferred("disabled", true)
+		box_out_collision.set_deferred("disabled", true)
 	else:
 		disguise.hide()
 		true_form.show()
