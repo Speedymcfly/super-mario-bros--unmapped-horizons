@@ -327,7 +327,7 @@ position = Vector2(720, 98)
 colour = "Blue"
 
 [node name="BuzzyBeetle" parent="Main Ground Layer" instance=ExtResource("13_qgrpf")]
-position = Vector2(-129, 8)
+position = Vector2(-135, 2)
 
 [node name="JackInTheBox" parent="Main Ground Layer" instance=ExtResource("9_hppjq")]
 position = Vector2(760, 120)
