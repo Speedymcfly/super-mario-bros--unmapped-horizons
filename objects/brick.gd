@@ -71,7 +71,7 @@ func spawn_debris():
 
 
 func _on_side_hit_area_body_entered(body: Node2D) -> void:
-	if body is nokoq and body.shell_state == body.Shellstate.Spin:
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
 		breakable = true
 		bump_up()
 

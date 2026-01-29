@@ -99,7 +99,6 @@ func _on_squish_detect_body_entered(body: Node2D) -> void:
 	if body is player and body.velocity.y > 0:
 		if bone_helmet == true and variant == "Bone":
 			bone_helmet = false
-			sfx_squish.play()
 			sfx_helm_break.play()
 			if Input.is_action_pressed("jump"):
 				body.velocity.y = -400

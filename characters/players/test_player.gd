@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 @onready var collision_small: CollisionShape2D = $CollisionSmall
 @onready var collision_big: CollisionShape2D = $CollisionBig
+@onready var crouch_small: CollisionShape2D = $CrouchSmall
+@onready var crouch_big: CollisionShape2D = $CrouchBig
 @onready var sfx_jump: AudioStreamPlayer2D = $SFXJump
 @onready var mario_jump: AudioStreamPlayer2D = $MarioJump
 @onready var mario_third_jump: AudioStreamPlayer2D = $MarioThirdJump
@@ -90,11 +92,11 @@ func _physics_process(delta: float) -> void:
 		AudioManager.play_sfx(load("res://assets/audio/SFX/Iceball.wav"))
 
 	if powerup_state == Powerupstate.Small:
-		collision_small.disabled = false
-		collision_big.disabled = true
+		collision_small.set_deferred("disabled", false)
+		collision_big.set_deferred("disabled", true)
 	else:
-		collision_small.disabled = true
-		collision_big.disabled = false
+		collision_small.set_deferred("disabled", true)
+		collision_big.set_deferred("disabled", false)
 
 	#Big Check
 	if Input.is_action_just_pressed("ui_copy"):
@@ -186,9 +188,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	#Looking left.
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("ui_left") and movement_state != Movementstate.Dive:
 		sprite_2d.scale.x = abs(sprite_2d.scale.x) * -1
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") and movement_state != Movementstate.Dive:
 		sprite_2d.scale.x = abs(sprite_2d.scale.x)
 
 	#Running.
@@ -206,6 +208,16 @@ func _physics_process(delta: float) -> void:
 		#sprite_2d.animation = "crouching"
 		SPEED=0
 		movement_state = Movementstate.Crouch
+		if powerup_state == Powerupstate.Small:
+			collision_small.set_deferred("disabled", true)
+			crouch_small.set_deferred("disabled", false)
+		if powerup_state != Powerupstate.Small:
+			collision_big.set_deferred("disabled", true)
+			crouch_big.set_deferred("disabled", false)
+	else:
+		crouch_small.disabled = true
+		crouch_big.disabled = true
+
 
 
 	#Long Jump.

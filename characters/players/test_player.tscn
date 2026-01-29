@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dowxbdk3qs37s"]
+[gd_scene load_steps=18 format=3 uid="uid://dowxbdk3qs37s"]
 
 [ext_resource type="Script" uid="uid://ds1v7omeaelwj" path="res://characters/players/test_player.gd" id="1_6qyji"]
 [ext_resource type="SpriteFrames" uid="uid://dstw3jwyrnybp" path="res://characters/players/SmallMarioModern.tres" id="2_acoji"]
@@ -18,6 +18,12 @@ size = Vector2(14, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c640x"]
 size = Vector2(14, 31)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_acoji"]
+size = Vector2(14, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77tw5"]
+size = Vector2(14, 14)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_etgod"]
 playback_mode = 1
 streams_count = 2
@@ -31,20 +37,29 @@ stream_0/stream = ExtResource("11_77tw5")
 stream_1/stream = ExtResource("12_o0kt0")
 
 [node name="Test Player" type="CharacterBody2D" groups=["player"]]
+position = Vector2(0, -1)
 script = ExtResource("1_6qyji")
-
-[node name="CollisionSmall" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
-shape = SubResource("RectangleShape2D_6qyji")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_acoji")
 animation = &"walking"
 autoplay = "idle"
 
+[node name="CollisionSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_6qyji")
+
 [node name="CollisionBig" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_c640x")
+
+[node name="CrouchSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_acoji")
+
+[node name="CrouchBig" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_77tw5")
 
 [node name="SFXJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_ih3yd")
@@ -70,4 +85,3 @@ volume_db = -5.0
 
 [node name="MarioThirdJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_mbsat")
-volume_db = -10.0
