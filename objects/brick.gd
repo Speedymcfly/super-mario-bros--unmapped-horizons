@@ -65,9 +65,24 @@ func break_brick():
 
 func spawn_debris():
 	for i in range(4):
-		var d = preload("res://Particles/brick_debris.tscn").instantiate()
-		get_parent().add_child(d)
-		d.global_position = global_position
+		var d1 = preload("res://Particles/brick_debris.tscn").instantiate()
+		get_parent().add_child(d1)
+		var d2 = preload("res://Particles/brick_debris.tscn").instantiate()
+		get_parent().add_child(d2)
+		var d3 = preload("res://Particles/brick_debris.tscn").instantiate()
+		get_parent().add_child(d3)
+		var d4 = preload("res://Particles/brick_debris.tscn").instantiate()
+		get_parent().add_child(d4)
+		d1.global_position = global_position
+		d2.global_position = global_position
+		d3.global_position = global_position
+		d4.global_position = global_position
+		d1.velocity.x += 60
+		d2.velocity.x += 120
+		d3.velocity.x += -60
+		d4.velocity.x += -120
+
+
 
 
 func _on_side_hit_area_body_entered(body: Node2D) -> void:
