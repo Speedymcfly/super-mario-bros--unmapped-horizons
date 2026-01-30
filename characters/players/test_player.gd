@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var collision_big: CollisionShape2D = $CollisionBig
 @onready var crouch_small: CollisionShape2D = $CrouchSmall
 @onready var crouch_big: CollisionShape2D = $CrouchBig
+@onready var dive_big: CollisionShape2D = $DiveBig
 @onready var sfx_jump: AudioStreamPlayer2D = $SFXJump
 @onready var mario_jump: AudioStreamPlayer2D = $MarioJump
 @onready var mario_third_jump: AudioStreamPlayer2D = $MarioThirdJump
@@ -94,9 +95,15 @@ func _physics_process(delta: float) -> void:
 	if powerup_state == Powerupstate.Small:
 		collision_small.set_deferred("disabled", false)
 		collision_big.set_deferred("disabled", true)
+		dive_big.set_deferred("disabled", true)
 	else:
 		collision_small.set_deferred("disabled", true)
-		collision_big.set_deferred("disabled", false)
+		if movement_state == Movementstate.Dive:
+			collision_big.set_deferred("disabled", true)
+			dive_big.set_deferred("disabled", false)
+		else:
+			collision_big.set_deferred("disabled", false)
+			dive_big.set_deferred("disabled", true)
 
 	#Big Check
 	if Input.is_action_just_pressed("ui_copy"):
