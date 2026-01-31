@@ -118,6 +118,12 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 			bone_helmet = false
 			sfx_helm_break.play()
 
+	if body is brick and velocity.y > 0:
+		hit()
+	if body is qblock and velocity.y > 0:
+		hit()
+	if body is rblock and velocity.y > 0:
+		hit()
 
 func squish():
 	collision_shape_2d.set_deferred("disabled", true)
@@ -133,5 +139,8 @@ func hit():
 	hit_detect.set_deferred("disabled", true)
 	velocity.y = -70
 	sfx_hit.play()
-	animated_sprite_2d.animation = "hit"
+	if variant == "Bone" and bone_helmet == true:
+		animated_sprite_2d.animation = "hit2"
+	else:
+		animated_sprite_2d.animation = "hit"
 	hurt = true

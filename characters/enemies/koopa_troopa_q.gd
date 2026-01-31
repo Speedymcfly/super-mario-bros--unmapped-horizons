@@ -205,6 +205,8 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		shell_state = Shellstate.InShell
 	if body is qblock and velocity.y > 0 and traversal == "Grounded":
 		shell_state = Shellstate.InShell
+	if body is rblock and velocity.y > 0 and traversal == "Grounded":
+		shell_state = Shellstate.InShell
 
 func hit():
 	collision_shape_2d.set_deferred("disabled", true)

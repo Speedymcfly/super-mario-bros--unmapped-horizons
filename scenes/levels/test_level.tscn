@@ -238,6 +238,21 @@ position = Vector2(1832, -24)
 [node name="Brick6" parent="Main Ground Layer" instance=ExtResource("3_3ay3b")]
 position = Vector2(-8, 8)
 
+[node name="Brick7" parent="Main Ground Layer" instance=ExtResource("3_3ay3b")]
+position = Vector2(2328, 104)
+
+[node name="Brick8" parent="Main Ground Layer" instance=ExtResource("3_3ay3b")]
+position = Vector2(2360, 120)
+
+[node name="Brick9" parent="Main Ground Layer" instance=ExtResource("3_3ay3b")]
+position = Vector2(2376, 120)
+
+[node name="Brick10" parent="Main Ground Layer" instance=ExtResource("3_3ay3b")]
+position = Vector2(2392, 120)
+
+[node name="Brick11" parent="Main Ground Layer" instance=ExtResource("3_3ay3b")]
+position = Vector2(2424, 104)
+
 [node name="RotatingBlock" parent="Main Ground Layer" instance=ExtResource("5_os2yb")]
 position = Vector2(-200, 8)
 
@@ -246,6 +261,12 @@ position = Vector2(2104, 120)
 
 [node name="RotatingBlock3" parent="Main Ground Layer" instance=ExtResource("5_os2yb")]
 position = Vector2(2136, 120)
+
+[node name="RotatingBlock4" parent="Main Ground Layer" instance=ExtResource("5_os2yb")]
+position = Vector2(2344, 120)
+
+[node name="RotatingBlock5" parent="Main Ground Layer" instance=ExtResource("5_os2yb")]
+position = Vector2(2408, 120)
 
 [node name="SuperMushRetro" parent="Main Ground Layer" instance=ExtResource("2_fr1um")]
 position = Vector2(488, 160)
@@ -306,6 +327,10 @@ variant = "Bone"
 [node name="Goomba3" parent="Main Ground Layer" instance=ExtResource("8_3ay3b")]
 position = Vector2(2166, 178)
 variant = "Spiked_Normal"
+
+[node name="Goomba4" parent="Main Ground Layer" instance=ExtResource("8_3ay3b")]
+position = Vector2(2376, 98)
+variant = "Bone"
 
 [node name="KoopaTroopaQ" parent="Main Ground Layer" instance=ExtResource("8_hppjq")]
 position = Vector2(618, 177)
