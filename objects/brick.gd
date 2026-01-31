@@ -65,10 +65,10 @@ func break_brick():
 
 func spawn_debris():
 	for i in range(4):
-		var d1 = preload("res://Particles/brick_debris.tscn").instantiate()
-		var d2 = preload("res://Particles/brick_debris.tscn").instantiate()
-		var d3 = preload("res://Particles/brick_debris.tscn").instantiate()
-		var d4 = preload("res://Particles/brick_debris.tscn").instantiate()
+		var d1 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+		var d2 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+		var d3 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+		var d4 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
 		get_parent().add_child(d1)
 		get_parent().add_child(d2)
 		get_parent().add_child(d3)
