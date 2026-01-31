@@ -66,21 +66,23 @@ func break_brick():
 func spawn_debris():
 	for i in range(4):
 		var d1 = preload("res://Particles/brick_debris.tscn").instantiate()
-		get_parent().add_child(d1)
 		var d2 = preload("res://Particles/brick_debris.tscn").instantiate()
-		get_parent().add_child(d2)
 		var d3 = preload("res://Particles/brick_debris.tscn").instantiate()
-		get_parent().add_child(d3)
 		var d4 = preload("res://Particles/brick_debris.tscn").instantiate()
+		get_parent().add_child(d1)
+		get_parent().add_child(d2)
+		get_parent().add_child(d3)
 		get_parent().add_child(d4)
 		d1.global_position = global_position
 		d2.global_position = global_position
 		d3.global_position = global_position
 		d4.global_position = global_position
 		d1.velocity.x += 60
-		d2.velocity.x += 120
+		d1.velocity.y += 60
+		d2.velocity.x += 60
 		d3.velocity.x += -60
-		d4.velocity.x += -120
+		d3.velocity.y += 60
+		d4.velocity.x += -60
 
 
 
