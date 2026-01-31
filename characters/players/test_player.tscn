@@ -52,18 +52,22 @@ position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_6qyji")
 
 [node name="CollisionBig" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_c640x")
 
 [node name="CrouchSmall" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_acoji")
 
 [node name="CrouchBig" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_77tw5")
 
 [node name="DiveBig" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_o0kt0")
 
@@ -76,7 +80,7 @@ autoplay = true
 
 [node name="MarioLongJump" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_2f0of")
-volume_db = -10.0
+volume_db = -8.0
 
 [node name="WallJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_2f0of")

@@ -84,6 +84,7 @@ func _ready() -> void:
 
 
 
+
 func _physics_process(delta: float) -> void:
 
 
@@ -267,8 +268,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 350 * direction
 			velocity.y = -100
 			movement_state = Movementstate.Dive
-
-
 
 
 	if Input.is_action_just_pressed("ui_cut"):

@@ -50,44 +50,58 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 	if body is player and body.velocity.y > 0:
 		sfx_bump.play()
 		$AnimationPlayer.play("bump_up")
-		animated_sprite_2d.play("empty")
-		if empty == false and contents == "coin":
-			Globals.coin_amount += 1
-			var coin_scene = load("res://objects/collectables/common_coin_visual.tscn").instantiate()
-			coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
-			get_tree().current_scene.call_deferred("add_child", coin_scene)
-			sfx_coin.play()
-			empty = true
-		if empty == false and contents == "coins":
-			Globals.coin_amount += 1
-			var coin_scene = load("res://objects/collectables/common_coin_visual.tscn").instantiate()
-			coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
-			get_tree().current_scene.call_deferred("add_child", coin_scene)
-			sfx_coin.play()
-			coin_amount -= 1
-		elif empty == false and contents == "lumina_coin":
-			Globals.lumina_coin_amount += 1
-			var coin_scene = load("res://objects/collectables/lumina_coin_visual.tscn").instantiate()
-			coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
-			get_tree().current_scene.call_deferred("add_child", coin_scene)
-			sfx_lumina_coin.play()
-			empty = true
-		elif empty == false and contents == "lumina_coins":
-			Globals.lumina_coin_amount += 1
-			var coin_scene = load("res://objects/collectables/lumina_coin_visual.tscn").instantiate()
-			coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
-			get_tree().current_scene.call_deferred("add_child", coin_scene)
-			sfx_lumina_coin.play()
-			coin_amount -= 1
-		elif empty == false and item != null:
-			var item_scene = item.instantiate()
-			item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
-			get_tree().current_scene.call_deferred("add_child", item_scene)
-			sfx_power_up.play()
-			empty = true
+		block_item()
 	if empty == true:
 		animated_sprite_2d.play("empty")
 	else:
 		animated_sprite_2d.play("default")
 	if coin_amount <= 1:
+		empty = true
+
+func _on_side_hit_area_body_entered(body: Node2D) -> void:
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
+		sfx_bump.play()
+		$AnimationPlayer.play("bump_up")
+		block_item()
+	if empty == true:
+		animated_sprite_2d.play("empty")
+	else:
+		animated_sprite_2d.play("default")
+	if coin_amount <= 1:
+		empty = true
+
+func block_item():
+	if empty == false and contents == "coin":
+		Globals.coin_amount += 1
+		var coin_scene = load("res://objects/collectables/common_coin_visual.tscn").instantiate()
+		coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+		get_tree().current_scene.call_deferred("add_child", coin_scene)
+		sfx_coin.play()
+		empty = true
+	if empty == false and contents == "coins":
+		Globals.coin_amount += 1
+		var coin_scene = load("res://objects/collectables/common_coin_visual.tscn").instantiate()
+		coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+		get_tree().current_scene.call_deferred("add_child", coin_scene)
+		sfx_coin.play()
+		coin_amount -= 1
+	elif empty == false and contents == "lumina_coin":
+		Globals.lumina_coin_amount += 1
+		var coin_scene = load("res://objects/collectables/lumina_coin_visual.tscn").instantiate()
+		coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+		get_tree().current_scene.call_deferred("add_child", coin_scene)
+		sfx_lumina_coin.play()
+		empty = true
+	elif empty == false and contents == "lumina_coins":
+		Globals.lumina_coin_amount += 1
+		var coin_scene = load("res://objects/collectables/lumina_coin_visual.tscn").instantiate()
+		coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+		get_tree().current_scene.call_deferred("add_child", coin_scene)
+		sfx_lumina_coin.play()
+		coin_amount -= 1
+	elif empty == false and item != null:
+		var item_scene = item.instantiate()
+		item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+		get_tree().current_scene.call_deferred("add_child", item_scene)
+		sfx_power_up.play()
 		empty = true
