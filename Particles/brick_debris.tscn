@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://buc6pxj378l8j"]
+
+[ext_resource type="Texture2D" uid="uid://tdmnksvgahhu" path="res://assets/sprites/particles/Brick Debris Overworld.png" id="1_jjpim"]
+
+[node name="BrickDebris" type="RigidBody2D"]
+
+[node name="Debris1" type="Sprite2D" parent="."]
+position = Vector2(-7, -4)
+texture = ExtResource("1_jjpim")
+offset = Vector2(3, 0)
+
+[node name="Debris2" type="Sprite2D" parent="."]
+position = Vector2(1, -4)
+texture = ExtResource("1_jjpim")
+offset = Vector2(3, 0)
+
+[node name="Debris3" type="Sprite2D" parent="."]
+position = Vector2(-7, 4)
+texture = ExtResource("1_jjpim")
+offset = Vector2(3, 0)
+
+[node name="Debris4" type="Sprite2D" parent="."]
+position = Vector2(1, 4)
+texture = ExtResource("1_jjpim")
+offset = Vector2(3, 0)

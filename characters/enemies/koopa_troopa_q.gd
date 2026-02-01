@@ -201,11 +201,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		if shell_state == Shellstate.Spin:
 			body.hit()
 
-	if body is brick and velocity.y > 0 and traversal == "Grounded":
-		shell_state = Shellstate.InShell
-	if body is qblock and velocity.y > 0 and traversal == "Grounded":
-		shell_state = Shellstate.InShell
-	if body is rblock and velocity.y > 0 and traversal == "Grounded":
+	if (body is brick or body is qblock or body is rblock ) and velocity.y > 0 and traversal == "Grounded":
 		shell_state = Shellstate.InShell
 
 func hit():
