@@ -6,7 +6,7 @@ extends AnimatableBody2D
 
 
 @export var breakable := false
-var bumpup = false
+
 
 @export_enum(
 	"Overworld",
@@ -36,7 +36,6 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 	if body is player and body.velocity.y > 0:
 		if body.powerup_state != body.Powerupstate.Small:
 			breakable = true
-		bumpup = true
 		bump_up()
 
 	if body is nokoq and body.velocity.y > 0:
@@ -44,7 +43,6 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 		bump_up()
 
 func bump_up():
-	bumpup = false
 	if breakable:
 		break_brick()
 	else:

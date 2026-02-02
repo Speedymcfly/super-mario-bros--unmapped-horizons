@@ -24,6 +24,7 @@ var timerstarted : bool
 var stomped = false
 var hurt = false
 
+var block_hit = false
 
 var direction = -1
 
@@ -118,9 +119,8 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 			bone_helmet = false
 			sfx_helm_break.play()
 
-	if (body is brick or body is qblock or body is rblock ) and velocity.y > 0:
+	if (body is brick or body is qblock or body is rblock ) and velocity.y > 0 and block_hit == false:
 		hit()
-
 
 func squish():
 	collision_shape_2d.set_deferred("disabled", true)
@@ -131,6 +131,7 @@ func squish():
 	stomped = true
 
 func hit():
+	block_hit = true
 	collision_shape_2d.set_deferred("disabled", true)
 	squish_detect.set_deferred("disabled", true)
 	hit_detect.set_deferred("disabled", true)
