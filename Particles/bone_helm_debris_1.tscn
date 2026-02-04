@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3tqntv85edt3"]
+
+[ext_resource type="Script" uid="uid://c4nxi8y2ldbno" path="res://Particles/bone_helm_debris_1.gd" id="1_h80lj"]
+[ext_resource type="Texture2D" uid="uid://cjs8t8eqrliie" path="res://assets/sprites/particles/Bone Helmet 1.png" id="2_4ftse"]
+
+[node name="BoneHelmDebris1" type="CharacterBody2D"]
+script = ExtResource("1_h80lj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4ftse")

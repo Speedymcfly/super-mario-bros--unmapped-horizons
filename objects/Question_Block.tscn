@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ce8cadng0n3pq"]
+[gd_scene load_steps=15 format=3 uid="uid://ce8cadng0n3pq"]
 
 [ext_resource type="Script" uid="uid://cy6l4q4fqerie" path="res://objects/question_block.gd" id="1_g0s8j"]
 [ext_resource type="SpriteFrames" uid="uid://ckbh58derghyn" path="res://objects/Question_Block_Castle_Modern.tres" id="2_6k1mj"]
@@ -9,6 +9,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hxyup"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60q68"]
+size = Vector2(16, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c1pud"]
 size = Vector2(16, 1)
@@ -119,6 +122,15 @@ frame_progress = 0.210754
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_hxyup")
+
+[node name="TopCheck" type="Area2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+
+[node name="TopCheckShape" type="CollisionShape2D" parent="TopCheck"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_60q68")
+debug_color = Color(0.818892, 0.00183397, 0.968729, 0.42)
 
 [node name="JumpArea" type="Area2D" parent="."]
 

@@ -3,6 +3,9 @@ extends AnimatableBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sfx_bumped: AudioStreamPlayer2D = $SFXBumped
+@onready var on_top_check: Area2D = $OnTopCheck
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var top_check: Area2D = $TopCheck
 
 
 @export var breakable := false
@@ -47,14 +50,27 @@ func bump_up():
 		break_brick()
 	else:
 		sfx_bumped.play()
-		$AnimationPlayer.play("bump_up")
+		animation_player.play("bump_up")
+
+	for body in top_check.get_overlapping_bodies():
+		if body.is_in_group("enemies"):
+			if body.has_method("hit"):
+				body.hit()
+				body.velocity.y -= 100
+		if body.is_in_group("shelled_enemies"):
+			if body.has_method("hit"):
+				body.shell_state = body.Shellstate.InShell
+				body.velocity.y -= 50
+		if body is player or body.is_in_group("powerup"):
+			body.velocity.y -= 50
+
 
 func bump_down():
 	if breakable:
 		break_brick()
 	else:
 		sfx_bumped.play()
-		$AnimationPlayer.play("bump_down")
+		animation_player.play("bump_down")
 
 
 func break_brick():

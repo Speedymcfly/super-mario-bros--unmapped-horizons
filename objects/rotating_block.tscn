@@ -1,11 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bu3v6j3v66qp4"]
+[gd_scene load_steps=18 format=3 uid="uid://bu3v6j3v66qp4"]
 
 [ext_resource type="Script" uid="uid://bvoauvno5o0x4" path="res://objects/rotating_block.gd" id="1_1arrk"]
 [ext_resource type="Texture2D" uid="uid://cjehkfs7ffgmj" path="res://assets/sprites/objects/RotatingBlock.png" id="2_urh5i"]
 [ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="3_cfleo"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7farq"]
-size = Vector2(16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vuhhl"]
 atlas = ExtResource("2_urh5i")
@@ -54,6 +51,12 @@ animations = [{
 "name": &"spinning",
 "speed": 12.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7farq"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_764ih"]
+size = Vector2(16, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1gfq"]
 size = Vector2(16, 1)
@@ -154,14 +157,23 @@ _data = {
 collision_layer = 15
 script = ExtResource("1_1arrk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_7farq")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_srqkj")
 animation = &"spinning"
 autoplay = "idle"
 frame_progress = 0.424278
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7farq")
+
+[node name="TopCheck" type="Area2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+
+[node name="TopCheckShape" type="CollisionShape2D" parent="TopCheck"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_764ih")
+debug_color = Color(0.818892, 0.00183397, 0.968729, 0.42)
 
 [node name="JumpArea" type="Area2D" parent="."]
 

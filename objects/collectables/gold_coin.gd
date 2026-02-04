@@ -15,7 +15,7 @@ func _ready() -> void:
 	animated_sprite_2d.play()
 
 func _on_collect_body_entered(body: Node2D) -> void:
-	if (body is player or body is brick or body is qblock or (body is nokoq and body.shell_state == body.Shellstate.Spin)) and (variant == "common" or variant == "lumina"):
+	if (body is player or body is brick or body is qblock or ((body is nokoq or metto) and body.shell_state == body.Shellstate.Spin)) and (variant == "common" or variant == "lumina"):
 		if variant == "common":
 			Globals.coin_amount += 1
 			AudioManager.play_sfx(load("res://assets/audio/SFX/CoinCollect.wav"))

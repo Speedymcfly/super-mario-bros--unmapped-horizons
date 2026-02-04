@@ -15,7 +15,7 @@ extends CharacterBody2D
 @onready var thanks_1: AudioStreamPlayer2D = $Thanks1
 @onready var thanks_2: AudioStreamPlayer2D = $Thanks2
 
-
+var facing_direction := 1
 var SPEED = 70.0
 const JUMP_VELOCITY = -360.0
 
@@ -195,11 +195,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	#Looking left.
-	if Input.is_action_pressed("ui_left") and movement_state != Movementstate.Dive:
-		sprite_2d.scale.x = abs(sprite_2d.scale.x) * -1
-	if Input.is_action_pressed("ui_right") and movement_state != Movementstate.Dive:
-		sprite_2d.scale.x = abs(sprite_2d.scale.x)
+	if direction != 0:
+		facing_direction = direction
+		sprite_2d.scale.x = 1 * direction
 
 	#Running.
 	if Input.is_action_pressed("run"):

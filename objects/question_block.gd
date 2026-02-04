@@ -7,7 +7,7 @@ extends AnimatableBody2D
 @onready var sfx_power_up: AudioStreamPlayer2D = $SFXPowerUp
 @export var item:PackedScene = null
 @onready var sfx_lumina_coin: AudioStreamPlayer2D = $SFXLuminaCoin
-
+@onready var top_check: Area2D = $TopCheck
 
 var empty = false
 var coin_amount = 11
@@ -57,6 +57,7 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 		animated_sprite_2d.play("default")
 	if coin_amount <= 1:
 		empty = true
+	above_hit()
 
 func _on_side_hit_area_body_entered(body: Node2D) -> void:
 	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
@@ -69,6 +70,7 @@ func _on_side_hit_area_body_entered(body: Node2D) -> void:
 		animated_sprite_2d.play("default")
 	if coin_amount <= 1:
 		empty = true
+	above_hit()
 
 func block_item():
 	if empty == false and contents == "coin":
@@ -105,3 +107,17 @@ func block_item():
 		get_tree().current_scene.call_deferred("add_child", item_scene)
 		sfx_power_up.play()
 		empty = true
+
+
+
+func above_hit():
+	for body in top_check.get_overlapping_bodies():
+		if body.is_in_group("enemies"):
+			if body.has_method("hit"):
+				body.hit()
+		if body.is_in_group("shelled_enemies"):
+			if body.has_method("hit"):
+				body.shell_state = body.Shellstate.InShell
+				body.velocity.y -= 50
+		if body is player or body.is_in_group("powerup"):
+			body.velocity.y -= 50

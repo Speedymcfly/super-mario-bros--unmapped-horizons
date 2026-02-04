@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://d2tc0rnt5d4yv"]
+[gd_scene load_steps=49 format=3 uid="uid://d2tc0rnt5d4yv"]
 
 [ext_resource type="Script" uid="uid://bgnd5v6irrygi" path="res://characters/enemies/buzzy_beetle.gd" id="1_5oarg"]
 [ext_resource type="Texture2D" uid="uid://cdkrjiwao0i" path="res://assets/sprites/characters/enemies/Buzzy Beetles Walking.png" id="1_plu7q"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="4_2rsrd"]
 [ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="5_0gcc3"]
 [ext_resource type="AudioStream" uid="uid://v40l11w80lyq" path="res://assets/audio/SFX/ObjectKick.wav" id="6_fkid5"]
+[ext_resource type="Script" uid="uid://cwsdxfvkruluw" path="res://objects/Holdable.gd" id="9_fkid5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5oarg"]
 size = Vector2(16, 14)
@@ -378,6 +379,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_fkid5")
 }
 
+[node name="Holdable" type="Node" parent="." node_paths=PackedStringArray("holdbox")]
+script = ExtResource("9_fkid5")
+holdbox = NodePath("../BumpDetect")
+can_kick = true
+
 [connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
 [connection signal="body_entered" from="BumpDetect" to="." method="_on_bump_detect_body_entered"]
 [connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
+[connection signal="on_kicked" from="Holdable" to="." method="_on_kicked"]

@@ -7,7 +7,7 @@ extends AnimatableBody2D
 @onready var sfx_bump: AudioStreamPlayer2D = $SFXBump
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer: Timer = $Timer
-
+@onready var top_check: Area2D = $TopCheck
 
 var spinning = false
 # Called when the node enters the scene tree for the first time.
@@ -49,3 +49,17 @@ func _on_timer_timeout() -> void:
 		collision_shape_2d.set_deferred("disabled", false)
 		jump_collision.set_deferred("disabled", false)
 		animated_sprite_2d.play("idle")
+
+
+func above_hit():
+	for body in top_check.get_overlapping_bodies():
+		if body.is_in_group("enemies"):
+			if body.has_method("hit"):
+				body.hit()
+				body.velocity.y -= 100
+		if body.is_in_group("shelled_enemies"):
+			if body.has_method("hit"):
+				body.shell_state = body.Shellstate.InShell
+				body.velocity.y -= 50
+		if body is player or body.is_in_group("powerup"):
+			body.velocity.y -= 50

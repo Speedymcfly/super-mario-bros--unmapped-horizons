@@ -15,6 +15,7 @@ extends CharacterBody2D
 @onready var sfx_knock: AudioStreamPlayer2D = $SFXKnock
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var ledge_check: RayCast2D = $LedgeCheck
+@onready var hold_comp: Holdable = $Holdable
 
 
 var direction = -1
@@ -55,6 +56,7 @@ func _ready() -> void:
 	if shell_state == Shellstate.Spin or shell_state == Shellstate.Walk:
 		held = false
 
+	add_to_group("shelled_enemies")
 
 func _physics_process(delta: float) -> void:
 
@@ -129,6 +131,16 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += 10
 
+	# Holding component stuff
+	if shell_state != Shellstate.InShell:
+		hold_comp.can_kick = false
+		hold_comp.can_hold = false
+	elif shell_state == Shellstate.InShell:
+		hold_comp.can_kick = true
+		if hold_comp.delay == 0:
+			hold_comp.can_hold = true
+	if hold_comp.is_held:
+		velocity = Vector2.ZERO
 
 	if shell_state == Shellstate.InShell:
 		animated_sprite_2d.play("shell")
@@ -150,6 +162,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_stomp_detect_body_entered(body: Node2D) -> void:
 	if body is player and body.velocity.y > 0 and shell_state == Shellstate.Walk:
+		hold_comp.delay = 10
 		delay = 10
 		shell_state = Shellstate.InShell
 		sfx_stomped.play()
@@ -159,17 +172,8 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 		else:
 			body.velocity.y = -200
 
-	if body is player and body.velocity.y > 0 and shell_state == Shellstate.InShell:
-		delay = 10
-		direction = sign(global_position.x - body.global_position.x)
-		shell_state = Shellstate.Spin
-		sfx_knock.play()
-		if Input.is_action_pressed("jump"):
-			body.velocity.y = -400
-		else:
-			body.velocity.y = -200
-
 	if body is player and body.velocity.y > 0 and shell_state == Shellstate.Spin:
+		hold_comp.delay = 10
 		delay = 10
 		shell_state = Shellstate.InShell
 		sfx_knock.play()
@@ -177,23 +181,6 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 			body.velocity.y = -400
 		else:
 			body.velocity.y = -200
-
-
-
-
-func _on_bump_detect_body_entered(body: Node2D) -> void:
-	if delay > 0:
-		return
-	if body is player:
-		if shell_state == Shellstate.InShell:
-			if Input.is_action_pressed("run"):
-				held = true
-			else:
-				direction = sign(global_position.x - body.global_position.x)
-				shell_state = Shellstate.Spin
-				sfx_knock.play()
-
-
 
 func _on_hit_detect_body_entered(body: Node2D) -> void:
 	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
@@ -201,8 +188,6 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		if shell_state == Shellstate.Spin:
 			body.hit()
 
-	if (body is brick or body is qblock or body is rblock ) and velocity.y > 0 and traversal == "Grounded":
-		shell_state = Shellstate.InShell
 
 func hit():
 	collision_shape_2d.set_deferred("disabled", true)
@@ -215,3 +200,10 @@ func hit():
 	else:
 		animated_sprite_2d.animation = "shell"
 	hurt = true
+
+
+func _on_kicked(dir: int) -> void:
+	delay = 10
+	direction = dir
+	shell_state = Shellstate.Spin
+	sfx_knock.play()

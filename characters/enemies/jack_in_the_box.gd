@@ -139,7 +139,7 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 
 
 func _on_hit_detect_body_entered(body: Node2D) -> void:
-	if body is nokoq and body.shell_state == body.Shellstate.Spin:
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
 		hit()
 		sfx_stomped.play()
 		if Input.is_action_pressed("jump"):

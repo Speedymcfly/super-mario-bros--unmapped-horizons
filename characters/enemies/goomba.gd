@@ -1,4 +1,4 @@
-
+class_name kuribo
 
 extends CharacterBody2D
 
@@ -24,7 +24,6 @@ var timerstarted : bool
 var stomped = false
 var hurt = false
 
-var block_hit = false
 
 var direction = -1
 
@@ -46,6 +45,7 @@ func _ready() -> void:
 	else:
 		spike_shape.set_deferred("disabled", true)
 
+	add_to_group("enemies")
 
 
 func _physics_process(delta: float) -> void:
@@ -101,6 +101,7 @@ func _on_squish_detect_body_entered(body: Node2D) -> void:
 		if bone_helmet == true and variant == "Bone":
 			bone_helmet = false
 			sfx_helm_break.play()
+			bone_helm_break()
 			if Input.is_action_pressed("jump"):
 				body.velocity.y = -400
 			else:
@@ -113,13 +114,11 @@ func _on_squish_detect_body_entered(body: Node2D) -> void:
 				body.velocity.y = -200
 
 func _on_hit_detect_body_entered(body: Node2D) -> void:
-	if body is nokoq and body.shell_state == body.Shellstate.Spin:
-		hit()
-		if variant == "Bone":
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
+		if variant == "Bone" and bone_helmet == true:
 			bone_helmet = false
 			sfx_helm_break.play()
-
-	if (body is brick or body is qblock or body is rblock ) and velocity.y > 0 and block_hit == false:
+			bone_helm_break()
 		hit()
 
 func squish():
@@ -131,7 +130,6 @@ func squish():
 	stomped = true
 
 func hit():
-	block_hit = true
 	collision_shape_2d.set_deferred("disabled", true)
 	squish_detect.set_deferred("disabled", true)
 	hit_detect.set_deferred("disabled", true)
@@ -142,3 +140,27 @@ func hit():
 	else:
 		animated_sprite_2d.animation = "hit"
 	hurt = true
+
+func on_hit_block():
+	if hurt == true:
+		return
+	hit()
+
+func bone_helm_break():
+	for i in range(4):
+		var d1 = preload("res://Particles/bone_helm_debris_1.tscn").instantiate()
+		var d2 = preload("res://Particles/bone_helm_debris_2.tscn").instantiate()
+		get_parent().add_child(d1)
+		get_parent().add_child(d2)
+		d1.global_position = global_position
+		d2.global_position = global_position
+		if animated_sprite_2d.scale.x == abs(animated_sprite_2d.scale.x) * -1:
+			d1.scale.x = abs(d1.scale.x) * -1
+			d2.scale.x = abs(d2.scale.x) * -1
+			d1.velocity.x += 60
+			d2.velocity.x += -60
+		else:
+			d1.scale.x = abs(d1.scale.x) * 1
+			d2.scale.x = abs(d2.scale.x) * 1
+			d1.velocity.x += -60
+			d2.velocity.x += 60

@@ -15,6 +15,7 @@ extends CharacterBody2D
 @onready var sfx_hit: AudioStreamPlayer2D = $SFXHit
 @onready var sfx_knock: AudioStreamPlayer2D = $SFXKnock
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hold_comp: Holdable = $Holdable
 
 var direction = -1
 
@@ -38,6 +39,7 @@ func _ready() -> void:
 	if shell_state == Shellstate.Spin or shell_state == Shellstate.Walk:
 		held = false
 
+	add_to_group("shelled_enemies")
 
 func _physics_process(delta: float) -> void:
 
@@ -99,6 +101,16 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += 10
 
+	# Holding component stuff
+	if shell_state != Shellstate.InShell:
+		hold_comp.can_kick = false
+		hold_comp.can_hold = false
+	elif shell_state == Shellstate.InShell:
+		hold_comp.can_kick = true
+		if hold_comp.delay == 0:
+			hold_comp.can_hold = true
+	if hold_comp.is_held:
+		velocity = Vector2.ZERO
 
 	if shell_state == Shellstate.InShell:
 		if animated_sprite_2d.scale.x == abs(animated_sprite_2d.scale.x) * 1:
@@ -123,6 +135,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_stomp_detect_body_entered(body: Node2D) -> void:
 	if body is player and body.velocity.y > 0 and shell_state == Shellstate.Walk:
+		hold_comp.delay = 10
 		delay = 10
 		shell_state = Shellstate.InShell
 		sfx_stomped.play()
@@ -132,17 +145,8 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 		else:
 			body.velocity.y = -200
 
-	if body is player and body.velocity.y > 0 and shell_state == Shellstate.InShell:
-		delay = 10
-		direction = sign(global_position.x - body.global_position.x)
-		shell_state = Shellstate.Spin
-		sfx_knock.play()
-		if Input.is_action_pressed("jump"):
-			body.velocity.y = -400
-		else:
-			body.velocity.y = -200
-
 	if body is player and body.velocity.y > 0 and shell_state == Shellstate.Spin:
+		hold_comp.delay = 10
 		delay = 10
 		shell_state = Shellstate.InShell
 		sfx_knock.play()
@@ -152,17 +156,8 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 			body.velocity.y = -200
 
 
-	if body is player and body.velocity.y > 0 and shell_state == Shellstate.InShell:
-		delay = 10
-		direction = sign(global_position.x - body.global_position.x)
-		shell_state = Shellstate.Spin
-		sfx_knock.play()
-		if Input.is_action_pressed("jump"):
-			body.velocity.y = -400
-		else:
-			body.velocity.y = -200
-
 	if body is player and body.velocity.y > 0 and shell_state == Shellstate.Spin:
+		hold_comp.delay = 10
 		delay = 10
 		shell_state = Shellstate.InShell
 		sfx_knock.play()
@@ -213,3 +208,10 @@ func hit():
 		if velocity.x > 0:
 			animated_sprite_2d.animation = "shell right"
 	hurt = true
+
+
+func _on_kicked(dir: int) -> void:
+	delay = 10
+	direction = dir
+	shell_state = Shellstate.Spin
+	sfx_knock.play()

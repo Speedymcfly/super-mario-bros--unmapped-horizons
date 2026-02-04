@@ -6,6 +6,8 @@ extends CharacterBody2D
 
 var direction = 1
 
+func _ready() -> void:
+	add_to_group("powerup")
 
 func _physics_process(delta: float) -> void:
 

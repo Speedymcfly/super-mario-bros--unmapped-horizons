@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://u4b0x654mum8"]
+[gd_scene load_steps=13 format=3 uid="uid://u4b0x654mum8"]
 
 [ext_resource type="Script" uid="uid://bi2u2jaeiwlei" path="res://objects/brick.gd" id="1_xa1l3"]
 [ext_resource type="SpriteFrames" uid="uid://dxfw1goxsfs3s" path="res://objects/Brick_overworld_4.tres" id="2_7nfhm"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1jw1"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2u2la"]
+size = Vector2(16, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8iw1"]
 size = Vector2(16, 1)
@@ -116,6 +119,15 @@ frame_progress = 0.630201
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_l1jw1")
+
+[node name="TopCheck" type="Area2D" parent="."]
+collision_layer = 15
+collision_mask = 15
+
+[node name="TopCheckShape" type="CollisionShape2D" parent="TopCheck"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_2u2la")
+debug_color = Color(0.818892, 0.00183397, 0.968729, 0.42)
 
 [node name="JumpArea" type="Area2D" parent="."]
 
