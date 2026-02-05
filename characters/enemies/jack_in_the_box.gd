@@ -61,6 +61,7 @@ func _ready() -> void:
 		disguise.hide()
 		true_form.show()
 
+	add_to_group("enemies")
 
 func _physics_process(delta: float) -> void:
 

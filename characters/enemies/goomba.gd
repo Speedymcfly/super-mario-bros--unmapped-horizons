@@ -47,7 +47,6 @@ func _ready() -> void:
 
 	add_to_group("enemies")
 
-
 func _physics_process(delta: float) -> void:
 
 
@@ -154,13 +153,11 @@ func bone_helm_break():
 		get_parent().add_child(d2)
 		d1.global_position = global_position
 		d2.global_position = global_position
+		d1.scale.x = abs(d1.scale.x) * -direction
+		d2.scale.x = abs(d2.scale.x) * -direction
 		if animated_sprite_2d.scale.x == abs(animated_sprite_2d.scale.x) * -1:
-			d1.scale.x = abs(d1.scale.x) * -1
-			d2.scale.x = abs(d2.scale.x) * -1
 			d1.velocity.x += 60
 			d2.velocity.x += -60
 		else:
-			d1.scale.x = abs(d1.scale.x) * 1
-			d2.scale.x = abs(d2.scale.x) * 1
 			d1.velocity.x += -60
 			d2.velocity.x += 60
