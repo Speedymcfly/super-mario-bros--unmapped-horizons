@@ -128,7 +128,7 @@ collision_layer = 15
 collision_mask = 15
 
 [node name="TopCheckShape" type="CollisionShape2D" parent="TopCheck"]
-position = Vector2(0, -9)
+position = Vector2(8, -1)
 shape = SubResource("RectangleShape2D_60q68")
 debug_color = Color(0.818892, 0.00183397, 0.968729, 0.42)
 

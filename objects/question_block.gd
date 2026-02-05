@@ -50,6 +50,7 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 	if body is player and body.velocity.y > 0:
 		sfx_bump.play()
 		$AnimationPlayer.play("bump_up")
+		above_hit()
 		block_item()
 	if empty == true:
 		animated_sprite_2d.play("empty")
@@ -63,6 +64,7 @@ func _on_side_hit_area_body_entered(body: Node2D) -> void:
 	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
 		sfx_bump.play()
 		$AnimationPlayer.play("bump_up")
+		above_hit()
 		block_item()
 	if empty == true:
 		animated_sprite_2d.play("empty")
@@ -70,7 +72,7 @@ func _on_side_hit_area_body_entered(body: Node2D) -> void:
 		animated_sprite_2d.play("default")
 	if coin_amount <= 1:
 		empty = true
-	above_hit()
+
 
 func block_item():
 	if empty == false and contents == "coin":

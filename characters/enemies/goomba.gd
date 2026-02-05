@@ -136,6 +136,11 @@ func hit():
 	sfx_hit.play()
 	if variant == "Bone" and bone_helmet == true:
 		animated_sprite_2d.animation = "hit2"
+	elif variant == "Spiked_Normal" or variant == "Spiked_Gloomba":
+		if direction == 1:
+			animated_sprite_2d.animation = "hitright"
+		else:
+			animated_sprite_2d.animation = "hitleft"
 	else:
 		animated_sprite_2d.animation = "hit"
 	hurt = true

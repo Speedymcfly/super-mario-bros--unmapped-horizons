@@ -155,18 +155,6 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 		else:
 			body.velocity.y = -200
 
-
-	if body is player and body.velocity.y > 0 and shell_state == Shellstate.Spin:
-		hold_comp.delay = 10
-		delay = 10
-		shell_state = Shellstate.InShell
-		sfx_knock.play()
-		if Input.is_action_pressed("jump"):
-			body.velocity.y = -400
-		else:
-			body.velocity.y = -200
-
-
 func _on_bump_detect_body_entered(body: Node2D) -> void:
 	if delay > 0:
 		return
