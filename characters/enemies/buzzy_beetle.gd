@@ -121,6 +121,10 @@ func _physics_process(delta: float) -> void:
 		shell_timer += 1
 	if shell_timer >= 500 or shell_timer == 0:
 		velocity.x = 35 * direction
+		if hold_comp.holder:
+			hold_comp.is_held = false
+			hold_comp.holder.current_held_obj = null
+			hold_comp.holder = null
 		shell_state = Shellstate.Walk
 		shell_timer = 0
 
@@ -178,6 +182,13 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		shell_state = Shellstate.InShell
 	if body is qblock and velocity.y > 0:
 		shell_state = Shellstate.InShell
+
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and body.hold_comp.holder.velocity.x != 0:
+		hit()
+		body.hit()
+		body.hold_comp.is_held = false
+		body.hold_comp.holder.current_held_obj = null
+
 
 func hit():
 	collision_shape_2d.set_deferred("disabled", true)

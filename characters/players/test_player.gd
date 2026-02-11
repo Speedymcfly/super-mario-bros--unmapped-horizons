@@ -16,6 +16,7 @@ extends CharacterBody2D
 @onready var thanks_2: AudioStreamPlayer2D = $Thanks2
 
 var facing_direction := 1
+var current_held_obj: Node = null
 var SPEED = 70.0
 const JUMP_VELOCITY = -360.0
 
@@ -77,9 +78,13 @@ var invincible = false
 var invincible_timer = 0
 
 func _ready() -> void:
-	#var new_sprite_frames = load("res://characters/players/"+ str(powerup_state) + str(character) + str(variant) +".tres")
-	#sprite_2d.sprite_frames = new_sprite_frames
-	pass
+	var path := "res://characters/players/%s%s%s.tres" % [
+		Powerupstate.keys()[powerup_state],
+		Character.keys()[character],
+		Variant.keys()[variant]
+	]
+	sprite_2d.sprite_frames = load(path)
+
 
 
 
@@ -87,6 +92,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 
+	holding_item = current_held_obj != null
 
 	if Input.is_action_just_pressed("run") and powerup_state == Powerupstate.Fire:
 		AudioManager.play_sfx(load("res://assets/audio/SFX/Fireball.wav"))
@@ -110,8 +116,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_copy"):
 		if powerup_state != Powerupstate.Small:
 			powerup_state = Powerupstate.Small
+			_ready()
 		else:
 			powerup_state = Powerupstate.Big
+			_ready()
 
 	#if (velocity.x > 1 || velocity.x < -1):
 	if abs(velocity.x) > 1:

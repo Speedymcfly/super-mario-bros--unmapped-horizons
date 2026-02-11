@@ -37,4 +37,5 @@ func _on_collect_body_entered(body: Node2D) -> void:
 		body.Character.Mario
 		if body.powerup_state == body.Powerupstate.Small:
 			body.powerup_state = body.Powerupstate.Big
+			body._ready()
 		queue_free()

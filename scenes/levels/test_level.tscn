@@ -403,7 +403,7 @@ colour = "Red"
 
 [node name="KoopaTroopaQ3" parent="Main Ground Layer" instance=ExtResource("8_hppjq")]
 position = Vector2(-27, 2)
-colour = "Blue"
+colour = "Yellow"
 
 [node name="KoopaTroopaQ4" parent="Main Ground Layer" instance=ExtResource("8_hppjq")]
 position = Vector2(1120, 178)

@@ -20,13 +20,14 @@ func _ready() -> void:
 
 # Try to pick up the object
 func pick_up(body: player) -> void:
-	if holder == null:
+	if holder == null and body.current_held_obj == null:
 		if body is not player or not Input.is_action_pressed("run") or not can_hold:
 			if can_kick and delay == 0:
 				on_kicked.emit(sign(owner.global_position.x - body.global_position.x))
 			return
 
 		holder = body # Get the player node
+		holder.current_held_obj = owner
 		is_held = true # Set the object as held
 
 func _physics_process(delta: float) -> void:
@@ -39,14 +40,23 @@ func _physics_process(delta: float) -> void:
 			holder = null
 		return
 
-	if Input.is_action_just_released("run"):
-		is_held = false
-		on_kicked.emit(holder.facing_direction)
-		holder = null
-
-	# Update the object position
-	if holder:
+	if Input.is_action_pressed("run"):
 		owner.global_position = obj_pos()
+	else:
+		if not (Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up")):
+			is_held = false
+			on_kicked.emit(holder.facing_direction)
+			holder.current_held_obj = null
+			holder = null
+		else:
+			is_held = false
+			if Input.is_action_pressed("ui_up"):
+				owner.velocity.y = -300
+				AudioManager.play_sfx(load("res://assets/audio/SFX/ObjectKick.wav"))
+			else:
+				owner.global_position.x += 7 * holder.facing_direction
+			holder.current_held_obj = null
+			holder = null
 
 # Keep the object tied to the player's position
 func obj_pos() -> Vector2:

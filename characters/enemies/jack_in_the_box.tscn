@@ -60,6 +60,7 @@ scale = Vector2(0.99, 1)
 shape = SubResource("RectangleShape2D_l8qph")
 
 [node name="JumpArea" type="Area2D" parent="."]
+collision_mask = 5
 
 [node name="JumpCollision" type="CollisionShape2D" parent="JumpArea"]
 position = Vector2(0, 8)

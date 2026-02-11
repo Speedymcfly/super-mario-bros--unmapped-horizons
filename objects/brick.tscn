@@ -130,6 +130,7 @@ shape = SubResource("RectangleShape2D_2u2la")
 debug_color = Color(0.818892, 0.00183397, 0.968729, 0.42)
 
 [node name="JumpArea" type="Area2D" parent="."]
+collision_mask = 5
 
 [node name="JumpCollision" type="CollisionShape2D" parent="JumpArea"]
 position = Vector2(0, 8)

@@ -58,7 +58,18 @@ func _ready() -> void:
 
 	add_to_group("shelled_enemies")
 
+
+
 func _physics_process(delta: float) -> void:
+
+	var plr = get_tree().get_first_node_in_group("player")
+	var sign_value = sign(plr.global_position.x - global_position.x)
+
+
+	#if colour == "Yellow" and shell_state == Shellstate.Walk:
+		#direction = sign_value
+	#else:
+		#direction = 1
 
 	if hurt == true:
 		animated_sprite_2d.rotation += .1
@@ -90,6 +101,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 50 * direction
 		elif (colour == "Green" or colour == "Red"):
 			velocity.x = 35 * direction
+		elif colour == "Yellow":
+			velocity.x = 75 * direction
 	if shell_state == Shellstate.Walk and (colour == "Red" or colour == "Blue"):
 		if not ledge_check.is_colliding():
 			direction *= -1
@@ -98,6 +111,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 50 * direction
 		elif (colour == "Green" or colour == "Red"):
 			velocity.x = 35 * direction
+		elif colour == "Yellow":
+			velocity.x = 75 * sign_value
 		ledge_check.position.x = 8.0 * direction
 
 
@@ -151,6 +166,12 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 50 * direction
 		elif (colour == "Green" or colour == "Red"):
 			velocity.x = 35 * direction
+		elif colour == "Yellow":
+			velocity.x = 75 * sign_value
+		if hold_comp.holder:
+			hold_comp.is_held = false
+			hold_comp.holder.current_held_obj = null
+			hold_comp.holder = null
 		shell_state = Shellstate.Walk
 		shell_timer = 0
 
@@ -187,7 +208,11 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		hit()
 		if shell_state == Shellstate.Spin:
 			body.hit()
-
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and body.hold_comp.holder.velocity.x != 0:
+		hit()
+		body.hit()
+		body.hold_comp.is_held = false
+		body.hold_comp.holder.current_held_obj = null
 
 func hit():
 	collision_shape_2d.set_deferred("disabled", true)

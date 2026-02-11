@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://dowxbdk3qs37s"]
 
 [ext_resource type="Script" uid="uid://ds1v7omeaelwj" path="res://characters/players/test_player.gd" id="1_6qyji"]
-[ext_resource type="SpriteFrames" uid="uid://dstw3jwyrnybp" path="res://characters/players/SmallMarioModern.tres" id="2_acoji"]
+[ext_resource type="SpriteFrames" uid="uid://ddljpj56rfrod" path="res://characters/players/BigMarioModern.tres" id="2_acoji"]
 [ext_resource type="AudioStream" uid="uid://cowltsq0kedqi" path="res://assets/audio/SFX/Mario/MarioJump1.wav" id="7_c640x"]
 [ext_resource type="AudioStream" uid="uid://bljtvsdnm0nra" path="res://assets/audio/SFX/Mario/MarioJump2.wav" id="8_mi3x4"]
 [ext_resource type="AudioStream" uid="uid://bhk2ywgixg3c2" path="res://assets/audio/SFX/Mario/MarioThanks.wav" id="9_etgod"]
@@ -44,7 +44,7 @@ script = ExtResource("1_6qyji")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_acoji")
-animation = &"walking"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionSmall" type="CollisionShape2D" parent="."]
@@ -52,22 +52,18 @@ position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_6qyji")
 
 [node name="CollisionBig" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_c640x")
 
 [node name="CrouchSmall" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_acoji")
 
 [node name="CrouchBig" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_77tw5")
 
 [node name="DiveBig" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_o0kt0")
 

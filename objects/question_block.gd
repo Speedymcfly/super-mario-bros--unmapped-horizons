@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 
 
 func _on_jump_area_body_entered(body: Node2D) -> void:
-	if body is player and body.velocity.y > 0:
+	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)):
 		sfx_bump.play()
 		$AnimationPlayer.play("bump_up")
 		above_hit()

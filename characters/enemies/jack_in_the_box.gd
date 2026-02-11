@@ -14,10 +14,7 @@ extends CharacterBody2D
 @onready var sfx_stomped: AudioStreamPlayer2D = $SFXStomped
 
 
-
 var disguised = true
-
-
 var hurt = false
 
 @export_enum(
@@ -65,9 +62,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 
-
 	var plr = get_tree().get_first_node_in_group("player")
-
 	var sign_value = sign(plr.global_position.x - global_position.x)
 	var direction = sign_value
 
@@ -110,7 +105,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_jump_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if body is player and body.velocity.y > 0 and disguised == true:
+	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)) and disguised == true:
 		disguised = false
 		sfx_bumped.play()
 		velocity.y = -125
@@ -149,6 +144,11 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 			body.velocity.y = -200
 		var hurt = true
 
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and body.hold_comp.holder.velocity.x != 0:
+		hit()
+		body.hit()
+		body.hold_comp.is_held = false
+		body.hold_comp.holder.current_held_obj = null
 
 func hit():
 	true_form.flip_v = true
