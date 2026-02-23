@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c364f8kr7lxw7"]
+
+[ext_resource type="Texture2D" uid="uid://6mr2yqfniodw" path="res://assets/sprites/objects/collectables/1up Mushroom.png" id="1_h32j2"]
+[ext_resource type="Script" uid="uid://bx2q5cvr06eef" path="res://objects/collectables/power-ups/1_up_mush.gd" id="1_okhqb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okhqb"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xx4s"]
+size = Vector2(15, 16)
+
+[node name="1UpMush" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_okhqb")
+
+[node name="1UpMushCollision" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8.5)
+shape = SubResource("RectangleShape2D_okhqb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h32j2")
+centered = false
+
+[node name="1UpMushCollect" type="Area2D" parent="."]
+
+[node name="CollectCollision" type="CollisionShape2D" parent="1UpMushCollect"]
+position = Vector2(8, 8.125)
+shape = SubResource("RectangleShape2D_5xx4s")
+
+[connection signal="body_entered" from="1UpMushCollect" to="." method="_on_collect_body_entered"]

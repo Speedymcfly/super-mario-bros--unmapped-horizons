@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://xsj7tjke8tjk"]
+
+[ext_resource type="Texture2D" uid="uid://djfuogay7b2eu" path="res://assets/sprites/objects/collectables/Coin Gold.png" id="1_2xk3d"]
+[ext_resource type="Texture2D" uid="uid://cbxymipx51gdn" path="res://assets/sprites/objects/collectables/Hidden Coin.png" id="2_n4lr4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7plqh"]
+atlas = ExtResource("1_2xk3d")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ahgc"]
+atlas = ExtResource("1_2xk3d")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wv6kv"]
+atlas = ExtResource("1_2xk3d")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbfl7"]
+atlas = ExtResource("1_2xk3d")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4vqo"]
+atlas = ExtResource("2_n4lr4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_426ju"]
+atlas = ExtResource("2_n4lr4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hq47"]
+atlas = ExtResource("2_n4lr4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70jbx"]
+atlas = ExtResource("2_n4lr4")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7plqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ahgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wv6kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbfl7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4vqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_426ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hq47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70jbx")
+}],
+"loop": true,
+"name": &"hidden",
+"speed": 8.0
+}]

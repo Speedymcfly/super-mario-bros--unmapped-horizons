@@ -8,6 +8,8 @@ extends AnimatableBody2D
 @export var item:PackedScene = null
 @onready var sfx_lumina_coin: AudioStreamPlayer2D = $SFXLuminaCoin
 @onready var top_check: Area2D = $TopCheck
+@onready var mushroom_scene_file = preload("res://objects/collectables/power-ups/super_mush.tscn")
+@onready var mush_retro_scene_file = preload("res://objects/collectables/power-ups/super_mush_retro.tscn")
 
 var empty = false
 var coin_amount = 11
@@ -31,7 +33,8 @@ var coin_amount = 11
 	"coins",
 	"coin_lumina",
 	"coins_lumina",
-	"powerup"
+	"powerup",
+	"1up"
 ) var contents = "coin"
 
 
@@ -51,7 +54,7 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 		sfx_bump.play()
 		$AnimationPlayer.play("bump_up")
 		above_hit()
-		block_item()
+		block_item(get_tree().get_first_node_in_group("player"))
 	if empty == true:
 		animated_sprite_2d.play("empty")
 	else:
@@ -65,7 +68,7 @@ func _on_side_hit_area_body_entered(body: Node2D) -> void:
 		sfx_bump.play()
 		$AnimationPlayer.play("bump_up")
 		above_hit()
-		block_item()
+		block_item(get_tree().get_first_node_in_group("player"))
 	if empty == true:
 		animated_sprite_2d.play("empty")
 	else:
@@ -74,9 +77,10 @@ func _on_side_hit_area_body_entered(body: Node2D) -> void:
 		empty = true
 
 
-func block_item():
+func block_item(plr: player):
 	if empty == false and contents == "coin":
 		Globals.coin_amount += 1
+		get_tree().get_first_node_in_group("player_ui").update_hud()
 		var coin_scene = load("res://objects/collectables/common_coin_visual.tscn").instantiate()
 		coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
 		get_tree().current_scene.call_deferred("add_child", coin_scene)
@@ -84,6 +88,7 @@ func block_item():
 		empty = true
 	if empty == false and contents == "coins":
 		Globals.coin_amount += 1
+		get_tree().get_first_node_in_group("player_ui").update_hud()
 		var coin_scene = load("res://objects/collectables/common_coin_visual.tscn").instantiate()
 		coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
 		get_tree().current_scene.call_deferred("add_child", coin_scene)
@@ -91,6 +96,7 @@ func block_item():
 		coin_amount -= 1
 	elif empty == false and contents == "lumina_coin":
 		Globals.lumina_coin_amount += 1
+		get_tree().get_first_node_in_group("player_ui").update_hud()
 		var coin_scene = load("res://objects/collectables/lumina_coin_visual.tscn").instantiate()
 		coin_scene.global_position = Vector2(global_position.x, global_position.y - 16)
 		get_tree().current_scene.call_deferred("add_child", coin_scene)
@@ -104,9 +110,20 @@ func block_item():
 		sfx_lumina_coin.play()
 		coin_amount -= 1
 	elif empty == false and item != null:
-		var item_scene = item.instantiate()
-		item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
-		get_tree().current_scene.call_deferred("add_child", item_scene)
+		if contents == "powerup":
+			if plr.powerup_state == plr.Powerupstate.Small:
+				var final_mush = mushroom_scene_file if version == "Modern" else mush_retro_scene_file
+				var item_scene = mushroom_scene_file.instantiate()
+				item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+				get_tree().current_scene.call_deferred("add_child", item_scene)
+			else:
+				var item_scene = item.instantiate()
+				item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+				get_tree().current_scene.call_deferred("add_child", item_scene)
+		else:
+			var item_scene = item.instantiate()
+			item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
+			get_tree().current_scene.call_deferred("add_child", item_scene)
 		sfx_power_up.play()
 		empty = true
 

@@ -1,0 +1,73 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://dbl24hlioj0qd"]
+
+[ext_resource type="Texture2D" uid="uid://ba2gyngclraug" path="res://assets/sprites/objects/collectables/Lumina Coin Gold.png" id="1_uj3e3"]
+[ext_resource type="Texture2D" uid="uid://cbxymipx51gdn" path="res://assets/sprites/objects/collectables/Hidden Coin.png" id="2_k6ewk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op2sy"]
+atlas = ExtResource("1_uj3e3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq0sy"]
+atlas = ExtResource("1_uj3e3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x4ec"]
+atlas = ExtResource("1_uj3e3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcwwr"]
+atlas = ExtResource("1_uj3e3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53ci0"]
+atlas = ExtResource("2_k6ewk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daqqt"]
+atlas = ExtResource("2_k6ewk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_844hr"]
+atlas = ExtResource("2_k6ewk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn8t3"]
+atlas = ExtResource("2_k6ewk")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op2sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oq0sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x4ec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcwwr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53ci0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daqqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_844hr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn8t3")
+}],
+"loop": true,
+"name": &"hidden",
+"speed": 8.0
+}]

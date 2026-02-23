@@ -25,4 +25,5 @@ func _on_collect_body_entered(body: Node2D) -> void:
 	if body is player:
 		AudioManager.play_sfx(load("res://assets/audio/SFX/PowerUpCollect.wav"))
 		body.powerup_state = body.Powerupstate.Ice
+		body._ready()
 		queue_free()

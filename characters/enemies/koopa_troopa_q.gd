@@ -94,15 +94,13 @@ func _physics_process(delta: float) -> void:
 
 
 # movement
-	if is_on_wall() and shell_state == Shellstate.Walk:
+	if is_on_wall() and shell_state == Shellstate.Walk and colour != "Yellow":
 		animated_sprite_2d.play("turn")
 		direction *= -1
 		if colour == "Blue":
 			velocity.x = 50 * direction
 		elif (colour == "Green" or colour == "Red"):
 			velocity.x = 35 * direction
-		elif colour == "Yellow":
-			velocity.x = 75 * direction
 	if shell_state == Shellstate.Walk and (colour == "Red" or colour == "Blue"):
 		if not ledge_check.is_colliding():
 			direction *= -1
@@ -208,7 +206,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		hit()
 		if shell_state == Shellstate.Spin:
 			body.hit()
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and body.hold_comp.holder.velocity.x != 0:
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
 		hit()
 		body.hit()
 		body.hold_comp.is_held = false

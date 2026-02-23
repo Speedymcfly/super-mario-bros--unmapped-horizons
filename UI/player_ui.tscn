@@ -1,0 +1,211 @@
+[gd_scene load_steps=23 format=3 uid="uid://b8ubolenghovk"]
+
+[ext_resource type="Texture2D" uid="uid://gmkghvrmyais" path="res://assets/sprites/UI/Coins.png" id="1_8fhe7"]
+[ext_resource type="Script" uid="uid://qlpxaho82dok" path="res://UI/player_ui.gd" id="1_kwigr"]
+[ext_resource type="FontFile" uid="uid://w5vlix2q6pfe" path="res://assets/sprites/UI/Font.png" id="2_nplvd"]
+[ext_resource type="Texture2D" uid="uid://04gs46affeo7" path="res://assets/sprites/UI/LifeIcons.png" id="4_b8q8m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8pok"]
+atlas = ExtResource("1_8fhe7")
+region = Rect2(0, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq7kv"]
+atlas = ExtResource("1_8fhe7")
+region = Rect2(8, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le6km"]
+atlas = ExtResource("1_8fhe7")
+region = Rect2(16, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0otx"]
+atlas = ExtResource("1_8fhe7")
+region = Rect2(24, 0, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvagt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8pok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq7kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le6km")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0otx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8q8m"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(16, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w2om"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(24, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf5vc"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an3gc"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccqt3"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmsn8"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byocv"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(0, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwocb"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(8, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvkn8"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixg0m"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(8, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8lkg"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(16, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hdo2"]
+atlas = ExtResource("4_b8q8m")
+region = Rect2(24, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w2om"]
+animations = [{
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_b8q8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w2om")
+}],
+"loop": true,
+"name": &"Daisy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_qf5vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an3gc")
+}],
+"loop": true,
+"name": &"Luigi",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_ccqt3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmsn8")
+}],
+"loop": true,
+"name": &"Mario",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_byocv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwocb")
+}],
+"loop": true,
+"name": &"Peach",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_rvkn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixg0m")
+}],
+"loop": true,
+"name": &"Toad",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_s8lkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hdo2")
+}],
+"loop": true,
+"name": &"Toadette",
+"speed": 5.0
+}]
+
+[node name="PlayerUI" type="CanvasLayer" groups=["player_ui"]]
+script = ExtResource("1_kwigr")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoinCounter" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(4, 8)
+sprite_frames = SubResource("SpriteFrames_nvagt")
+autoplay = "default"
+
+[node name="CommonCoinCounter" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 40.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("2_nplvd")
+theme_override_font_sizes/font_size = 8
+text = "x000"
+text_overrun_behavior = 1
+
+[node name="LuminaCoinCounter" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 32.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("2_nplvd")
+theme_override_font_sizes/font_size = 8
+text = "x000"
+
+[node name="LifeCharacter" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(44, 4)
+sprite_frames = SubResource("SpriteFrames_8w2om")
+animation = &"Daisy"
+autoplay = "Mario"
+
+[node name="LifeCounter" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 48.0
+offset_right = 72.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("2_nplvd")
+theme_override_font_sizes/font_size = 8
+text = "x00"
+text_overrun_behavior = 1

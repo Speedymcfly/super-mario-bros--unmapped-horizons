@@ -120,7 +120,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 			bone_helm_break()
 		hit()
 
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and body.hold_comp.holder.velocity.x != 0:
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
 		if variant == "Bone" and bone_helmet == true:
 			bone_helmet = false
 			sfx_helm_break.play()
@@ -129,6 +129,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		body.hit()
 		body.hold_comp.is_held = false
 		body.hold_comp.holder.current_held_obj = null
+
 
 func squish():
 	collision_shape_2d.set_deferred("disabled", true)

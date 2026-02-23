@@ -144,7 +144,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 			body.velocity.y = -200
 		var hurt = true
 
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and body.hold_comp.holder.velocity.x != 0:
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
 		hit()
 		body.hit()
 		body.hold_comp.is_held = false

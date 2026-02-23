@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://y53lh6tbbp4e"]
+[gd_scene load_steps=25 format=4 uid="uid://y53lh6tbbp4e"]
 
 [ext_resource type="Texture2D" uid="uid://c0s285omocvug" path="res://assets/sprites/backgrounds/Sky1.png" id="1_hfwtw"]
 [ext_resource type="Texture2D" uid="uid://daxjnmwipuhsh" path="res://assets/sprites/tilesets/Mario Grass tiles 1 (custom style).png" id="1_jbqir"]
@@ -20,8 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://w0130lfq8msm" path="res://assets/sprites/backgrounds/HillsPH.png" id="10_jmx14"]
 [ext_resource type="PackedScene" uid="uid://d2tc0rnt5d4yv" path="res://characters/enemies/buzzy_beetle.tscn" id="13_qgrpf"]
 [ext_resource type="Texture2D" uid="uid://b3utemu4177y1" path="res://assets/sprites/backgrounds/Grass1.png" id="14_fqldq"]
+[ext_resource type="PackedScene" uid="uid://c364f8kr7lxw7" path="res://objects/collectables/power-ups/1_up_mush.tscn" id="14_lxl1u"]
+[ext_resource type="PackedScene" uid="uid://b8ubolenghovk" path="res://UI/player_ui.tscn" id="22_lxl1u"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yautc"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c7nhy"]
 texture = ExtResource("1_jbqir")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -192,7 +194,7 @@ texture = ExtResource("1_jbqir")
 
 [sub_resource type="TileSet" id="TileSet_fr1um"]
 physics_layer_0/collision_layer = 13
-sources/0 = SubResource("TileSetAtlasSource_yautc")
+sources/0 = SubResource("TileSetAtlasSource_c7nhy")
 
 [node name="Test Level" type="Node2D"]
 
@@ -336,6 +338,9 @@ position = Vector2(488, 160)
 [node name="SuperMush" parent="Main Ground Layer" instance=ExtResource("2_yautc")]
 position = Vector2(449, 160)
 
+[node name="1UpMush" parent="Main Ground Layer" instance=ExtResource("14_lxl1u")]
+position = Vector2(2200, 176)
+
 [node name="FireFlower" parent="Main Ground Layer" instance=ExtResource("4_v45ci")]
 position = Vector2(528, 153)
 
@@ -359,9 +364,11 @@ position = Vector2(712, 88)
 
 [node name="GoldCoin7" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
 position = Vector2(728, 88)
+variant = "hidden_common"
 
 [node name="GoldCoin8" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
 position = Vector2(744, 88)
+variant = "hidden_common"
 
 [node name="GoldCoin9" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
 position = Vector2(1144, 200)
@@ -369,7 +376,7 @@ variant = "lumina"
 
 [node name="GoldCoin10" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
 position = Vector2(1160, 200)
-variant = "lumina"
+variant = "hidden_lumina"
 
 [node name="GoldCoin11" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
 position = Vector2(1144, 216)
@@ -377,7 +384,47 @@ variant = "lumina"
 
 [node name="GoldCoin12" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
 position = Vector2(1160, 216)
-variant = "lumina"
+variant = "hidden_lumina"
+
+[node name="GoldCoin13" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2344, 72)
+variant = "hidden_common"
+
+[node name="GoldCoin14" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2360, 72)
+variant = "hidden_lumina"
+
+[node name="GoldCoin15" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2376, 72)
+variant = "hidden_common"
+
+[node name="GoldCoin16" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2392, 72)
+variant = "hidden_lumina"
+
+[node name="GoldCoin17" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2408, 72)
+variant = "hidden_common"
+
+[node name="GoldCoin18" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2344, 88)
+variant = "hidden_common"
+
+[node name="GoldCoin19" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2360, 88)
+variant = "hidden_lumina"
+
+[node name="GoldCoin20" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2376, 88)
+variant = "hidden_common"
+
+[node name="GoldCoin21" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2392, 88)
+variant = "hidden_lumina"
+
+[node name="GoldCoin22" parent="Main Ground Layer" instance=ExtResource("7_cyt5c")]
+position = Vector2(2408, 88)
+variant = "hidden_common"
 
 [node name="Goomba" parent="Main Ground Layer" instance=ExtResource("8_3ay3b")]
 position = Vector2(585, 178)
@@ -432,7 +479,8 @@ variant = "RBlock"
 position = Vector2(136, 139)
 
 [node name="Camera2D2" type="Camera2D" parent="Main Ground Layer/Test Player"]
-zoom = Vector2(3.5, 3.5)
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="PlayerUI" parent="Main Ground Layer/Test Player" instance=ExtResource("22_lxl1u")]

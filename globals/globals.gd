@@ -5,6 +5,15 @@ extends Node
 
 var coin_amount = 0
 var lumina_coin_amount = 0
+var mario_lives = 3
+var luigi_lives = 3
+var toad_lives = 3
+var toadette_lives = 3
+var peach_lives = 3
+var daisy_lives = 3
+
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
