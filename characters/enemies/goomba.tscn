@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://7pcey43hk8rk"]
 
 [ext_resource type="Script" uid="uid://bfh7b4h1e8qls" path="res://characters/enemies/goomba.gd" id="1_rtdx5"]
-[ext_resource type="SpriteFrames" uid="uid://dys5skw7tnce8" path="res://characters/enemies/Spiked_Gloomba_Goomba.tres" id="2_ws0s0"]
+[ext_resource type="SpriteFrames" uid="uid://cyg57586y3qno" path="res://characters/enemies/Spiked_Normal_Goomba.tres" id="2_ws0s0"]
 [ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="3_egrxx"]
 [ext_resource type="AudioStream" uid="uid://d4mgl0ow0l31a" path="res://assets/audio/SFX/BrickBreak.wav" id="4_1gjhd"]
 [ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="5_ws0s0"]
@@ -32,7 +32,7 @@ script = ExtResource("1_rtdx5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 2)
 sprite_frames = ExtResource("2_ws0s0")
-animation = &"hitright"
+animation = &"biteleft"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7.5)
@@ -78,5 +78,12 @@ collision_mask = 13
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_ws0s0")
 
+[node name="BiteTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
+[connection signal="body_entered" from="HurtPlayer2" to="." method="_on_hurt_player_2_body_entered"]
 [connection signal="body_entered" from="SquishDetect" to="." method="_on_squish_detect_body_entered"]
+[connection signal="body_entered" from="Spike" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
+[connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]

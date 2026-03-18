@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://dwgn1np3wjubc"]
 
 [ext_resource type="Script" uid="uid://dn532m4jssskx" path="res://characters/enemies/koopa_troopa_q.gd" id="1_g2xj6"]
-[ext_resource type="SpriteFrames" uid="uid://cj0aap5rso7xg" path="res://characters/enemies/Noko_Yellow_Q.tres" id="2_l8yy8"]
+[ext_resource type="SpriteFrames" uid="uid://cj538fd8jnsx" path="res://characters/enemies/Noko_Blue_Q.tres" id="2_l8yy8"]
 [ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="5_g2xj6"]
 [ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="5_s4war"]
 [ext_resource type="AudioStream" uid="uid://v40l11w80lyq" path="res://assets/audio/SFX/ObjectKick.wav" id="6_ct7xd"]
@@ -71,7 +71,7 @@ script = ExtResource("1_g2xj6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6)
 sprite_frames = ExtResource("2_l8yy8")
-animation = &"bite"
+animation = &"walking"
 autoplay = "walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -131,13 +131,20 @@ libraries = {
 position = Vector2(-7, 11)
 target_position = Vector2(0, 8)
 
+[node name="BiteTimer" type="Timer" parent="."]
+wait_time = 0.25
+
 [node name="Holdable" type="Node" parent="." node_paths=PackedStringArray("holdbox")]
 script = ExtResource("7_l8yy8")
 holdbox = NodePath("../BumpDetect")
 can_kick = true
 metadata/_custom_type_script = "uid://cwsdxfvkruluw"
 
+[connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
+[connection signal="body_entered" from="HurtPlayer2" to="." method="_on_hurt_player_2_body_entered"]
 [connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
 [connection signal="body_entered" from="BumpDetect" to="." method="_on_bump_detect_body_entered"]
+[connection signal="body_entered" from="BumpDetect" to="Holdable" method="_on_bump_detect_body_entered"]
 [connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
+[connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]
 [connection signal="on_kicked" from="Holdable" to="." method="_on_kicked"]

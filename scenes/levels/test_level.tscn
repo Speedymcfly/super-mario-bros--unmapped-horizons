@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://y53lh6tbbp4e"]
+[gd_scene load_steps=26 format=4 uid="uid://y53lh6tbbp4e"]
 
 [ext_resource type="Texture2D" uid="uid://c0s285omocvug" path="res://assets/sprites/backgrounds/Sky1.png" id="1_hfwtw"]
 [ext_resource type="Texture2D" uid="uid://daxjnmwipuhsh" path="res://assets/sprites/tilesets/Mario Grass tiles 1 (custom style).png" id="1_jbqir"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://d2tc0rnt5d4yv" path="res://characters/enemies/buzzy_beetle.tscn" id="13_qgrpf"]
 [ext_resource type="Texture2D" uid="uid://b3utemu4177y1" path="res://assets/sprites/backgrounds/Grass1.png" id="14_fqldq"]
 [ext_resource type="PackedScene" uid="uid://c364f8kr7lxw7" path="res://objects/collectables/power-ups/1_up_mush.tscn" id="14_lxl1u"]
+[ext_resource type="PackedScene" uid="uid://csvjuyrovs3cv" path="res://characters/enemies/koopa_troopa_b.tscn" id="19_cibht"]
 [ext_resource type="PackedScene" uid="uid://b8ubolenghovk" path="res://UI/player_ui.tscn" id="22_lxl1u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c7nhy"]
@@ -459,6 +460,9 @@ colour = "Red"
 [node name="KoopaTroopaQ5" parent="Main Ground Layer" instance=ExtResource("8_hppjq")]
 position = Vector2(720, 98)
 colour = "Blue"
+
+[node name="KoopaTroopaB" parent="Main Ground Layer" instance=ExtResource("19_cibht")]
+position = Vector2(11, 174)
 
 [node name="BuzzyBeetle" parent="Main Ground Layer" instance=ExtResource("13_qgrpf")]
 position = Vector2(-140, 0)

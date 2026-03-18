@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var true_form: AnimatedSprite2D = $TrueForm
 @onready var box_out_collision: CollisionShape2D = $BoxOutCollision
 @onready var box_collision: CollisionShape2D = $Box/BoxCollision
+@onready var hurt_shape: CollisionShape2D = $HurtPlayer/HurtShape
 @onready var jump_area: Area2D = $JumpArea
 @onready var hit_detect: Area2D = $HitDetect
 @onready var hit_shape: CollisionShape2D = $HitDetect/HitShape
@@ -105,7 +106,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_jump_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)) and disguised == true:
+	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)) and disguised == true:
 		disguised = false
 		sfx_bumped.play()
 		velocity.y = -125
@@ -135,7 +136,7 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 
 
 func _on_hit_detect_body_entered(body: Node2D) -> void:
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
+	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.Spin:
 		hit()
 		sfx_stomped.play()
 		if Input.is_action_pressed("jump"):
@@ -144,7 +145,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 			body.velocity.y = -200
 		var hurt = true
 
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
+	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
 		hit()
 		body.hit()
 		body.hold_comp.is_held = false
@@ -156,3 +157,11 @@ func hit():
 	box_collision.set_deferred("disabled", true)
 	jump_area.set_deferred("disabled", true)
 	hit_detect.set_deferred("disabled", true)
+	hurt_shape.set_deferred("disabled", true)
+
+func _on_hurt_player_body_entered(body: Node2D) -> void:
+	var plr = get_tree().get_first_node_in_group("player")
+	if plr.global_position.y < global_position.y -2.5: 
+		return
+	if body is player and not body.damaged and not body.invincible:
+		body.damage()

@@ -7,13 +7,22 @@ extends CharacterBody2D
 @onready var crouch_small: CollisionShape2D = $CrouchSmall
 @onready var crouch_big: CollisionShape2D = $CrouchBig
 @onready var dive_big: CollisionShape2D = $DiveBig
+@onready var damage_timer: Timer = $DamageTimer
 @onready var sfx_jump: AudioStreamPlayer2D = $SFXJump
 @onready var mario_jump: AudioStreamPlayer2D = $MarioJump
 @onready var mario_third_jump: AudioStreamPlayer2D = $MarioThirdJump
 @onready var mario_long_jump: AudioStreamPlayer2D = $MarioLongJump
 @onready var wall_jump: AudioStreamPlayer2D = $WallJump
+@onready var mario_hurt: AudioStreamPlayer2D = $MarioHurt
+@onready var sfx_damage: AudioStreamPlayer2D = $SFXDamage
+@onready var sfx_power_down: AudioStreamPlayer2D = $SFXPowerDown
+@onready var sfx_die: AudioStreamPlayer2D = $SFXDie
+@onready var sfx_die_final: AudioStreamPlayer2D = $SFXDieFinal
 @onready var thanks_1: AudioStreamPlayer2D = $Thanks1
 @onready var thanks_2: AudioStreamPlayer2D = $Thanks2
+
+
+
 
 var facing_direction := 1
 var current_held_obj: Node = null
@@ -23,7 +32,6 @@ const JUMP_VELOCITY = -360.0
 
 var jump_limit = 0
 var jump_timer = 0
-
 
 
 enum Character {
@@ -76,6 +84,8 @@ var p_speed = false
 
 var invincible = false
 var invincible_timer = 0
+
+var damaged = false
 
 func _ready() -> void:
 	var path := "res://characters/players/%s%s%s.tres" % [
@@ -285,3 +295,35 @@ func _physics_process(delta: float) -> void:
 
 	#if movement_state == Movementstate.Groundpound:
 		#print("print")
+
+func damage():
+	if powerup_state != Powerupstate.Small:
+		powerup_state = Powerupstate.Small
+		damage_timer.start()
+		if character == Character.Mario:
+			mario_hurt.play()
+		sfx_damage.play()
+		sfx_power_down.play()
+		damaged = true
+		_ready()
+		$Sprite2D.modulate.a = 0.5
+	else:
+		if character == Character.Mario and Globals.shared_lives == false:
+			Globals.mario_lives -= 1
+		if Globals.shared_lives == true:
+			Globals.lives -= 1
+		get_tree().get_first_node_in_group("player_ui").update_hud()
+		die()
+
+
+func _on_damage_timer_timeout() -> void:
+	damaged = false
+	damage_timer.stop()
+	$Sprite2D.modulate.a = 1
+
+func die():
+	sfx_damage.play()
+	if ((character == Character.Mario and Globals.mario_lives <= 0) or (character == Character.Luigi and Globals.luigi_lives <= 0) or (character == Character.Toad and Globals.toad_lives <= 0) or (character == Character.Toadette and Globals.toadette_lives <= 0) or (character == Character.Peach and Globals.peach_lives <= 0) or (character == Character.Daisy and Globals.daisy_lives <= 0) and Globals.shared_lives == false) or Globals.lives <= 0 and Globals.shared_lives == true:
+		sfx_die_final.play()
+	else:
+		sfx_die.play()

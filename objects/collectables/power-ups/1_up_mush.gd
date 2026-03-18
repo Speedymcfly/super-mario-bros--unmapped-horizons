@@ -34,17 +34,19 @@ func _physics_process(delta: float) -> void:
 func _on_collect_body_entered(body: Node2D) -> void:
 	if body is player:
 		AudioManager.play_sfx(load("res://assets/audio/SFX/1up.wav"))
-		if body.character == body.Character.Mario:
+		if body.character == body.Character.Mario and Globals.shared_lives == false:
 			Globals.mario_lives += 1
-		if body.character == body.Character.Luigi:
+		if body.character == body.Character.Luigi and Globals.shared_lives == false:
 			Globals.luigi_lives += 1
-		if body.character == body.Character.Toad:
+		if body.character == body.Character.Toad and Globals.shared_lives == false:
 			Globals.toad_lives += 1
-		if body.character == body.Character.Toadette:
+		if body.character == body.Character.Toadette and Globals.shared_lives == false:
 			Globals.toadette_lives += 1
-		if body.character == body.Character.Peach:
+		if body.character == body.Character.Peach and Globals.shared_lives == false:
 			Globals.peach_lives += 1
-		if body.character == body.Character.Daisy:
+		if body.character == body.Character.Daisy and Globals.shared_lives == false:
 			Globals.daisy_lives += 1
+		if Globals.shared_lives == true:
+			Globals.lives += 1
 		get_tree().get_first_node_in_group("player_ui").update_hud()
 		queue_free()

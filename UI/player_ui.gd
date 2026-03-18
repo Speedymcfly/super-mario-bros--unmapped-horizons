@@ -21,21 +21,35 @@ func update_hud() -> void:
 
 	common_coin_counter.text = "x" + str(Globals.coin_amount).pad_zeros(3)
 	lumina_coin_counter.text = "x" + str(Globals.lumina_coin_amount).pad_zeros(3)
-	if plr.character == plr.Character.Mario:
+	if plr.character == plr.Character.Mario and Globals.shared_lives == false:
 		life_counter.text = "x" + str(Globals.mario_lives).pad_zeros(2)
 		life_character.animation = "Mario"
-	if plr.character == plr.Character.Luigi:
+	if plr.character == plr.Character.Luigi and Globals.shared_lives == false:
 		life_counter.text = "x" + str(Globals.luigi_lives).pad_zeros(2)
 		life_character.animation = "Luigi"
-	if plr.character == plr.Character.Toad:
+	if plr.character == plr.Character.Toad and Globals.shared_lives == false:
 		life_counter.text = "x" + str(Globals.toad_lives).pad_zeros(2)
 		life_character.animation = "Toad"
-	if plr.character == plr.Character.Toadette:
+	if plr.character == plr.Character.Toadette and Globals.shared_lives == false:
 		life_counter.text = "x" + str(Globals.toadette_lives).pad_zeros(2)
 		life_character.animation = "Toadette"
-	if plr.character == plr.Character.Peach:
+	if plr.character == plr.Character.Peach and Globals.shared_lives == false:
 		life_counter.text = "x" + str(Globals.peach_lives).pad_zeros(2)
 		life_character.animation = "Peach"
-	if plr.character == plr.Character.Daisy:
+	if plr.character == plr.Character.Daisy and Globals.shared_lives == false:
 		life_counter.text = "x" + str(Globals.daisy_lives).pad_zeros(2)
 		life_character.animation = "Daisy"
+	if Globals.shared_lives == true:
+		life_counter.text = "x" + str(Globals.lives).pad_zeros(2)
+		if plr.character == plr.Character.Mario:
+			life_character.animation = "Mario"
+		if plr.character == plr.Character.Luigi:
+			life_character.animation = "Luigi"
+		if plr.character == plr.Character.Toad:
+			life_character.animation = "Toad"
+		if plr.character == plr.Character.Toadette:
+			life_character.animation = "Toadette"
+		if plr.character == plr.Character.Peach:
+			life_character.animation = "Peach"
+		if plr.character == plr.Character.Daisy:
+			life_character.animation = "Daisy"

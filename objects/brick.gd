@@ -43,7 +43,7 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 	if body is jack and body.velocity.y > 0:
 		bump_up()
 
-	if (body is nokoq or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin):
+	if (body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin):
 		breakable = true
 		bump_up()
 
@@ -107,7 +107,7 @@ func spawn_debris():
 
 
 func _on_side_hit_area_body_entered(body: Node2D) -> void:
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
+	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.Spin:
 		breakable = true
 		bump_up()
 

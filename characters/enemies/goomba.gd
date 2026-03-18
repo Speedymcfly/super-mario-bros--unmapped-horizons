@@ -14,6 +14,7 @@ extends CharacterBody2D
 @onready var sfx_helm_break: AudioStreamPlayer2D = $SFXHelmBreak
 @onready var sfx_hit: AudioStreamPlayer2D = $SFXHit
 @onready var spike_shape: CollisionShape2D = $Spike/SpikeShape
+@onready var bite_timer: Timer = $BiteTimer
 
 
 var bone_helmet = true
@@ -113,14 +114,14 @@ func _on_squish_detect_body_entered(body: Node2D) -> void:
 				body.velocity.y = -200
 
 func _on_hit_detect_body_entered(body: Node2D) -> void:
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
+	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.Spin:
 		if variant == "Bone" and bone_helmet == true:
 			bone_helmet = false
 			sfx_helm_break.play()
 			bone_helm_break()
 		hit()
 
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
+	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
 		if variant == "Bone" and bone_helmet == true:
 			bone_helmet = false
 			sfx_helm_break.play()
@@ -134,6 +135,8 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 func squish():
 	collision_shape_2d.set_deferred("disabled", true)
 	squish_detect.set_deferred("disabled", true)
+	hurt_shape.set_deferred("disabled", true)
+	hurt_shape_2.set_deferred("disabled", true)
 	velocity.y = -70
 	sfx_squish.play()
 	animated_sprite_2d.animation = "squished"
@@ -143,6 +146,9 @@ func hit():
 	collision_shape_2d.set_deferred("disabled", true)
 	squish_detect.set_deferred("disabled", true)
 	hit_detect.set_deferred("disabled", true)
+	hurt_shape.set_deferred("disabled", true)
+	hurt_shape_2.set_deferred("disabled", true)
+	spike_shape.set_deferred("disabled", true)
 	velocity.y = -70
 	sfx_hit.play()
 	if variant == "Bone" and bone_helmet == true:
@@ -177,3 +183,57 @@ func bone_helm_break():
 		else:
 			d1.velocity.x += -60
 			d2.velocity.x += 60
+
+
+func _on_spike_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player") and not body.damaged:
+		body.damage()
+
+
+func _on_hurt_player_body_entered(body: Node2D) -> void:
+	var plr = get_tree().get_first_node_in_group("player")
+	if plr.global_position.y < global_position.y -2.5: 
+		return
+	if body is player and not body.damaged and not body.invincible:
+		body.damage()
+		if variant == "Bone" and bone_helmet == true:
+			animated_sprite_2d.animation = "bite2"
+		elif variant == "Spiked_Normal" or variant == "Spiked_Gloomba":
+			if direction == 1:
+				animated_sprite_2d.animation = "biteright"
+			else:
+				animated_sprite_2d.animation = "biteleft"
+		else:
+			animated_sprite_2d.animation = "bite"
+		direction = 0
+		bite_timer.start()
+
+func _on_hurt_player_2_body_entered(body: Node2D) -> void:
+	var plr = get_tree().get_first_node_in_group("player")
+	if plr.global_position.y < global_position.y -2.5: 
+		return
+	if body is player and not body.damaged and not body.invincible:
+		body.damage()
+		direction *= -1
+		if variant == "Bone" and bone_helmet == true:
+			animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x) * direction * -1
+			animated_sprite_2d.animation = "bite2"
+		elif variant == "Spiked_Normal" or variant == "Spiked_Gloomba":
+			animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x)
+			if direction == 1:
+				animated_sprite_2d.animation = "biteright"
+				animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x) * -1
+			else:
+				animated_sprite_2d.animation = "biteleft"
+		else:
+			animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x) * direction * -1
+			animated_sprite_2d.animation = "bite"
+		direction = 0
+		bite_timer.start()
+
+
+func _on_bite_timer_timeout() -> void:
+	var plr = get_tree().get_first_node_in_group("player")
+	var sign_value = sign(plr.global_position.x - global_position.x)
+	direction = 1 * sign_value
+	bite_timer.stop()

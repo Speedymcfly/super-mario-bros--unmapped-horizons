@@ -197,7 +197,7 @@ text = "x000"
 [node name="LifeCharacter" type="AnimatedSprite2D" parent="Control"]
 position = Vector2(44, 4)
 sprite_frames = SubResource("SpriteFrames_8w2om")
-animation = &"Daisy"
+animation = &"Mario"
 autoplay = "Mario"
 
 [node name="LifeCounter" type="Label" parent="Control"]

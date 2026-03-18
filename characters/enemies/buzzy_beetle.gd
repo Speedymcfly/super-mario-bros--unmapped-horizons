@@ -16,6 +16,7 @@ extends CharacterBody2D
 @onready var sfx_knock: AudioStreamPlayer2D = $SFXKnock
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hold_comp: Holdable = $Holdable
+@onready var bite_timer: Timer = $BiteTimer
 
 var direction = -1
 
@@ -51,7 +52,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		move_and_slide()
 
-
+	if shell_state == Shellstate.Walk:
+		hurt_shape.disabled = false
+		hurt_shape_2.disabled = false
+	else:
+		hurt_shape.disabled = true
+		hurt_shape_2.disabled = true
 
 	if shell_state == Shellstate.Spin:
 		buzzy_beetle.set_collision_mask_value(4, true)
@@ -173,7 +179,7 @@ func _on_bump_detect_body_entered(body: Node2D) -> void:
 
 
 func _on_hit_detect_body_entered(body: Node2D) -> void:
-	if body is nokoq and body.shell_state == body.Shellstate.Spin:
+	if (body is nokoq or body is nokob) and body.shell_state == body.Shellstate.Spin:
 		hit()
 		if shell_state == Shellstate.Spin:
 			body.hit()
@@ -183,7 +189,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 	if body is qblock and velocity.y > 0:
 		shell_state = Shellstate.InShell
 
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
+	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
 		hit()
 		body.hit()
 		body.hold_comp.is_held = false
@@ -194,6 +200,8 @@ func hit():
 	collision_shape_2d.set_deferred("disabled", true)
 	stomp_shape.set_deferred("disabled", true)
 	hit_detect.set_deferred("disabled", true)
+	hurt_shape.set_deferred("disabled", true)
+	hurt_shape_2.set_deferred("disabled", true)
 	velocity.y = -70
 	sfx_hit.play()
 	if shell_state == Shellstate.Walk:
@@ -214,3 +222,37 @@ func _on_kicked(dir: int) -> void:
 	direction = dir
 	shell_state = Shellstate.Spin
 	sfx_knock.play()
+
+
+func _on_hurt_player_body_entered(body: Node2D) -> void:
+	var plr = get_tree().get_first_node_in_group("player")
+	if plr.global_position.y < global_position.y -2.5: 
+		return
+	if body is player and not body.damaged and not body.invincible:
+		body.damage()
+		if direction == 1:
+			animated_sprite_2d.animation = "bite right"
+		else:
+			animated_sprite_2d.animation = "bite left"
+		direction = 0
+		bite_timer.start()
+
+func _on_hurt_player_2_body_entered(body: Node2D) -> void:
+	var plr = get_tree().get_first_node_in_group("player")
+	if plr.global_position.y < global_position.y -2.5: 
+		return
+	if body is player and not body.damaged and not body.invincible:
+		body.damage()
+		direction *= -1
+		if direction == 1:
+			animated_sprite_2d.animation = "bite right"
+		else:
+			animated_sprite_2d.animation = "bite left"
+		direction = 0
+		bite_timer.start()
+
+func _on_bite_timer_timeout() -> void:
+	var plr = get_tree().get_first_node_in_group("player")
+	var sign_value = sign(plr.global_position.x - global_position.x)
+	direction = 1 * sign_value
+	bite_timer.stop()

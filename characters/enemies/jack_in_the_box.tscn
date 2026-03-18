@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://wfk5yoaippdj"]
+[gd_scene load_steps=13 format=3 uid="uid://wfk5yoaippdj"]
 
 [ext_resource type="Script" uid="uid://c1bcs357qjip8" path="res://characters/enemies/jack_in_the_box.gd" id="1_x12po"]
 [ext_resource type="SpriteFrames" uid="uid://3j6m0nnea2s4" path="res://characters/enemies/Jack_RBlock.tres" id="2_1fa5s"]
@@ -9,6 +9,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_81bln"]
 size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oj255"]
+size = Vector2(16, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fa5s"]
 size = Vector2(14, 3)
@@ -44,6 +47,12 @@ animation = &"sprung"
 [node name="Disguise" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_1fa5s")
 autoplay = "default"
+
+[node name="HurtPlayer" type="Area2D" parent="."]
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtPlayer"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_oj255")
 
 [node name="StompDetect" type="Area2D" parent="."]
 
@@ -83,6 +92,7 @@ volume_db = 5.0
 [node name="SFXStomped" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_1fa5s")
 
+[connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
 [connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
 [connection signal="body_shape_entered" from="JumpArea" to="." method="_on_jump_area_body_shape_entered"]
 [connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

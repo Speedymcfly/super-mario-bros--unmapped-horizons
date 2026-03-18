@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 
 
 func _on_jump_area_body_entered(body: Node2D) -> void:
-	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)):
+	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)):
 		spinning = true
 		sfx_bump.play()
 		animation_player.play("bump_up")
@@ -33,7 +33,7 @@ func _on_jump_area_body_entered(body: Node2D) -> void:
 		animated_sprite_2d.play("spinning")
 
 func _on_side_hit_area_body_entered(body: Node2D) -> void:
-	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
+	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.Spin:
 		spinning = true
 		animation_player.play("bump_up")
 		timer.start()

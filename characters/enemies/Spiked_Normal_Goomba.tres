@@ -1,10 +1,20 @@
-[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://cyg57586y3qno"]
+[gd_resource type="SpriteFrames" load_steps=21 format=3 uid="uid://cyg57586y3qno"]
 
+[ext_resource type="Texture2D" uid="uid://b4bc027i8n1t3" path="res://assets/sprites/characters/enemies/Spiked Goombas Biting Left.png" id="1_1x1vk"]
 [ext_resource type="Texture2D" uid="uid://c3yuosoumu3ua" path="res://assets/sprites/characters/enemies/Spiked Goombas Hit Left.png" id="1_5xrsk"]
 [ext_resource type="Texture2D" uid="uid://b5n36ak6cji6d" path="res://assets/sprites/characters/enemies/Goombas Squished.png" id="1_op2wp"]
 [ext_resource type="Texture2D" uid="uid://b3n4tib8be3f1" path="res://assets/sprites/characters/enemies/Spiked Goombas Hit Right.png" id="2_aymu7"]
+[ext_resource type="Texture2D" uid="uid://4s8om2kxoik4" path="res://assets/sprites/characters/enemies/Spiked Goombas Biting Right.png" id="2_knl88"]
 [ext_resource type="Texture2D" uid="uid://bllphvlu546jq" path="res://assets/sprites/characters/enemies/Spiked Goombas Walking Left.png" id="3_l2f4r"]
 [ext_resource type="Texture2D" uid="uid://bmj1i7d18nhe2" path="res://assets/sprites/characters/enemies/Spiked Goombas Walking Right.png" id="4_5xrsk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qmwm"]
+atlas = ExtResource("1_1x1vk")
+region = Rect2(0, 0, 32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dsfw"]
+atlas = ExtResource("2_knl88")
+region = Rect2(0, 0, 32, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_knl88"]
 atlas = ExtResource("1_5xrsk")
@@ -52,6 +62,22 @@ region = Rect2(96, 0, 32, 24)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qmwm")
+}],
+"loop": true,
+"name": &"biteleft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dsfw")
+}],
+"loop": true,
+"name": &"biteright",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_knl88")
