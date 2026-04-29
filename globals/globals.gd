@@ -25,8 +25,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	coin_amount = clamp(lives, 0, 999)
-	lumina_coin_amount = clamp(lives, 0, 999)
+	coin_amount = clamp(coin_amount, 0, 999)
+	lumina_coin_amount = clamp(lumina_coin_amount, 0, 999)
 	lives = clamp(lives, 0, 99)
 	mario_lives = clamp(mario_lives, 0, 99)
 	luigi_lives = clamp(luigi_lives, 0, 99)

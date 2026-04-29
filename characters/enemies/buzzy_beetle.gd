@@ -108,7 +108,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += 10
 
 	# Holding component stuff
-	if shell_state != Shellstate.InShell:
+	if shell_state != Shellstate.InShell or hurt:
 		hold_comp.can_kick = false
 		hold_comp.can_hold = false
 	elif shell_state == Shellstate.InShell:
@@ -225,6 +225,8 @@ func _on_kicked(dir: int) -> void:
 
 
 func _on_hurt_player_body_entered(body: Node2D) -> void:
+	if hurt:
+		return
 	var plr = get_tree().get_first_node_in_group("player")
 	if plr.global_position.y < global_position.y -2.5: 
 		return
@@ -238,6 +240,8 @@ func _on_hurt_player_body_entered(body: Node2D) -> void:
 		bite_timer.start()
 
 func _on_hurt_player_2_body_entered(body: Node2D) -> void:
+	if hurt:
+		return
 	var plr = get_tree().get_first_node_in_group("player")
 	if plr.global_position.y < global_position.y -2.5: 
 		return

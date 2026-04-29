@@ -10,6 +10,7 @@ size = Vector2(14, 15)
 size = Vector2(15, 16)
 
 [node name="1UpMushRetro" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("2_dhjic")
 
 [node name="1UpMushRetroCollision" type="CollisionShape2D" parent="."]

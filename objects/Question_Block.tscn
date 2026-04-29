@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ce8cadng0n3pq"]
+[gd_scene load_steps=16 format=3 uid="uid://ce8cadng0n3pq"]
 
 [ext_resource type="Script" uid="uid://cy6l4q4fqerie" path="res://objects/question_block.gd" id="1_g0s8j"]
 [ext_resource type="SpriteFrames" uid="uid://ckbh58derghyn" path="res://objects/Question_Block_Castle_Modern.tres" id="2_6k1mj"]
@@ -18,6 +18,9 @@ size = Vector2(16, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rixgj"]
 size = Vector2(17.0714, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fty4v"]
+size = Vector2(16, 1)
 
 [sub_resource type="Animation" id="Animation_bvavw"]
 length = 0.001
@@ -147,6 +150,12 @@ position = Vector2(8, 8)
 scale = Vector2(1.05, 0.98)
 shape = SubResource("RectangleShape2D_rixgj")
 
+[node name="PoundArea" type="Area2D" parent="."]
+
+[node name="PoundCollision" type="CollisionShape2D" parent="PoundArea"]
+position = Vector2(8, -1)
+shape = SubResource("RectangleShape2D_fty4v")
+
 [node name="SFXBump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_g0s8j")
 
@@ -166,3 +175,4 @@ libraries = {
 
 [connection signal="body_entered" from="JumpArea" to="." method="_on_jump_area_body_entered"]
 [connection signal="body_entered" from="SideHitArea" to="." method="_on_side_hit_area_body_entered"]
+[connection signal="body_entered" from="PoundArea" to="." method="_on_pound_area_body_entered"]

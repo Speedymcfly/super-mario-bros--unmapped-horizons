@@ -15,7 +15,6 @@ extends CharacterBody2D
 @onready var sfx_stomped: AudioStreamPlayer2D = $SFXStomped
 
 
-var disguised = true
 var hurt = false
 
 @export_enum(
@@ -31,6 +30,11 @@ var hurt = false
 	"QBlock",
 	"RBlock",
 ) var variant = "QBlock"
+
+@export_enum(
+	"Closed",
+	"Opened",
+) var boxstate = "Closed"
 
 enum Springstate{
 	disguised,
@@ -50,7 +54,8 @@ func _ready() -> void:
 
 	disguise.play("default")
 
-	if disguised == true:
+
+	if boxstate == "Closed":
 		disguise.show()
 		true_form.hide()
 		hit_detect.set_deferred("disabled", true)
@@ -79,8 +84,8 @@ func _physics_process(delta: float) -> void:
 
 
 
-	if disguised == true:
-		spring_state == Springstate.disguised
+	if boxstate == "Closed":
+		spring_state = Springstate.disguised
 		hit_shape.disabled = true
 	else:
 		hit_shape.disabled = false
@@ -89,10 +94,10 @@ func _physics_process(delta: float) -> void:
 	if spring_state == Springstate.sprung:
 		true_form.play("sprung")
 
-	if not is_on_floor() and disguised == false:
+	if not is_on_floor() and boxstate == "Opened":
 		velocity.y += 10
 
-	if is_on_floor() and disguised == false and spring_timer <= 20:
+	if is_on_floor() and boxstate == "Opened" and spring_timer <= 20:
 		spring_state = Springstate.coiled
 		spring_timer += 1
 		velocity.x = 0
@@ -101,16 +106,17 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 40 * direction
 		spring_timer =0
 		sfx_bounce.play()
-	if not is_on_floor() and disguised == false:
+	if not is_on_floor() and boxstate == "Opened":
 		spring_state = Springstate.sprung
 
 
 func _on_jump_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)) and disguised == true:
-		disguised = false
+	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)) and boxstate == "Closed":
+		boxstate = "Opened"
+		_ready()
 		sfx_bumped.play()
 		velocity.y = -125
-		if disguised == true:
+		if boxstate == "Closed":
 			$Disguise.show()
 			$TrueForm.hide()
 			box_out_collision.set_deferred("disabled", true)
@@ -123,14 +129,15 @@ func _on_jump_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_in
 
 
 func _on_stomp_detect_body_entered(body: Node2D) -> void:
-	if body is player and body.velocity.y > 0 and disguised == false:
+	if hurt:
+		return
+	if body is player and boxstate == "Opened" and body.velocity.y > 0 and body.global_position.y < global_position.y:
 		hit()
 		sfx_stomped.play()
 		if Input.is_action_pressed("jump"):
 			body.velocity.y = -400
 		else:
 			body.velocity.y = -200
-		var hurt = true
 
 
 
@@ -143,7 +150,6 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 			body.velocity.y = -400
 		else:
 			body.velocity.y = -200
-		var hurt = true
 
 	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
 		hit()
@@ -152,7 +158,7 @@ func _on_hit_detect_body_entered(body: Node2D) -> void:
 		body.hold_comp.holder.current_held_obj = null
 
 func hit():
-	true_form.flip_v = true
+	hurt = true
 	box_out_collision.set_deferred("disabled", true)
 	box_collision.set_deferred("disabled", true)
 	jump_area.set_deferred("disabled", true)

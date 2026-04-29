@@ -15,6 +15,11 @@ var empty = false
 var coin_amount = 11
 
 @export_enum(
+	"Normal",
+	"Dev"
+) var debug = "Normal"
+
+@export_enum(
 	"Overworld",
 	"Underground",
 	"Lava",
@@ -73,7 +78,7 @@ func _on_side_hit_area_body_entered(body: Node2D) -> void:
 		animated_sprite_2d.play("empty")
 	else:
 		animated_sprite_2d.play("default")
-	if coin_amount <= 1:
+	if coin_amount <= 1 and debug == "Normal":
 		empty = true
 
 
@@ -113,7 +118,7 @@ func block_item(plr: player):
 		if contents == "powerup":
 			if plr.powerup_state == plr.Powerupstate.Small:
 				var final_mush = mushroom_scene_file if version == "Modern" else mush_retro_scene_file
-				var item_scene = mushroom_scene_file.instantiate()
+				var item_scene = final_mush.instantiate()
 				item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
 				get_tree().current_scene.call_deferred("add_child", item_scene)
 			else:
@@ -125,7 +130,8 @@ func block_item(plr: player):
 			item_scene.global_position = Vector2(global_position.x, global_position.y - 16)
 			get_tree().current_scene.call_deferred("add_child", item_scene)
 		sfx_power_up.play()
-		empty = true
+		if debug == "Normal":
+			empty = true
 
 
 
@@ -140,3 +146,7 @@ func above_hit():
 				body.velocity.y -= 50
 		if body is player or body.is_in_group("powerup"):
 			body.velocity.y -= 50
+
+
+func _on_pound_area_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

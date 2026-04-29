@@ -2,7 +2,6 @@ class_name nokob
 
 extends CharacterBody2D
 
-@onready var koopa_troopa_b: nokob = $"."
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var hurt_shape: CollisionShape2D = $HurtPlayer/HurtShape
@@ -61,8 +60,11 @@ var shell_state:Shellstate=Shellstate.Walk
 var shell_timer = 0
 
 
+var plr: Node2D
 
-func _ready() -> void:
+func _ready():
+	plr = get_tree().get_first_node_in_group("player")
+
 	var new_sprite_frames = load("res://characters/enemies/Noko_" + str(colour) + "_B_" + str(inoutshell) + "_" + str(variant) + ".tres")
 	animated_sprite_2d.sprite_frames = new_sprite_frames
 
@@ -78,12 +80,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 
-	var plr = get_tree().get_first_node_in_group("player")
-	var sign_value = sign(plr.global_position.x - global_position.x)
+	var sign_value = 0
+	if plr:
+		sign_value = sign(plr.global_position.x - global_position.x)
 
 	if hurt == true:
 		animated_sprite_2d.rotation += .1
-		velocity.y += 8
+		velocity.y += 8 * delta
 		move_and_slide()
 	else:
 		move_and_slide()
@@ -96,22 +99,22 @@ func _physics_process(delta: float) -> void:
 		hurt_shape_2.disabled = true
 
 	if shell_state == Shellstate.Spin:
-		koopa_troopa_b.set_collision_mask_value(4, true)
-		koopa_troopa_b.set_collision_mask_value(3, false)
+		set_collision_mask_value(4, true)
+		set_collision_mask_value(3, false)
 	else:
-		koopa_troopa_b.set_collision_mask_value(4, false)
-		koopa_troopa_b.set_collision_mask_value(3, true)
+		set_collision_mask_value(4, false)
+		set_collision_mask_value(3, true)
 
 # movement
-	if is_on_wall() and shell_state == Shellstate.Walk and colour != "Yellow":
+	if is_on_wall() and shell_state == Shellstate.Walk and colour != "Yellow" and not hurt:
 		animated_sprite_2d.play("turn")
 		direction *= -1
 		if colour == "Blue":
 			velocity.x = 50 * direction
 		elif (colour == "Green" or colour == "Red"):
 			velocity.x = 35 * direction
-	if shell_state == Shellstate.Walk and (colour == "Red" or colour == "Blue"):
-		if not ledge_check.is_colliding():
+	if shell_state == Shellstate.Walk:
+		if not ledge_check.is_colliding() and (colour == "Red" or colour == "Blue") and not hurt:
 			direction *= -1
 			animated_sprite_2d.animation = "turn"
 		if colour == "Blue":
@@ -132,14 +135,14 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 150 * direction
 
 	if velocity.x > 0:
-		if shell_state == Shellstate.Walk and hurt == false:
+		if shell_state == Shellstate.Walk and not hurt:
 			animated_sprite_2d.play("walking")
 		animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x) * -1
 		hurt_shape.position.x = 4
 		hurt_shape_2.position.x = -4
 		ledge_check.position.x = 8.0 * direction
 	if velocity.x < 0:
-		if shell_state == Shellstate.Walk and hurt == false:
+		if shell_state == Shellstate.Walk and not hurt:
 			animated_sprite_2d.play("walking")
 		animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x)
 		hurt_shape.position.x = -4
@@ -151,7 +154,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += 10
 
 	# Holding component stuff
-	if shell_state != Shellstate.InShell:
+	if shell_state != Shellstate.InShell or hurt:
 		hold_comp.can_kick = false
 		hold_comp.can_hold = false
 	elif shell_state == Shellstate.InShell:
@@ -166,11 +169,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		shell_timer += 1
 	if shell_timer >= 500 or shell_timer == 0:
-		if colour == "Blue":
+		if colour == "Blue" and shell_state != Shellstate.SlideOut:
 			velocity.x = 50 * direction
-		elif (colour == "Green" or colour == "Red"):
+		elif (colour == "Green" or colour == "Red") and shell_state != Shellstate.SlideOut:
 			velocity.x = 35 * direction
-		elif colour == "Yellow":
+		elif colour == "Yellow" and shell_state != Shellstate.SlideOut:
 			velocity.x = 50 * sign_value
 		if hold_comp.holder:
 			hold_comp.is_held = false
@@ -185,21 +188,26 @@ func _physics_process(delta: float) -> void:
 	if delay > 0:
 		delay -= 1
 
+	if slide_timer.time_left != 0 and slide_timer.time_left !=2:
+		shell_state = Shellstate.SlideOut
 
+	if shell_state == Shellstate.SlideOut:
+		animated_sprite_2d.animation = "slide"
+		if is_on_floor():
+			if velocity.x < 0:
+				velocity.x += 1
+			elif velocity.x > 0:
+				velocity.x -= 1
 
+func update_shell_visual():
+	var new_sprite_frames = load("res://characters/enemies/Noko_" + str(colour) + "_B_" + str(inoutshell) + "_" + str(variant) + ".tres")
+	animated_sprite_2d.sprite_frames = new_sprite_frames
 
 func _on_stomp_detect_body_entered(body: Node2D) -> void:
-	if body is player and body.velocity.y > 0 and shell_state == Shellstate.Walk:
+	if body is player and body.velocity.y > 0 and (shell_state == Shellstate.Walk or shell_state == Shellstate.SlideOut):
 		if inoutshell == "In":
-			velocity.x = 120 * direction
 			sfx_knock.play()
-			inoutshell = "Out"
-			_ready()
-			direction = 0
-			shell_state = Shellstate.SlideOut
-			animated_sprite_2d.animation = "slide"
-			slide_timer.start()
-			spawn_shell()
+			slide_out()
 		else:
 			stomp()
 		if Input.is_action_pressed("jump"):
@@ -218,9 +226,21 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 		else:
 			body.velocity.y = -200
 
+func slide_out():
+	inoutshell = "Out"
+	velocity.x = 220 * direction
+	update_shell_visual()
+	shell_state = Shellstate.SlideOut
+	slide_timer.start()
+	spawn_shell()
+
 func _on_hit_detect_body_entered(body: Node2D) -> void:
 	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.Spin:
 		hit()
+		if body.hold_comp.is_held == true and hold_comp.is_held == false and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
+			body.hit()
+			body.hold_comp.is_held = false
+			body.hold_comp.holder.current_held_obj = null
 		if shell_state == Shellstate.Spin:
 			body.hit()
 	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
@@ -251,7 +271,10 @@ func stomp():
 	hurt_shape_2.set_deferred("disabled", true)
 	velocity.y = -70
 	sfx_stomped.play()
-	animated_sprite_2d.animation = "bite"
+	if shell_state == Shellstate.SlideOut:
+		animated_sprite_2d.animation = "slide"
+	else:
+		animated_sprite_2d.animation = "bite"
 	hurt = true
 
 
@@ -262,7 +285,8 @@ func _on_kicked(dir: int) -> void:
 	sfx_knock.play()
 
 func _on_hurt_player_body_entered(body: Node2D) -> void:
-	var plr = get_tree().get_first_node_in_group("player")
+	if hurt:
+		return
 	var sign_value = sign(plr.global_position.x - global_position.x)
 	if plr.global_position.y < global_position.y -2.5: 
 		return
@@ -274,7 +298,8 @@ func _on_hurt_player_body_entered(body: Node2D) -> void:
 		bite_timer.start()
 
 func _on_hurt_player_2_body_entered(body: Node2D) -> void:
-	var plr = get_tree().get_first_node_in_group("player")
+	if hurt:
+		return
 	var sign_value = sign(plr.global_position.x - global_position.x)
 	if plr.global_position.y < global_position.y -2.5: 
 		return
@@ -287,13 +312,11 @@ func _on_hurt_player_2_body_entered(body: Node2D) -> void:
 		bite_timer.start()
 
 func _on_bite_timer_timeout() -> void:
-	var plr = get_tree().get_first_node_in_group("player")
 	var sign_value = sign(plr.global_position.x - global_position.x)
 	direction = 1 * sign_value
 	bite_timer.stop()
 
 func _on_slide_timer_timeout() -> void:
-	var plr = get_tree().get_first_node_in_group("player")
 	var sign_value = sign(plr.global_position.x - global_position.x)
 	direction = 1 * sign_value
 	shell_state = Shellstate.Walk
@@ -302,6 +325,6 @@ func _on_slide_timer_timeout() -> void:
 
 func spawn_shell():
 	for i in range(4):
-		var s = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+		var s = preload("res://objects/brick.tscn").instantiate()
 		get_parent().add_child(s)
-		s.global_position = global_position
+		s.global_position = global_position + Vector2(0, 10)

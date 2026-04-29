@@ -3,7 +3,6 @@ extends AnimatableBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sfx_bumped: AudioStreamPlayer2D = $SFXBumped
-@onready var on_top_check: Area2D = $OnTopCheck
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var top_check: Area2D = $TopCheck
 

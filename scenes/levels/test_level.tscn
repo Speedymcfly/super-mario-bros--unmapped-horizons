@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://y53lh6tbbp4e"]
+[gd_scene load_steps=27 format=4 uid="uid://y53lh6tbbp4e"]
 
 [ext_resource type="Texture2D" uid="uid://c0s285omocvug" path="res://assets/sprites/backgrounds/Sky1.png" id="1_hfwtw"]
 [ext_resource type="Texture2D" uid="uid://daxjnmwipuhsh" path="res://assets/sprites/tilesets/Mario Grass tiles 1 (custom style).png" id="1_jbqir"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dy2l1kycdpbaw" path="res://assets/sprites/backgrounds/SpottedHills.png" id="10_2mu0v"]
 [ext_resource type="Texture2D" uid="uid://bjl64c3i5avut" path="res://assets/sprites/backgrounds/SunPH.png" id="10_eaa0b"]
 [ext_resource type="Texture2D" uid="uid://w0130lfq8msm" path="res://assets/sprites/backgrounds/HillsPH.png" id="10_jmx14"]
+[ext_resource type="PackedScene" uid="uid://b5fc3p8cyjlsl" path="res://objects/collectables/power-ups/1_up_mush_retro.tscn" id="12_cibht"]
 [ext_resource type="PackedScene" uid="uid://d2tc0rnt5d4yv" path="res://characters/enemies/buzzy_beetle.tscn" id="13_qgrpf"]
 [ext_resource type="Texture2D" uid="uid://b3utemu4177y1" path="res://assets/sprites/backgrounds/Grass1.png" id="14_fqldq"]
 [ext_resource type="PackedScene" uid="uid://c364f8kr7lxw7" path="res://objects/collectables/power-ups/1_up_mush.tscn" id="14_lxl1u"]
@@ -282,6 +283,27 @@ item = ExtResource("3_upsmr")
 variant = "Castle"
 contents = "coins"
 
+[node name="QuestionBlock4" parent="Main Ground Layer" instance=ExtResource("2_3ay3b")]
+position = Vector2(1808, -80)
+item = ExtResource("4_v45ci")
+debug = "Dev"
+variant = "Underground"
+contents = "powerup"
+
+[node name="QuestionBlock5" parent="Main Ground Layer" instance=ExtResource("2_3ay3b")]
+position = Vector2(1824, -80)
+item = ExtResource("12_cibht")
+debug = "Dev"
+version = "Retro"
+contents = "powerup"
+
+[node name="QuestionBlock6" parent="Main Ground Layer" instance=ExtResource("2_3ay3b")]
+position = Vector2(1792, -80)
+item = ExtResource("8_hppjq")
+debug = "Dev"
+variant = "Underground"
+contents = "powerup"
+
 [node name="Brick" parent="Main Ground Layer" instance=ExtResource("3_3ay3b")]
 position = Vector2(712, 120)
 
@@ -479,6 +501,12 @@ position = Vector2(2120, 120)
 box = "Rotating"
 variant = "RBlock"
 
+[node name="JackInTheBox4" parent="Main Ground Layer" instance=ExtResource("9_hppjq")]
+position = Vector2(2276, 153)
+box = "Rotating"
+variant = "RBlock"
+boxstate = "Opened"
+
 [node name="Test Player" parent="Main Ground Layer" instance=ExtResource("8_7x1jh")]
 position = Vector2(136, 139)
 
@@ -486,5 +514,7 @@ position = Vector2(136, 139)
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+drag_left_margin = 0.0
+drag_right_margin = 0.0
 
 [node name="PlayerUI" parent="Main Ground Layer/Test Player" instance=ExtResource("22_lxl1u")]

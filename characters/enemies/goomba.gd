@@ -102,7 +102,9 @@ func _on_squish_detect_body_entered(body: Node2D) -> void:
 			bone_helmet = false
 			sfx_helm_break.play()
 			bone_helm_break()
-			if Input.is_action_pressed("jump"):
+			if body.movement_state == body.Movementstate.Groundpound:
+				squish()
+			elif Input.is_action_pressed("jump"):
 				body.velocity.y = -400
 			else:
 				body.velocity.y = -200

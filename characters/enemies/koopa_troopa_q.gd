@@ -2,7 +2,6 @@ class_name nokoq
 
 extends CharacterBody2D
 
-@onready var koopa_troopa_q: nokoq = $"."
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var hurt_shape: CollisionShape2D = $HurtPlayer/HurtShape
@@ -64,7 +63,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 	var plr = get_tree().get_first_node_in_group("player")
-	var sign_value = sign(plr.global_position.x - global_position.x)
+	var sign_value = 0
+	if plr:
+		sign_value = sign(plr.global_position.x - global_position.x)
 
 
 	#if colour == "Yellow" and shell_state == Shellstate.Walk:
@@ -74,7 +75,7 @@ func _physics_process(delta: float) -> void:
 
 	if hurt == true:
 		animated_sprite_2d.rotation += .1
-		velocity.y += 8
+		velocity.y += 8 * delta
 		move_and_slide()
 	else:
 		move_and_slide()
@@ -87,22 +88,22 @@ func _physics_process(delta: float) -> void:
 		hurt_shape_2.disabled = true
 
 	if shell_state == Shellstate.Spin:
-		koopa_troopa_q.set_collision_mask_value(4, true)
-		koopa_troopa_q.set_collision_mask_value(3, false)
+		set_collision_mask_value(4, true)
+		set_collision_mask_value(3, false)
 	else:
-		koopa_troopa_q.set_collision_mask_value(4, false)
-		koopa_troopa_q.set_collision_mask_value(3, true)
+		set_collision_mask_value(4, false)
+		set_collision_mask_value(3, true)
 
 # movement
-	if is_on_wall() and shell_state == Shellstate.Walk and colour != "Yellow":
+	if is_on_wall() and shell_state == Shellstate.Walk and colour != "Yellow" and not hurt:
 		animated_sprite_2d.play("turn")
 		direction *= -1
 		if colour == "Blue":
 			velocity.x = 50 * direction
 		elif (colour == "Green" or colour == "Red"):
 			velocity.x = 35 * direction
-	if shell_state == Shellstate.Walk and (colour == "Red" or colour == "Blue"):
-		if not ledge_check.is_colliding():
+	if shell_state == Shellstate.Walk:
+		if not ledge_check.is_colliding() and (colour == "Red" or colour == "Blue") and not hurt:
 			direction *= -1
 			animated_sprite_2d.animation = "turn"
 		if colour == "Blue":
@@ -123,14 +124,14 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 150 * direction
 
 	if velocity.x > 0:
-		if shell_state == Shellstate.Walk and hurt == false:
+		if shell_state == Shellstate.Walk and not hurt:
 			animated_sprite_2d.play("walking")
 		animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x) * -1
 		hurt_shape.position.x = 7
 		hurt_shape_2.position.x = -4
 		ledge_check.position.x = 8.0 * direction
 	if velocity.x < 0:
-		if shell_state == Shellstate.Walk and hurt == false:
+		if shell_state == Shellstate.Walk and not hurt:
 			animated_sprite_2d.play("walking")
 		animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x)
 		hurt_shape.position.x = -7
@@ -142,7 +143,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += 10
 
 	# Holding component stuff
-	if shell_state != Shellstate.InShell:
+	if shell_state != Shellstate.InShell or hurt:
 		hold_comp.can_kick = false
 		hold_comp.can_hold = false
 	elif shell_state == Shellstate.InShell:
@@ -201,6 +202,10 @@ func _on_stomp_detect_body_entered(body: Node2D) -> void:
 func _on_hit_detect_body_entered(body: Node2D) -> void:
 	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.Spin:
 		hit()
+		if body.hold_comp.is_held == true and hold_comp.is_held == false and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
+			body.hit()
+			body.hold_comp.is_held = false
+			body.hold_comp.holder.current_held_obj = null
 		if shell_state == Shellstate.Spin:
 			body.hit()
 	if (body is nokoq or body is nokob or body is metto) and body.shell_state == body.Shellstate.InShell and body.hold_comp.is_held == true and hold_comp.is_held == false and (body.hold_comp.holder.velocity.x != 0 or body.hold_comp.holder.velocity.y != 0):
@@ -231,6 +236,8 @@ func _on_kicked(dir: int) -> void:
 	sfx_knock.play()
 
 func _on_hurt_player_body_entered(body: Node2D) -> void:
+	if hurt:
+		return
 	var plr = get_tree().get_first_node_in_group("player")
 	var sign_value = sign(plr.global_position.x - global_position.x)
 	if plr.global_position.y < global_position.y -2.5: 
@@ -243,6 +250,8 @@ func _on_hurt_player_body_entered(body: Node2D) -> void:
 		bite_timer.start()
 
 func _on_hurt_player_2_body_entered(body: Node2D) -> void:
+	if hurt:
+		return
 	var plr = get_tree().get_first_node_in_group("player")
 	var sign_value = sign(plr.global_position.x - global_position.x)
 	if plr.global_position.y < global_position.y -2.5: 
