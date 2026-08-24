@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cukfam6hbo88w" path="res://objects/collectables/gold_coin.gd" id="1_7plqh"]
 [ext_resource type="SpriteFrames" uid="uid://dbl24hlioj0qd" path="res://objects/collectables/gold_coin_hidden_lumina.tres" id="2_7plqh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bojs4"]
-size = Vector2(14, 14)
+[sub_resource type="CircleShape2D" id="CircleShape2D_7plqh"]
+radius = 7.0
 
 [node name="GoldCoin" type="Area2D"]
 collision_mask = 5
@@ -15,7 +15,7 @@ sprite_frames = ExtResource("2_7plqh")
 autoplay = "hidden"
 
 [node name="Collect2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_bojs4")
+shape = SubResource("CircleShape2D_7plqh")
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0

@@ -1,12 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://csvjuyrovs3cv"]
+[gd_scene load_steps=23 format=3 uid="uid://csvjuyrovs3cv"]
 
 [ext_resource type="Script" uid="uid://ds5rs3gwgfpen" path="res://characters/enemies/koopa_troopa_b.gd" id="1_t34yv"]
 [ext_resource type="SpriteFrames" uid="uid://dqk0uo8ytfnqe" path="res://characters/enemies/Noko_Green_B_Out_Common.tres" id="2_5qrwd"]
+[ext_resource type="AudioStream" uid="uid://2n6uv6hd3ri2" path="res://assets/audio/SFX/Footsteps.wav" id="3_6bq1s"]
+[ext_resource type="AudioStream" uid="uid://4yjmh4m70b1q" path="res://assets/audio/SFX/WallSlide.wav" id="4_0p2sl"]
 [ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="4_citwl"]
 [ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="5_0p2sl"]
 [ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="6_1ncqk"]
 [ext_resource type="AudioStream" uid="uid://v40l11w80lyq" path="res://assets/audio/SFX/ObjectKick.wav" id="7_mpfqa"]
 [ext_resource type="Script" uid="uid://cwsdxfvkruluw" path="res://objects/Holdable.gd" id="8_mmu66"]
+[ext_resource type="Texture2D" uid="uid://bctadcq6qiaxo" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x1.5.png" id="8_t34yv"]
+[ext_resource type="Texture2D" uid="uid://ci2wbg07vx3um" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1.5x1.png" id="9_6bq1s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lgb3"]
 size = Vector2(14, 13)
@@ -40,6 +44,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 6)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FrozenSpriteBig:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 6)]
+}
 
 [sub_resource type="Animation" id="Animation_g2xj6"]
 resource_name = "shake"
@@ -56,12 +72,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 6), Vector2(-1, 6), Vector2(1, 6), Vector2(-1, 6)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FrozenSpriteBig:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 6), Vector2(-1, 6), Vector2(1, 6), Vector2(-1, 6)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s3bxb"]
 _data = {
 &"RESET": SubResource("Animation_k0ews"),
 &"shake": SubResource("Animation_g2xj6")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0p2sl"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ncqk"]
+size = Vector2(24, 16)
 
 [node name="KoopaTroopaB" type="CharacterBody2D"]
 collision_layer = 4
@@ -71,7 +105,7 @@ script = ExtResource("1_t34yv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6)
 sprite_frames = ExtResource("2_5qrwd")
-animation = &"walking"
+animation = &"turn"
 autoplay = "walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -106,23 +140,32 @@ shape = SubResource("RectangleShape2D_6bq1s")
 debug_color = Color(0.749809, 0.201059, 1, 0.42)
 
 [node name="HitDetect" type="Area2D" parent="."]
-collision_mask = 5
+collision_mask = 29
 
 [node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
 position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_citwl")
+
+[node name="SFXWalk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6bq1s")
+volume_db = -15.0
+
+[node name="SFXSlide" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_0p2sl")
 
 [node name="SFXStomped" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_citwl")
 
 [node name="SFXBumped" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_0p2sl")
+volume_db = -2.5
 
 [node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_1ncqk")
 
 [node name="SFXKnock" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_mpfqa")
+volume_db = 7.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -144,6 +187,32 @@ script = ExtResource("8_mmu66")
 holdbox = NodePath("../BumpDetect")
 can_kick = true
 
+[node name="IceCollisionBig" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_0p2sl")
+debug_color = Color(0.229354, 0.508829, 1, 0.42)
+
+[node name="IceCollisionLong" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-4, 10)
+shape = SubResource("RectangleShape2D_1ncqk")
+debug_color = Color(0, 0.544543, 0.943173, 0.42)
+
+[node name="FrozenSpriteBig" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 6)
+texture = ExtResource("8_t34yv")
+
+[node name="FrozenSpriteLong" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-4, 10)
+texture = ExtResource("9_6bq1s")
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
 [connection signal="body_entered" from="HurtPlayer2" to="." method="_on_hurt_player_2_body_entered"]
 [connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
@@ -151,3 +220,4 @@ can_kick = true
 [connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
 [connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]
 [connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]

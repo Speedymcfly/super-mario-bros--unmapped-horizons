@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://mgam61ger3uw"]
+
+[ext_resource type="Script" uid="uid://dgbm3iv4iw2ni" path="res://objects/fireball_plr.gd" id="1_ck3k2"]
+[ext_resource type="Texture2D" uid="uid://b3vvhboqg3tib" path="res://assets/sprites/objects/FireballGreen.png" id="1_yj55a"]
+[ext_resource type="Texture2D" uid="uid://cdo8opxbu8d4b" path="res://assets/sprites/particles/FireParticleGreen.png" id="2_k446p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_skc16"]
+radius = 4.0
+
+[sub_resource type="Gradient" id="Gradient_kjybq"]
+offsets = PackedFloat32Array(0.00909091, 0.209091)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k446p"]
+gradient = SubResource("Gradient_kjybq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gcs4w"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -25, 0)
+color_ramp = SubResource("GradientTexture1D_k446p")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dq61"]
+atlas = ExtResource("1_yj55a")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsw18"]
+atlas = ExtResource("1_yj55a")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyobv"]
+atlas = ExtResource("1_yj55a")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w40wa"]
+atlas = ExtResource("1_yj55a")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_08yk7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dq61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsw18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyobv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w40wa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.5
+}]
+
+[sub_resource type="Environment" id="Environment_k446p"]
+background_mode = 3
+glow_enabled = true
+
+[node name="FireballGreenPlr" type="CharacterBody2D"]
+collision_layer = 16
+script = ExtResource("1_ck3k2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_skc16")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-2, 0)
+amount = 150
+texture = ExtResource("2_k446p")
+process_material = SubResource("ParticleProcessMaterial_gcs4w")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(2, 0)
+amount = 150
+texture = ExtResource("2_k446p")
+process_material = SubResource("ParticleProcessMaterial_gcs4w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_08yk7")
+autoplay = "default"
+frame_progress = 0.892633
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k446p")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://gacv733fdb8c"]
+
+[ext_resource type="Script" uid="uid://cfbsafh2ge6ox" path="res://characters/enemies/bullet_bill.gd" id="1_fsyil"]
+[ext_resource type="SpriteFrames" uid="uid://cq4tjv2ckplmq" path="res://characters/enemies/Nimbus_Bill.tres" id="2_70gik"]
+[ext_resource type="Texture2D" uid="uid://cqqq3od2aotai" path="res://assets/sprites/particles/Bullet Bill Flame.png" id="3_70gik"]
+[ext_resource type="AudioStream" uid="uid://jder2snsysis" path="res://assets/audio/SFX/FlameThrower.wav" id="3_v8c87"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fsyil"]
+size = Vector2(16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70gik"]
+atlas = ExtResource("3_70gik")
+region = Rect2(0, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yn5m"]
+atlas = ExtResource("3_70gik")
+region = Rect2(8, 0, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jprxo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70gik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yn5m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktyak"]
+size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70gik"]
+size = Vector2(16, 3.5)
+
+[node name="BulletBill" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_fsyil")
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -2.38419e-07)
+scale = Vector2(5, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fsyil")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_70gik")
+autoplay = "default"
+
+[node name="BillFlame" type="AnimatedSprite2D" parent="."]
+position = Vector2(12, 0)
+sprite_frames = SubResource("SpriteFrames_jprxo")
+autoplay = "default"
+frame_progress = 0.551727
+
+[node name="CloudSpawnTimer" type="Timer" parent="."]
+wait_time = 0.025
+one_shot = true
+
+[node name="CloudWaitTimer" type="Timer" parent="."]
+wait_time = 0.025
+one_shot = true
+
+[node name="HurtPlayer" type="Area2D" parent="."]
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtPlayer"]
+shape = SubResource("RectangleShape2D_ktyak")
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 29
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, -7.75)
+shape = SubResource("RectangleShape2D_70gik")
+debug_color = Color(0.77795, 0.312893, 0.777032, 0.42)
+
+[node name="SFXJet" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_v8c87")
+volume_db = -5.0
+
+[connection signal="timeout" from="CloudSpawnTimer" to="." method="_on_cloud_spawn_timer_timeout"]
+[connection signal="timeout" from="CloudWaitTimer" to="." method="_on_cloud_wait_timer_timeout"]
+[connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

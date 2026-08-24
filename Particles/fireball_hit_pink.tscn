@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://yg6dw5lddgok"]
+
+[ext_resource type="Texture2D" uid="uid://ymej17ud1wyt" path="res://assets/sprites/particles/FireballHitPink.png" id="1_pahon"]
+[ext_resource type="Script" uid="uid://dayylqhovfxwl" path="res://Particles/fireiceball_hit.gd" id="2_ouv2n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2fdr"]
+atlas = ExtResource("1_pahon")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slgy5"]
+atlas = ExtResource("1_pahon")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdmas"]
+atlas = ExtResource("1_pahon")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkiun"]
+atlas = ExtResource("1_pahon")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0qdgw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2fdr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slgy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdmas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkiun")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="Environment" id="Environment_pahon"]
+background_mode = 3
+glow_enabled = true
+
+[node name="FireballHitPink" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_0qdgw")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("2_ouv2n")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_pahon")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://bhjfh3gs2asq7"]
+
+[ext_resource type="Texture2D" uid="uid://b25ad0d53kqre" path="res://assets/sprites/characters/enemies/Dull Bone Piranha Plant Short.png" id="1_nj66h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyho5"]
+atlas = ExtResource("1_nj66h")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2omks"]
+atlas = ExtResource("1_nj66h")
+region = Rect2(0, 8, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnsi0"]
+atlas = ExtResource("1_nj66h")
+region = Rect2(0, 16, 16, 8)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyho5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2omks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnsi0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

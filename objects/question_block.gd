@@ -24,7 +24,7 @@ var coin_amount = 11
 	"Underground",
 	"Lava",
 	"Forest",
-	"Castle"
+	"Castle",
 ) var variant = "Overworld"
 
 @export_enum(
@@ -32,6 +32,10 @@ var coin_amount = 11
 	"Retro"
 ) var version = "Modern"
 
+@export_enum(
+	"Visible",
+	"Hidden"
+) var visibility = "Visible"
 
 @export_enum(
 	"coin",
@@ -49,17 +53,29 @@ func _ready() -> void:
 
 	animated_sprite_2d.play("default")
 
+	if visibility == "Hidden":
+		$AnimatedSprite2D.hide()
+
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 
 func _on_jump_area_body_entered(body: Node2D) -> void:
-	if ((body is player or body is jack) and body.velocity.y > 0) or ((body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)):
+	if ((body is player or body is biroron) and body.velocity.y > 0) or ((body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin)) and visibility == "Visible":
 		sfx_bump.play()
 		$AnimationPlayer.play("bump_up")
 		above_hit()
 		block_item(get_tree().get_first_node_in_group("player"))
+	elif body is player and body.velocity.y > 0 and visibility == "Hidden":
+		sfx_bump.play()
+		$AnimationPlayer.play("bump_up")
+		above_hit()
+		block_item(get_tree().get_first_node_in_group("player"))
+		visibility = "Visible"
+		$AnimatedSprite2D.show()
 	if empty == true:
 		animated_sprite_2d.play("empty")
 	else:
@@ -149,4 +165,6 @@ func above_hit():
 
 
 func _on_pound_area_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+	if body is player and body.movement_state == body.Movementstate.Groundpound:
+		sfx_bump.play()
+		$AnimationPlayer.play("bump_down")

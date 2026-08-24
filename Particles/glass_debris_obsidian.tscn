@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://chti8jti0lwgi"]
+
+[ext_resource type="Texture2D" uid="uid://vivrhib52lwi" path="res://assets/sprites/particles/Brick Debris Obsidian.png" id="1_8ovhl"]
+[ext_resource type="Script" uid="uid://ue16iikjswgf" path="res://Particles/brick_debris.gd" id="1_bw71k"]
+
+[node name="GlassDebrisObsidian" type="CharacterBody2D"]
+script = ExtResource("1_bw71k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8ovhl")

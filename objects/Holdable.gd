@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 			holder = null
 		return
 
-	if Input.is_action_pressed("run"):
+	if Input.is_action_pressed("run") and owner.frozen == false:
 		owner.global_position = obj_pos()
 	else:
 		if not (Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_up")):

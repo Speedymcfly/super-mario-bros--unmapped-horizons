@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://b83fygvuwxq0e"]
+
+[ext_resource type="Texture2D" uid="uid://c0pylgbdfdkb7" path="res://assets/sprites/characters/enemies/Piranha Plant Heads Red.png" id="1_b4ots"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f5cr"]
+atlas = ExtResource("1_b4ots")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsxpx"]
+atlas = ExtResource("1_b4ots")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aej4i"]
+atlas = ExtResource("1_b4ots")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4ots"]
+atlas = ExtResource("1_b4ots")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f5cr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsxpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aej4i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4ots")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}]

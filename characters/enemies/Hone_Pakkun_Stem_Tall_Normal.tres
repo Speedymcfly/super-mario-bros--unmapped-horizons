@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://dqwwc4qok5q0x"]
+
+[ext_resource type="Texture2D" uid="uid://d1j51diol8qsw" path="res://assets/sprites/characters/enemies/Bone Piranha Plant Tall.png" id="1_bi4c3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16jdx"]
+atlas = ExtResource("1_bi4c3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnpaa"]
+atlas = ExtResource("1_bi4c3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asn7i"]
+atlas = ExtResource("1_bi4c3")
+region = Rect2(32, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16jdx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnpaa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_asn7i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

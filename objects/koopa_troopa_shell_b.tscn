@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://bo4htcuug1mp7"]
+
+[ext_resource type="Script" uid="uid://cw2my3dfbl68" path="res://objects/koopa_troopa_shell_b.gd" id="1_oe546"]
+[ext_resource type="SpriteFrames" uid="uid://b4ib5nspfu46w" path="res://objects/Noko_Shell_Green_B.tres" id="2_6adu8"]
+[ext_resource type="Script" uid="uid://cwsdxfvkruluw" path="res://objects/Holdable.gd" id="3_6adu8"]
+[ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="3_046d0"]
+[ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="4_3d63o"]
+[ext_resource type="AudioStream" uid="uid://v40l11w80lyq" path="res://assets/audio/SFX/ObjectKick.wav" id="5_1uvwp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rpnyx"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oe546"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6adu8"]
+size = Vector2(14, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07dii"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5d62"]
+size = Vector2(15, 14)
+
+[node name="KoopaTroopaShellB" type="CharacterBody2D"]
+collision_layer = 12
+collision_mask = 12
+script = ExtResource("1_oe546")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = ExtResource("2_6adu8")
+animation = &"Spin"
+frame_progress = 0.581871
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_rpnyx")
+
+[node name="HurtPlayer" type="Area2D" parent="."]
+position = Vector2(0, 4)
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtPlayer"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_oe546")
+
+[node name="StompDetect" type="Area2D" parent="."]
+
+[node name="StompShape" type="CollisionShape2D" parent="StompDetect"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_6adu8")
+
+[node name="BumpDetect" type="Area2D" parent="."]
+
+[node name="BumpShape" type="CollisionShape2D" parent="BumpDetect"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_07dii")
+debug_color = Color(0.749809, 0.201059, 1, 0.42)
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 13
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_g5d62")
+
+[node name="SFXBumped" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_046d0")
+volume_db = -2.5
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3d63o")
+
+[node name="SFXKnock" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_1uvwp")
+volume_db = 7.5
+
+[node name="Holdable" type="Node" parent="." node_paths=PackedStringArray("holdbox")]
+script = ExtResource("3_6adu8")
+holdbox = NodePath("../BumpDetect")
+can_kick = true
+
+[connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
+[connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
+[connection signal="body_entered" from="BumpDetect" to="." method="_on_bump_detect_body_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

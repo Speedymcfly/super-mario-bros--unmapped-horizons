@@ -1,23 +1,21 @@
-[gd_scene load_steps=27 format=3 uid="uid://dowxbdk3qs37s"]
+[gd_scene load_steps=21 format=3 uid="uid://dowxbdk3qs37s"]
 
 [ext_resource type="Script" uid="uid://ds1v7omeaelwj" path="res://characters/players/test_player.gd" id="1_6qyji"]
-[ext_resource type="SpriteFrames" uid="uid://b3b5tl70el44e" path="res://characters/players/FireMarioModern.tres" id="2_2f0of"]
-[ext_resource type="SpriteFrames" uid="uid://dstw3jwyrnybp" path="res://characters/players/SmallMarioModern.tres" id="2_his3r"]
+[ext_resource type="SpriteFrames" uid="uid://baw8heb5veplu" path="res://characters/players/SmallLuigiModern.tres" id="2_jrptj"]
+[ext_resource type="SpriteFrames" uid="uid://dstw3jwyrnybp" path="res://characters/players/SmallMarioModern.tres" id="2_usck6"]
+[ext_resource type="SpriteFrames" uid="uid://ddljpj56rfrod" path="res://characters/players/BigMarioModern.tres" id="4_ir1xm"]
 [ext_resource type="AudioStream" uid="uid://d32tr5875bur" path="res://assets/audio/SFX/PlayerDamage.wav" id="4_o0kt0"]
 [ext_resource type="AudioStream" uid="uid://c1bh2qokhac56" path="res://assets/audio/SFX/PowerDown.wav" id="5_mbsat"]
-[ext_resource type="AudioStream" uid="uid://cowltsq0kedqi" path="res://assets/audio/SFX/Mario/MarioJump1.wav" id="7_c640x"]
+[ext_resource type="SpriteFrames" uid="uid://bg00yvwiw86kw" path="res://characters/players/IceLuigiModern.tres" id="5_yhumx"]
+[ext_resource type="AudioStream" uid="uid://2n6uv6hd3ri2" path="res://assets/audio/SFX/Footsteps.wav" id="6_3w3j0"]
 [ext_resource type="AudioStream" uid="uid://1uegujxlc8gq" path="res://assets/audio/SFX/PlayerDeathFinal.wav" id="7_no8l0"]
-[ext_resource type="AudioStream" uid="uid://bljtvsdnm0nra" path="res://assets/audio/SFX/Mario/MarioJump2.wav" id="8_mi3x4"]
+[ext_resource type="AudioStream" uid="uid://b45aonpcj3rjc" path="res://assets/audio/SFX/FootstepsRun.wav" id="7_usck6"]
+[ext_resource type="AudioStream" uid="uid://4yjmh4m70b1q" path="res://assets/audio/SFX/WallSlide.wav" id="7_yhumx"]
 [ext_resource type="AudioStream" uid="uid://bhk2ywgixg3c2" path="res://assets/audio/SFX/Mario/MarioThanks.wav" id="9_etgod"]
 [ext_resource type="AudioStream" uid="uid://dhnpypf7r7qmb" path="res://assets/audio/SFX/Jump.wav" id="9_ih3yd"]
 [ext_resource type="AudioStream" uid="uid://wnhbc8peqwqg" path="res://assets/audio/SFX/Luigi/LuigiThanks.wav" id="10_acoji"]
-[ext_resource type="AudioStream" uid="uid://dxvu1yqj7w8tm" path="res://assets/audio/SFX/Mario/MarioLongJump1.wav" id="11_77tw5"]
-[ext_resource type="AudioStream" uid="uid://bffouxp7gvsu0" path="res://assets/audio/SFX/Mario/MarioLongJump2.wav" id="12_o0kt0"]
 [ext_resource type="AudioStream" uid="uid://88x3fvf0ncht" path="res://assets/audio/SFX/WallJump.wav" id="14_2f0of"]
 [ext_resource type="AudioStream" uid="uid://rmga76pn7ldb" path="res://assets/audio/SFX/PlayerDeath.wav" id="14_mbsat"]
-[ext_resource type="AudioStream" uid="uid://c7gr6nnv61wfa" path="res://assets/audio/SFX/Mario/MarioThirdJump.wav" id="15_mbsat"]
-[ext_resource type="AudioStream" uid="uid://djcfvv32mddyv" path="res://assets/audio/SFX/Mario/MarioDamage1.wav" id="16_3yrra"]
-[ext_resource type="AudioStream" uid="uid://dhxn68f6wggv2" path="res://assets/audio/SFX/Mario/MarioDamage2.wav" id="17_his3r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qyji"]
 size = Vector2(14, 14)
@@ -25,32 +23,11 @@ size = Vector2(14, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c640x"]
 size = Vector2(14, 30)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_acoji"]
-size = Vector2(14, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_77tw5"]
-size = Vector2(14, 14)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0kt0"]
 size = Vector2(30, 14)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_etgod"]
-playback_mode = 1
-streams_count = 2
-stream_0/stream = ExtResource("7_c640x")
-stream_1/stream = ExtResource("8_mi3x4")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2f0of"]
-playback_mode = 1
-streams_count = 2
-stream_0/stream = ExtResource("11_77tw5")
-stream_1/stream = ExtResource("12_o0kt0")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_w5t2b"]
-playback_mode = 1
-streams_count = 2
-stream_0/stream = ExtResource("16_3yrra")
-stream_1/stream = ExtResource("17_his3r")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yr38h"]
+size = Vector2(14, 2)
 
 [node name="Test Player" type="CharacterBody2D" groups=["player"]]
 position = Vector2(0, -1)
@@ -58,13 +35,24 @@ script = ExtResource("1_6qyji")
 
 [node name="SmallSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 8)
-sprite_frames = ExtResource("2_his3r")
+sprite_frames = ExtResource("2_usck6")
+animation = &"diving"
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-visible = false
-sprite_frames = ExtResource("2_2f0of")
-animation = &"idle"
+[node name="SmallSprite2" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 4)
+sprite_frames = ExtResource("2_jrptj")
+animation = &"jumping"
+
+[node name="BigSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("4_ir1xm")
+animation = &"diving"
 autoplay = "idle"
+
+[node name="BigSprite2" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+sprite_frames = ExtResource("5_yhumx")
+animation = &"running"
 
 [node name="CollisionSmall" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
@@ -74,20 +62,23 @@ shape = SubResource("RectangleShape2D_6qyji")
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_c640x")
 
-[node name="CrouchSmall" type="CollisionShape2D" parent="."]
-position = Vector2(0, 11)
-shape = SubResource("RectangleShape2D_acoji")
-
-[node name="CrouchBig" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
-shape = SubResource("RectangleShape2D_77tw5")
-
 [node name="DiveBig" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_o0kt0")
 
+[node name="SFXWalk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_3w3j0")
+volume_db = -15.0
+
+[node name="SFXRun" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_usck6")
+volume_db = -15.0
+
 [node name="SFXJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_ih3yd")
+
+[node name="SFXWallSlide" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_yhumx")
 
 [node name="SFXDamage" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_o0kt0")
@@ -101,14 +92,6 @@ stream = ExtResource("14_mbsat")
 [node name="SFXDieFinal" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_no8l0")
 
-[node name="MarioJump" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_etgod")
-autoplay = true
-
-[node name="MarioLongJump" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_2f0of")
-volume_db = -8.0
-
 [node name="WallJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_2f0of")
 
@@ -120,19 +103,35 @@ volume_db = -5.0
 stream = ExtResource("10_acoji")
 volume_db = -5.0
 
-[node name="MarioThirdJump" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("15_mbsat")
-
-[node name="MarioHurt" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_w5t2b")
-
 [node name="WallJumpTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.25
+one_shot = true
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 10.0
 one_shot = true
 
 [node name="DamageTimer" type="Timer" parent="."]
 
 [node name="GroundPoundTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TossTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CarryDetect" type="Area2D" parent="."]
+
+[node name="CarryCollision" type="CollisionShape2D" parent="CarryDetect"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_yr38h")
+debug_color = Color(0.642326, 0.490306, 0.506737, 0.42)
 
 [connection signal="timeout" from="WallJumpTimer" to="." method="_on_wall_jump_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="GroundPoundTimer" to="." method="_on_ground_pound_timer_timeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
+[connection signal="timeout" from="TossTimer" to="." method="_on_toss_timer_timeout"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://u4b0x654mum8"]
 
 [ext_resource type="Script" uid="uid://bi2u2jaeiwlei" path="res://objects/brick.gd" id="1_xa1l3"]
-[ext_resource type="SpriteFrames" uid="uid://dxfw1goxsfs3s" path="res://objects/Brick_overworld_4.tres" id="2_7nfhm"]
+[ext_resource type="SpriteFrames" uid="uid://dtofk78bqkqr3" path="res://objects/Brick_underground_1.tres" id="2_7nfhm"]
 [ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="3_xa1l3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1jw1"]
@@ -108,7 +108,7 @@ _data = {
 &"bump_up": SubResource("Animation_u8iw1")
 }
 
-[node name="Brick" type="AnimatableBody2D"]
+[node name="Brick" type="AnimatableBody2D" groups=["terrain"]]
 collision_layer = 15
 script = ExtResource("1_xa1l3")
 
@@ -146,6 +146,7 @@ shape = SubResource("RectangleShape2D_xa1l3")
 
 [node name="SFXBumped" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_xa1l3")
+volume_db = -2.5
 
 [node name="PoundArea" type="Area2D" parent="."]
 

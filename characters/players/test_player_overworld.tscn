@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctw5j73ip8cpw"]
+
+[ext_resource type="Script" uid="uid://bsfny2aqhmyj5" path="res://characters/players/test_player_overworld.gd" id="1_fhu8r"]
+[ext_resource type="Texture2D" uid="uid://bkmjtmewp3t6v" path="res://assets/sprites/objects/collectables/Super Mushroom.png" id="1_kef6p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhu8r"]
+size = Vector2(12, 16)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_fhu8r")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_fhu8r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("1_kef6p")

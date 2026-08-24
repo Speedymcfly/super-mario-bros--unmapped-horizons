@@ -35,11 +35,11 @@ func _ready() -> void:
 	animated_sprite_2d.play("default")
 
 func _on_jump_area_body_entered(body: Node2D) -> void:
-	if body is player and body.velocity.y > 0:
+	if body is player and body.velocity.y > 0 and body.movement_state != body.Movementstate.Dive:
 		if body.powerup_state != body.Powerupstate.Small:
 			breakable = true
 		bump_up()
-	if body is jack and body.velocity.y > 0:
+	if body is biroron and body.velocity.y > 0:
 		bump_up()
 
 	if (body is nokoq or body is nokob or body is metto) and body.velocity.y > 0 and (body.shell_state == body.Shellstate.InShell or body.shell_state == body.Shellstate.Spin):
@@ -75,32 +75,53 @@ func bump_down():
 
 
 func break_brick():
-	AudioManager.play_sfx(load("res://assets/audio/SFX/Brickbreak.wav"))
+	AudioManager.play_sfx(load("res://assets/audio/SFX/Brickbreak.wav"), -7)
 	visible = false
 	$CollisionShape2D.disabled = true
 	spawn_debris()
 	queue_free()
 
 func spawn_debris():
-	for i in range(4):
-		var d1 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
-		var d2 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
-		var d3 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
-		var d4 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
-		get_parent().add_child(d1)
-		get_parent().add_child(d2)
-		get_parent().add_child(d3)
-		get_parent().add_child(d4)
-		d1.global_position = global_position
-		d2.global_position = global_position
-		d3.global_position = global_position
-		d4.global_position = global_position
-		d1.velocity.x += 60
-		d1.velocity.y += 60
-		d2.velocity.x += 60
-		d3.velocity.x += -60
-		d3.velocity.y += 60
-		d4.velocity.x += -60
+	if location == "Overworld":
+		for i in range(4):
+			var d1 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+			var d2 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+			var d3 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+			var d4 = preload("res://Particles/brick_debris_overworld.tscn").instantiate()
+			get_parent().add_child(d1)
+			get_parent().add_child(d2)
+			get_parent().add_child(d3)
+			get_parent().add_child(d4)
+			d1.global_position = global_position
+			d2.global_position = global_position
+			d3.global_position = global_position
+			d4.global_position = global_position
+			d1.velocity.x += 60
+			d1.velocity.y += 60
+			d2.velocity.x += 60
+			d3.velocity.x += -60
+			d3.velocity.y += 60
+			d4.velocity.x += -60
+	if location == "Underground":
+		for i in range(4):
+			var d1 = preload("res://Particles/brick_debris_underground.tscn").instantiate()
+			var d2 = preload("res://Particles/brick_debris_underground.tscn").instantiate()
+			var d3 = preload("res://Particles/brick_debris_underground.tscn").instantiate()
+			var d4 = preload("res://Particles/brick_debris_underground.tscn").instantiate()
+			get_parent().add_child(d1)
+			get_parent().add_child(d2)
+			get_parent().add_child(d3)
+			get_parent().add_child(d4)
+			d1.global_position = global_position
+			d2.global_position = global_position
+			d3.global_position = global_position
+			d4.global_position = global_position
+			d1.velocity.x += 60
+			d1.velocity.y += 60
+			d2.velocity.x += 60
+			d3.velocity.x += -60
+			d3.velocity.y += 60
+			d4.velocity.x += -60
 
 
 
@@ -115,4 +136,5 @@ func _on_pound_area_body_entered(body: Node2D) -> void:
 	if body is player and body.movement_state == body.Movementstate.Groundpound:
 		if body.powerup_state != body.Powerupstate.Small:
 			breakable = true
+		body.ground_pound_timer.timeout
 		bump_down()

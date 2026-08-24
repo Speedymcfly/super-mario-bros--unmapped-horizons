@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://7pcey43hk8rk"]
+[gd_scene load_steps=21 format=3 uid="uid://7pcey43hk8rk"]
 
 [ext_resource type="Script" uid="uid://bfh7b4h1e8qls" path="res://characters/enemies/goomba.gd" id="1_rtdx5"]
 [ext_resource type="SpriteFrames" uid="uid://cyg57586y3qno" path="res://characters/enemies/Spiked_Normal_Goomba.tres" id="2_ws0s0"]
 [ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="3_egrxx"]
+[ext_resource type="AudioStream" uid="uid://dcb2r3jmd63es" path="res://assets/audio/SFX/Enemies/Enemy_Walk_1.wav" id="3_ou42s"]
 [ext_resource type="AudioStream" uid="uid://d4mgl0ow0l31a" path="res://assets/audio/SFX/BrickBreak.wav" id="4_1gjhd"]
 [ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="5_ws0s0"]
+[ext_resource type="Texture2D" uid="uid://bctadcq6qiaxo" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x1.5.png" id="6_bm2c7"]
+[ext_resource type="Texture2D" uid="uid://b8tulkkfhme0m" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x1.png" id="7_ou42s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcckm"]
 size = Vector2(14, 13)
@@ -24,6 +27,100 @@ size = Vector2(4, 5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ws0s0"]
 size = Vector2(17, 16)
 
+[sub_resource type="Animation" id="Animation_ou42s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FrozenSpriteBig:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FrozenSpriteSmall:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_bm2c7"]
+resource_name = "freeze_shake"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 2), Vector2(-1, 2), Vector2(1, 2), Vector2(-1, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FrozenSpriteBig:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 2), Vector2(-1, 2), Vector2(1, 2), Vector2(-1, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FrozenSpriteSmall:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 6), Vector2(-1, 6), Vector2(1, 6), Vector2(-1, 6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w8oyn"]
+_data = {
+&"RESET": SubResource("Animation_ou42s"),
+&"freeze_shake": SubResource("Animation_bm2c7")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8oyn"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_121et"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bm2c7"]
+size = Vector2(16, 2)
+
 [node name="Goomba" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 4
@@ -32,7 +129,7 @@ script = ExtResource("1_rtdx5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 2)
 sprite_frames = ExtResource("2_ws0s0")
-animation = &"biteleft"
+animation = &"turn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7.5)
@@ -56,11 +153,16 @@ shape = SubResource("RectangleShape2D_atekw")
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_egrxx")
 
+[node name="SFXWalk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ou42s")
+volume_db = -15.0
+
 [node name="SFXSquish" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_egrxx")
 
 [node name="SFXHelmBreak" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_1gjhd")
+volume_db = -7.0
 
 [node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ws0s0")
@@ -72,14 +174,54 @@ position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_1gjhd")
 
 [node name="HitDetect" type="Area2D" parent="."]
-collision_mask = 13
+collision_mask = 29
 
 [node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_ws0s0")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_w8oyn")
+}
+
 [node name="BiteTimer" type="Timer" parent="."]
 wait_time = 0.25
+
+[node name="IceCollisionBig" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_w8oyn")
+debug_color = Color(0.229354, 0.508829, 1, 0.42)
+
+[node name="IceCollisionSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_121et")
+debug_color = Color(0, 0.544543, 0.943173, 0.42)
+
+[node name="FrozenSpriteBig" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+texture = ExtResource("6_bm2c7")
+
+[node name="FrozenSpriteSmall" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 6)
+texture = ExtResource("7_ou42s")
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="FreezePoundArea" type="Area2D" parent="."]
+
+[node name="FreezePoundCollision" type="CollisionShape2D" parent="FreezePoundArea"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_bm2c7")
+debug_color = Color(0.205409, 0.470557, 0.611872, 0.42)
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(5, 5)
 
 [connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
 [connection signal="body_entered" from="HurtPlayer2" to="." method="_on_hurt_player_2_body_entered"]
@@ -87,3 +229,5 @@ wait_time = 0.25
 [connection signal="body_entered" from="Spike" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
 [connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]
+[connection signal="body_entered" from="FreezePoundArea" to="." method="_on_freeze_pound_area_body_entered"]

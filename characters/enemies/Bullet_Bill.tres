@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://dnh50h0a24ty"]
+
+[ext_resource type="Texture2D" uid="uid://6d2am5cmt8gw" path="res://assets/sprites/characters/enemies/Bills Side-facing.png" id="1_x36b1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x36b1"]
+atlas = ExtResource("1_x36b1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6o77"]
+atlas = ExtResource("1_x36b1")
+region = Rect2(0, 16, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x36b1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6o77")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

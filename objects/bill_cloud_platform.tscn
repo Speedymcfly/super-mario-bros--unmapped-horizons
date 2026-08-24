@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjje4bygj4vm3"]
+
+[ext_resource type="Script" uid="uid://bs55pdngqsjku" path="res://objects/bill_cloud_platform.gd" id="1_nj8gl"]
+[ext_resource type="Texture2D" uid="uid://5u8em24qssdd" path="res://assets/sprites/objects/BillCloud.png" id="1_pcxhj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nj8gl"]
+size = Vector2(8, 8)
+
+[node name="BillCloudPlatform" type="StaticBody2D"]
+collision_layer = 15
+script = ExtResource("1_nj8gl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pcxhj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nj8gl")
+one_way_collision = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,171 @@
+[gd_scene load_steps=19 format=3 uid="uid://cvlkafq552jj7"]
+
+[ext_resource type="Script" uid="uid://ctsve8q7sjass" path="res://characters/enemies/fire_piranha_plant.gd" id="1_p7osc"]
+[ext_resource type="SpriteFrames" uid="uid://ce03n3tbb1o84" path="res://characters/enemies/Pakkun_Stem_Shoot_Tall_Green.tres" id="2_5yfdc"]
+[ext_resource type="Texture2D" uid="uid://bq3q4yh510pta" path="res://assets/sprites/characters/enemies/Fire Piranha Plant Head.png" id="2_p7osc"]
+[ext_resource type="AudioStream" uid="uid://123artlbsw2n" path="res://assets/audio/SFX/Enemies/PakkunChomp.wav" id="3_awhdt"]
+[ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="4_2ryd8"]
+[ext_resource type="Texture2D" uid="uid://bctadcq6qiaxo" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x1.5.png" id="5_exylv"]
+[ext_resource type="Texture2D" uid="uid://cmdsa7rvrs5wp" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x2.png" id="6_n04kr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r01xx"]
+size = Vector2(14, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aiyns"]
+size = Vector2(16, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pj8n"]
+atlas = ExtResource("2_p7osc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7osc"]
+atlas = ExtResource("2_p7osc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va8su"]
+atlas = ExtResource("2_p7osc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74o7w"]
+atlas = ExtResource("2_p7osc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e4g5"]
+atlas = ExtResource("2_p7osc")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7ne4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pj8n")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7osc")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va8su")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74o7w")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_7e4g5")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_865k7"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lr3rx"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_casxu"]
+size = Vector2(16, 32)
+
+[node name="FirePiranhaPlant" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_p7osc")
+
+[node name="MainCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r01xx")
+debug_color = Color(0.674801, 0.506694, 0, 0.42)
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 29
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_aiyns")
+
+[node name="Stem" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = ExtResource("2_5yfdc")
+animation = &"default_right"
+
+[node name="RotationJoint" type="Node2D" parent="."]
+
+[node name="Head" type="AnimatedSprite2D" parent="RotationJoint"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_h7ne4")
+animation = &"shoot"
+autoplay = "closed"
+
+[node name="BiteArea" type="Area2D" parent="RotationJoint"]
+position = Vector2(0, -5)
+collision_mask = 13
+
+[node name="BiteShape" type="CollisionShape2D" parent="RotationJoint/BiteArea"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_865k7")
+debug_color = Color(0, 0.645028, 0.268832, 0.42)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
+[node name="BiteTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="IntermissionTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="InOutTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="SFXChomp" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("3_awhdt")
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("4_2ryd8")
+
+[node name="IceCollisionSmall" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_lr3rx")
+debug_color = Color(0, 0.544543, 0.943173, 0.42)
+
+[node name="IceCollisionBig" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_casxu")
+debug_color = Color(0.229354, 0.508829, 1, 0.42)
+
+[node name="FrozenSpriteSmall" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+texture = ExtResource("5_exylv")
+
+[node name="FrozenSpriteBig" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("6_n04kr")
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+scale = Vector2(5, 5)
+
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]
+[connection signal="timeout" from="InOutTimer" to="." method="_on_in_out_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]

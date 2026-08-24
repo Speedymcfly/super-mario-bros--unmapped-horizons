@@ -1,6 +1,7 @@
 extends Area2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collect_2d: CollisionShape2D = $Collect2D
 @onready var timer: Timer = $Timer
 
 @export_enum(
@@ -20,30 +21,38 @@ func _ready() -> void:
 
 
 func _on_collect_body_entered(body: Node2D) -> void:
-	if (body is player or body is brick or body is qblock or ((body is nokoq or metto) and body.shell_state == body.Shellstate.Spin)):
-		if variant == "common":
-			Globals.coin_amount += 1
-			get_tree().get_first_node_in_group("player_ui").update_hud()
-			AudioManager.play_sfx(load("res://assets/audio/SFX/CoinCollect.wav"))
-			queue_free()
-		if variant == "lumina":
-			Globals.lumina_coin_amount += 1
-			get_tree().get_first_node_in_group("player_ui").update_hud()
-			AudioManager.play_sfx(load("res://assets/audio/SFX/LuminaCoinCollect.wav"))
-			queue_free()
+	if body is player or body is brick or body is qblock:
+		collect()
+	if (body is nokoq or body is metto) and body.shell_state == body.Shellstate.Spin:
+		collect()
+	if body.is_in_group("frozen_carriable"):
+		collect()
+
+
 	if body is player:
 		if variant == "hidden_common":
-			if hide_coin == true:
+			if hide_coin:
 				hide_coin = false
 				timer.start()
+				collect_2d.set_deferred("disabled", true)
 				$AnimatedSprite2D.hide()
 		if variant == "hidden_lumina":
-			if hide_coin == true:
+			if hide_coin:
 				hide_coin = false
 				timer.start()
+				collect_2d.set_deferred("disabled", true)
 				$AnimatedSprite2D.hide()
-
-
+func collect():
+	if variant == "common":
+		Globals.coin_amount += 1
+		get_tree().get_first_node_in_group("player_ui").update_hud()
+		AudioManager.play_sfx(load("res://assets/audio/SFX/CoinCollect.wav"), -5)
+		queue_free()
+	if variant == "lumina":
+		Globals.lumina_coin_amount += 1
+		get_tree().get_first_node_in_group("player_ui").update_hud()
+		AudioManager.play_sfx(load("res://assets/audio/SFX/LuminaCoinCollect.wav"), -15)
+		queue_free()
 func _on_timer_timeout() -> void:
 	timer.stop()
 	animated_sprite_2d.animation = "default"
@@ -53,4 +62,5 @@ func _on_timer_timeout() -> void:
 	if variant == "hidden_lumina":
 		_ready()
 		variant = "lumina"
+	collect_2d.set_deferred("disabled", false)
 	$AnimatedSprite2D.show()

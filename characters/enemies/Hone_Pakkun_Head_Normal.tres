@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://belketalhl42l"]
+
+[ext_resource type="Texture2D" uid="uid://dydfk4ivk267d" path="res://assets/sprites/characters/enemies/Bone Piranha Plant Head.png" id="1_3wog0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdk22"]
+atlas = ExtResource("1_3wog0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3urdv"]
+atlas = ExtResource("1_3wog0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udb1s"]
+atlas = ExtResource("1_3wog0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trt3p"]
+atlas = ExtResource("1_3wog0")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdk22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3urdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udb1s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trt3p")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}]

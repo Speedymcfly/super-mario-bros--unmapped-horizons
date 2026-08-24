@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://b62hbm1kmg46c"]
+
+[ext_resource type="Texture2D" uid="uid://d0rvlouca36oc" path="res://assets/sprites/characters/enemies/Piranha Plant Stem Short Green.png" id="1_5ufu7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akxfl"]
+atlas = ExtResource("1_5ufu7")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05ke4"]
+atlas = ExtResource("1_5ufu7")
+region = Rect2(0, 8, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y2w3"]
+atlas = ExtResource("1_5ufu7")
+region = Rect2(0, 16, 16, 8)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akxfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05ke4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y2w3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

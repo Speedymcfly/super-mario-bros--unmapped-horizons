@@ -111,7 +111,7 @@ _data = {
 &"bump_up": SubResource("Animation_8xny0")
 }
 
-[node name="QuestionBlock" type="AnimatableBody2D"]
+[node name="QuestionBlock" type="AnimatableBody2D" groups=["terrain"]]
 position = Vector2(-8, -8)
 collision_layer = 15
 script = ExtResource("1_g0s8j")
@@ -158,9 +158,11 @@ shape = SubResource("RectangleShape2D_fty4v")
 
 [node name="SFXBump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_g0s8j")
+volume_db = -2.5
 
 [node name="SFXCoin" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_fvkvl")
+volume_db = -5.0
 
 [node name="SFXLuminaCoin" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_60q68")

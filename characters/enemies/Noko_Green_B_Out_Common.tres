@@ -1,7 +1,7 @@
 [gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://dqk0uo8ytfnqe"]
 
 [ext_resource type="Texture2D" uid="uid://dvfg7cextj7a7" path="res://assets/sprites/characters/enemies/Koopa Troopas B Sliding Shellless.png" id="2_kmhb4"]
-[ext_resource type="Texture2D" uid="uid://b1kebp8okdd10" path="res://assets/sprites/characters/enemies/Koopa Troopas Q Forward-facing.png" id="3_o0vje"]
+[ext_resource type="Texture2D" uid="uid://6f4eeu3idmj3" path="res://assets/sprites/characters/enemies/Koopa Troopas B Shellless Forward-facing.png" id="3_kmhb4"]
 [ext_resource type="Texture2D" uid="uid://bowtu7xp2ksw" path="res://assets/sprites/characters/enemies/Koopa Troopas B Shellless.png" id="4_7lk5r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7w66e"]
@@ -12,9 +12,9 @@ region = Rect2(128, 0, 32, 24)
 atlas = ExtResource("2_kmhb4")
 region = Rect2(0, 0, 32, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_32ojp"]
-atlas = ExtResource("3_o0vje")
-region = Rect2(0, 0, 32, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbp7v"]
+atlas = ExtResource("3_kmhb4")
+region = Rect2(0, 0, 32, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o0vje"]
 atlas = ExtResource("4_7lk5r")
@@ -51,10 +51,10 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_32ojp")
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_lbp7v")
 }],
-"loop": true,
+"loop": false,
 "name": &"turn",
 "speed": 5.0
 }, {

@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=3 uid="uid://dfv3yd5l234k2"]
+
+[ext_resource type="Script" uid="uid://svumnogcp6y3" path="res://objects/collectables/power-ups/fire_flower.gd" id="1_q26lm"]
+[ext_resource type="Texture2D" uid="uid://b5cgoldgxu56k" path="res://assets/sprites/objects/collectables/Fire Tulip.png" id="2_fib24"]
+[ext_resource type="Texture2D" uid="uid://b2xkjj2u554r6" path="res://assets/sprites/particles/FireParticleOrange.png" id="2_qnnbi"]
+
+[sub_resource type="Gradient" id="Gradient_667ke"]
+offsets = PackedFloat32Array(0.00909091, 0.209091)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2h403"]
+gradient = SubResource("Gradient_667ke")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y1scd"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -25, 0)
+color_ramp = SubResource("GradientTexture1D_2h403")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnnbi"]
+atlas = ExtResource("2_fib24")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_667ke"]
+atlas = ExtResource("2_fib24")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1scd"]
+atlas = ExtResource("2_fib24")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skpnn"]
+atlas = ExtResource("2_fib24")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_syj0b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnnbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_667ke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1scd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skpnn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3veio"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6456i"]
+size = Vector2(15, 15.75)
+
+[node name="FireTulip" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_q26lm")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(8, -1)
+amount = 20
+amount_ratio = 0.8
+texture = ExtResource("2_qnnbi")
+lifetime = 5.34
+process_material = SubResource("ParticleProcessMaterial_y1scd")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(10, 1)
+amount = 20
+amount_ratio = 0.8
+texture = ExtResource("2_qnnbi")
+lifetime = 5.34
+process_material = SubResource("ParticleProcessMaterial_y1scd")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+position = Vector2(6, 1)
+amount = 20
+amount_ratio = 0.8
+texture = ExtResource("2_qnnbi")
+lifetime = 5.34
+process_material = SubResource("ParticleProcessMaterial_y1scd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_syj0b")
+autoplay = "default"
+frame_progress = 0.293809
+
+[node name="FireFlowerCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(8, 8.5)
+shape = SubResource("RectangleShape2D_3veio")
+
+[node name="FireFlowerCollect" type="Area2D" parent="."]
+
+[node name="CollectCollision" type="CollisionShape2D" parent="FireFlowerCollect"]
+visible = false
+position = Vector2(8, 8.125)
+shape = SubResource("RectangleShape2D_6456i")
+
+[connection signal="body_entered" from="FireFlowerCollect" to="." method="_on_collect_body_entered"]

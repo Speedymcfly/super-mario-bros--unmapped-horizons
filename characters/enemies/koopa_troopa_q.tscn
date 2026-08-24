@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dwgn1np3wjubc"]
+[gd_scene load_steps=21 format=3 uid="uid://dwgn1np3wjubc"]
 
 [ext_resource type="Script" uid="uid://dn532m4jssskx" path="res://characters/enemies/koopa_troopa_q.gd" id="1_g2xj6"]
 [ext_resource type="SpriteFrames" uid="uid://cj538fd8jnsx" path="res://characters/enemies/Noko_Blue_Q.tres" id="2_l8yy8"]
@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://v40l11w80lyq" path="res://assets/audio/SFX/ObjectKick.wav" id="6_ct7xd"]
 [ext_resource type="AudioStream" uid="uid://bsvn5rhfiq54t" path="res://assets/audio/SFX/Bump.wav" id="6_k0ews"]
 [ext_resource type="Script" uid="uid://cwsdxfvkruluw" path="res://objects/Holdable.gd" id="7_l8yy8"]
+[ext_resource type="Texture2D" uid="uid://ci2wbg07vx3um" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1.5x1.png" id="8_mhrem"]
+[ext_resource type="Texture2D" uid="uid://b8tulkkfhme0m" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x1.png" id="9_4xop3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcckm"]
 size = Vector2(14, 13)
@@ -63,6 +65,12 @@ _data = {
 &"shake": SubResource("Animation_g2xj6")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aq6vc"]
+size = Vector2(24, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qehji"]
+size = Vector2(16, 16)
+
 [node name="KoopaTroopaQ" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 4
@@ -71,7 +79,7 @@ script = ExtResource("1_g2xj6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6)
 sprite_frames = ExtResource("2_l8yy8")
-animation = &"walking"
+animation = &"turn"
 autoplay = "walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -104,7 +112,7 @@ shape = SubResource("RectangleShape2D_1aiwi")
 debug_color = Color(0.749809, 0.201059, 1, 0.42)
 
 [node name="HitDetect" type="Area2D" parent="."]
-collision_mask = 5
+collision_mask = 29
 
 [node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
 position = Vector2(0, 7.5)
@@ -115,12 +123,14 @@ stream = ExtResource("5_g2xj6")
 
 [node name="SFXBumped" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_k0ews")
+volume_db = -2.5
 
 [node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_s4war")
 
 [node name="SFXKnock" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_ct7xd")
+volume_db = 7.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -140,6 +150,30 @@ holdbox = NodePath("../BumpDetect")
 can_kick = true
 metadata/_custom_type_script = "uid://cwsdxfvkruluw"
 
+[node name="IceCollisionLong" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 6)
+shape = SubResource("RectangleShape2D_aq6vc")
+debug_color = Color(0.229354, 0.508829, 1, 0.42)
+
+[node name="IceCollisionThin" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 6)
+shape = SubResource("RectangleShape2D_qehji")
+debug_color = Color(0, 0.544543, 0.943173, 0.42)
+
+[node name="FrozenSpriteLong" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-4, 6)
+texture = ExtResource("8_mhrem")
+
+[node name="FrozenSpriteThin" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-1, 6)
+texture = ExtResource("9_4xop3")
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
 [connection signal="body_entered" from="HurtPlayer2" to="." method="_on_hurt_player_2_body_entered"]
 [connection signal="body_entered" from="StompDetect" to="." method="_on_stomp_detect_body_entered"]
@@ -148,3 +182,4 @@ metadata/_custom_type_script = "uid://cwsdxfvkruluw"
 [connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
 [connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]
 [connection signal="on_kicked" from="Holdable" to="." method="_on_kicked"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]

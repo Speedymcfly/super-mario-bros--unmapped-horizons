@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1gsshagslj30"]
+
+[ext_resource type="Script" uid="uid://c74alg8ia6xe0" path="res://characters/enemies/freezie.gd" id="1_nud1i"]
+[ext_resource type="Texture2D" uid="uid://b2kuak3iwmxvj" path="res://assets/sprites/characters/enemies/Freezie.png" id="2_urqkq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6uid2"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xf55j"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ns5ru"]
+size = Vector2(16, 17)
+
+[node name="Freezie" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_nud1i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_urqkq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_6uid2")
+
+[node name="HurtArea" type="Area2D" parent="."]
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtArea"]
+shape = SubResource("RectangleShape2D_xf55j")
+debug_color = Color(0.824401, 0.398876, 1.92523e-07, 0.42)
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 29
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ns5ru")
+
+[connection signal="body_entered" from="HurtArea" to="." method="_on_hurt_area_body_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

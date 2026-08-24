@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://brtwdtuskjd6i"]
+
+[ext_resource type="Texture2D" uid="uid://pgxwqfhh7q8s" path="res://assets/sprites/characters/enemies/BobombWalkingLeft.png" id="1_nat1r"]
+[ext_resource type="Texture2D" uid="uid://b68wqv773co6e" path="res://assets/sprites/characters/enemies/BobombWalkingRight.png" id="2_xn3ob"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqvmb"]
+atlas = ExtResource("1_nat1r")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jah7r"]
+atlas = ExtResource("1_nat1r")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_se1ec"]
+atlas = ExtResource("1_nat1r")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1xks"]
+atlas = ExtResource("1_nat1r")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_br6kq"]
+atlas = ExtResource("2_xn3ob")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upydp"]
+atlas = ExtResource("2_xn3ob")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_au1ca"]
+atlas = ExtResource("2_xn3ob")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yi42"]
+atlas = ExtResource("2_xn3ob")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tnhnj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqvmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jah7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_se1ec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1xks")
+}],
+"loop": true,
+"name": &"walk left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br6kq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upydp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_au1ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yi42")
+}],
+"loop": true,
+"name": &"walk right",
+"speed": 8.0
+}]
+
+[node name="Bobomb" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tnhnj")
+animation = &"walk left"
+frame_progress = 0.289

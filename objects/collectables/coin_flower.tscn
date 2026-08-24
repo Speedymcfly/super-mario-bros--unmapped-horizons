@@ -1,0 +1,159 @@
+[gd_scene load_steps=22 format=3 uid="uid://v4xnwtrh5pm2"]
+
+[ext_resource type="Script" uid="uid://coimihk45p285" path="res://objects/collectables/coin_flower.gd" id="1_4ag47"]
+[ext_resource type="Texture2D" uid="uid://bwcvwm8t0nk2k" path="res://assets/sprites/objects/collectables/Coin Flower.png" id="1_cfrxx"]
+[ext_resource type="Texture2D" uid="uid://djfuogay7b2eu" path="res://assets/sprites/objects/collectables/Coin Gold.png" id="3_il4ry"]
+[ext_resource type="Texture2D" uid="uid://ba2gyngclraug" path="res://assets/sprites/objects/collectables/Lumina Coin Gold.png" id="4_utouy"]
+[ext_resource type="Texture2D" uid="uid://dp4cpwx2aml3g" path="res://assets/sprites/particles/Flower Coin Sparkle.png" id="5_il4ry"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcpad"]
+atlas = ExtResource("1_cfrxx")
+region = Rect2(0, 0, 16, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cefr"]
+atlas = ExtResource("1_cfrxx")
+region = Rect2(16, 0, 16, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ag47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dcpad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cefr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy0wp"]
+atlas = ExtResource("3_il4ry")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myfm1"]
+atlas = ExtResource("3_il4ry")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dixgp"]
+atlas = ExtResource("3_il4ry")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiybo"]
+atlas = ExtResource("3_il4ry")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahawm"]
+atlas = ExtResource("4_utouy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsfjt"]
+atlas = ExtResource("4_utouy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp501"]
+atlas = ExtResource("4_utouy")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0khv"]
+atlas = ExtResource("4_utouy")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xt0uw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy0wp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myfm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dixgp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiybo")
+}],
+"loop": true,
+"name": &"Common",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahawm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsfjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hp501")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0khv")
+}],
+"loop": true,
+"name": &"Lumina",
+"speed": 8.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_utouy"]
+offsets = PackedFloat32Array(0.00909091, 0.209091)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2h403"]
+gradient = SubResource("Gradient_utouy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dy0wp"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -25, 0)
+color_ramp = SubResource("GradientTexture1D_2h403")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r47q8"]
+radius = 7.0
+
+[node name="CoinFlower" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_4ag47")
+
+[node name="FlowerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-8, -23)
+sprite_frames = SubResource("SpriteFrames_4ag47")
+autoplay = "default"
+frame_progress = 0.866741
+centered = false
+
+[node name="CoinSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xt0uw")
+animation = &"Common"
+frame_progress = 0.0323015
+
+[node name="StarParticle1" type="GPUParticles2D" parent="."]
+position = Vector2(-1, -22)
+amount = 10
+texture = ExtResource("5_il4ry")
+lifetime = 8.0
+process_material = SubResource("ParticleProcessMaterial_dy0wp")
+
+[node name="StarParticle2" type="GPUParticles2D" parent="."]
+position = Vector2(-5, -17)
+amount = 10
+texture = ExtResource("5_il4ry")
+lifetime = 8.0
+process_material = SubResource("ParticleProcessMaterial_dy0wp")
+
+[node name="StarParticle3" type="GPUParticles2D" parent="."]
+position = Vector2(4, -16)
+amount = 10
+texture = ExtResource("5_il4ry")
+lifetime = 8.0
+process_material = SubResource("ParticleProcessMaterial_dy0wp")
+
+[node name="CoinCollect" type="Area2D" parent="."]
+
+[node name="CollectShape" type="CollisionShape2D" parent="CoinCollect"]
+visible = false
+shape = SubResource("CircleShape2D_r47q8")
+
+[connection signal="body_entered" from="CoinCollect" to="." method="_on_coin_collect_body_entered"]

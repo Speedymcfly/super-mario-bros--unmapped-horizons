@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://ue16iikjswgf" path="res://Particles/brick_debris.gd" id="1_cssao"]
 [ext_resource type="Texture2D" uid="uid://tdmnksvgahhu" path="res://assets/sprites/particles/Brick Debris Overworld.png" id="1_jjpim"]
 
-[node name="BrickDebris" type="CharacterBody2D"]
+[node name="BrickDebrisOverworld" type="CharacterBody2D"]
 script = ExtResource("1_cssao")
 
-[node name="Debris1" type="Sprite2D" parent="."]
+[node name="Debris" type="Sprite2D" parent="."]
 position = Vector2(-3, 0)
 texture = ExtResource("1_jjpim")
 offset = Vector2(3, 0)

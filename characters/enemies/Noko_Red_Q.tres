@@ -112,10 +112,10 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_d4lil")
 }],
-"loop": true,
+"loop": false,
 "name": &"turn",
 "speed": 5.0
 }, {

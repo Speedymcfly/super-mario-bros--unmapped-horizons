@@ -1,0 +1,119 @@
+[gd_resource type="SpriteFrames" load_steps=18 format=3 uid="uid://ck2sqmdb0k3og"]
+
+[ext_resource type="Texture2D" uid="uid://cstbxwnk5711o" path="res://assets/sprites/characters/players/Mario/SmallMarioRetroIdle.png" id="1_mph72"]
+[ext_resource type="Texture2D" uid="uid://bcsg8tdkw6d6m" path="res://assets/sprites/characters/players/Mario/SmallMarioJump.png" id="3_hyimq"]
+[ext_resource type="Texture2D" uid="uid://bwt12mscuph78" path="res://assets/sprites/characters/players/Mario/SmallMarioLongJumping.png" id="4_m1inn"]
+[ext_resource type="Texture2D" uid="uid://bxmfvm16simwr" path="res://assets/sprites/characters/players/Mario/SmallMarioRunning.png" id="5_3i2n5"]
+[ext_resource type="Texture2D" uid="uid://cow3u2rlq1d3w" path="res://assets/sprites/characters/players/Mario/SmallMarioWalking.png" id="6_co63t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fq0vh"]
+atlas = ExtResource("1_mph72")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84gws"]
+atlas = ExtResource("1_mph72")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xll5l"]
+atlas = ExtResource("3_hyimq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkhr3"]
+atlas = ExtResource("4_m1inn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jrm3"]
+atlas = ExtResource("5_3i2n5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bivv6"]
+atlas = ExtResource("5_3i2n5")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmvhd"]
+atlas = ExtResource("5_3i2n5")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydoqu"]
+atlas = ExtResource("5_3i2n5")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne4dn"]
+atlas = ExtResource("6_co63t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66mqk"]
+atlas = ExtResource("6_co63t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0okj"]
+atlas = ExtResource("6_co63t")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdohv"]
+atlas = ExtResource("6_co63t")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_fq0vh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84gws")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xll5l")
+}],
+"loop": true,
+"name": &"jumping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkhr3")
+}],
+"loop": true,
+"name": &"long jumping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jrm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bivv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmvhd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydoqu")
+}],
+"loop": true,
+"name": &"running",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne4dn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66mqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0okj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdohv")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 8.0
+}]

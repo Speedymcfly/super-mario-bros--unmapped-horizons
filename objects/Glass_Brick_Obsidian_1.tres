@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://b0i18pe0jkvyb"]
+
+[ext_resource type="Texture2D" uid="uid://08nm51xss1n3" path="res://assets/sprites/objects/Glass Bricks.png" id="1_hlmp2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlmp2"]
+atlas = ExtResource("1_hlmp2")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymrlj"]
+atlas = ExtResource("1_hlmp2")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixpih"]
+atlas = ExtResource("1_hlmp2")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2r3k"]
+atlas = ExtResource("1_hlmp2")
+region = Rect2(112, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 3.5,
+"texture": SubResource("AtlasTexture_hlmp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymrlj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixpih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2r3k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

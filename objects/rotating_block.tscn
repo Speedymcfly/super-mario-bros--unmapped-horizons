@@ -156,7 +156,7 @@ _data = {
 &"bump_up": SubResource("Animation_u8iw1")
 }
 
-[node name="RotatingBlock" type="AnimatableBody2D"]
+[node name="RotatingBlock" type="AnimatableBody2D" groups=["terrain"]]
 collision_layer = 15
 script = ExtResource("1_1arrk")
 
@@ -194,6 +194,7 @@ shape = SubResource("RectangleShape2D_cfleo")
 
 [node name="SFXBump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_cfleo")
+volume_db = -2.5
 
 [node name="PoundArea" type="Area2D" parent="."]
 

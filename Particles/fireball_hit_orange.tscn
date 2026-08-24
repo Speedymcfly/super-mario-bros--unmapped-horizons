@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpisxnbnbvkqm"]
+
+[ext_resource type="Texture2D" uid="uid://j6oktj5wufbf" path="res://assets/sprites/particles/FireballHitOrange.png" id="1_v8qxe"]
+[ext_resource type="Script" uid="uid://dayylqhovfxwl" path="res://Particles/fireiceball_hit.gd" id="2_8if0l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6a8c"]
+atlas = ExtResource("1_v8qxe")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42es1"]
+atlas = ExtResource("1_v8qxe")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kn8ac"]
+atlas = ExtResource("1_v8qxe")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycs0v"]
+atlas = ExtResource("1_v8qxe")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ifp2j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6a8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42es1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kn8ac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycs0v")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="Environment" id="Environment_8if0l"]
+background_mode = 3
+glow_enabled = true
+
+[node name="FireballHitOrange" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ifp2j")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("2_8if0l")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8if0l")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

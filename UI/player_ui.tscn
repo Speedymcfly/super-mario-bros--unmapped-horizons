@@ -1,9 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://b8ubolenghovk"]
+[gd_scene load_steps=45 format=3 uid="uid://b8ubolenghovk"]
 
 [ext_resource type="Texture2D" uid="uid://gmkghvrmyais" path="res://assets/sprites/UI/Coins.png" id="1_8fhe7"]
 [ext_resource type="Script" uid="uid://qlpxaho82dok" path="res://UI/player_ui.gd" id="1_kwigr"]
+[ext_resource type="Texture2D" uid="uid://ddbfxnk1e41u2" path="res://assets/sprites/UI/UI background colour.png" id="2_8w2om"]
 [ext_resource type="FontFile" uid="uid://w5vlix2q6pfe" path="res://assets/sprites/UI/Font.png" id="2_nplvd"]
 [ext_resource type="Texture2D" uid="uid://04gs46affeo7" path="res://assets/sprites/UI/LifeIcons.png" id="4_b8q8m"]
+[ext_resource type="Texture2D" uid="uid://uhreheoape1b" path="res://assets/sprites/UI/Super Diamond.png" id="5_ccqt3"]
+[ext_resource type="Texture2D" uid="uid://dypqpuov3c3n1" path="res://assets/sprites/UI/UI background barrier.png" id="7_qf5vc"]
+[ext_resource type="Texture2D" uid="uid://bbo0jomvof8wn" path="res://assets/sprites/UI/P-Speed.png" id="8_qf5vc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8pok"]
 atlas = ExtResource("1_8fhe7")
@@ -158,6 +162,150 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3km2"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdrb0"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa2pn"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_350d7"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01aj8"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hroa2"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysum4"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ac0m"]
+atlas = ExtResource("5_ccqt3")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2lj1m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3km2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdrb0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa2pn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_350d7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01aj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hroa2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysum4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ac0m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85k8y"]
+atlas = ExtResource("8_qf5vc")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyrvb"]
+atlas = ExtResource("8_qf5vc")
+region = Rect2(0, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujaj4"]
+atlas = ExtResource("8_qf5vc")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7kcc"]
+atlas = ExtResource("8_qf5vc")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wiorm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85k8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyrvb")
+}],
+"loop": true,
+"name": &"active",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujaj4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7kcc")
+}],
+"loop": true,
+"name": &"loading",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiorm"]
+atlas = ExtResource("8_qf5vc")
+region = Rect2(48, 8, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7124"]
+atlas = ExtResource("8_qf5vc")
+region = Rect2(48, 16, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lj1m"]
+atlas = ExtResource("8_qf5vc")
+region = Rect2(48, 0, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_85k8y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiorm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7124")
+}],
+"loop": true,
+"name": &"active",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2lj1m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="PlayerUI" type="CanvasLayer" groups=["player_ui"]]
 script = ExtResource("1_kwigr")
 
@@ -168,6 +316,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BackgroundColour" type="Sprite2D" parent="Control"]
+position = Vector2(160, 8)
+scale = Vector2(40, 2)
+texture = ExtResource("2_8w2om")
 
 [node name="CoinCounter" type="AnimatedSprite2D" parent="Control"]
 position = Vector2(4, 8)
@@ -209,3 +362,62 @@ theme_override_fonts/font = ExtResource("2_nplvd")
 theme_override_font_sizes/font_size = 8
 text = "x00"
 text_overrun_behavior = 1
+
+[node name="SuperDiamond" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(44, 12)
+sprite_frames = SubResource("SpriteFrames_2lj1m")
+autoplay = "default"
+frame_progress = 0.85793
+
+[node name="SuperDiamondCounter" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("2_nplvd")
+theme_override_font_sizes/font_size = 8
+text = "x00"
+text_overrun_behavior = 1
+
+[node name="UIBarrier" type="Sprite2D" parent="Control"]
+position = Vector2(160, 20)
+scale = Vector2(40, 1)
+texture = ExtResource("7_qf5vc")
+
+[node name="PowerMeterArrow1" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(260, 4)
+sprite_frames = SubResource("SpriteFrames_wiorm")
+autoplay = "default"
+
+[node name="PowerMeterArrow2" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(268, 4)
+sprite_frames = SubResource("SpriteFrames_wiorm")
+autoplay = "default"
+
+[node name="PowerMeterArrow3" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(276, 4)
+sprite_frames = SubResource("SpriteFrames_wiorm")
+autoplay = "default"
+frame_progress = 0.367906
+
+[node name="PowerMeterArrow4" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(284, 4)
+sprite_frames = SubResource("SpriteFrames_wiorm")
+autoplay = "default"
+
+[node name="PowerMeterArrow5" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(292, 4)
+sprite_frames = SubResource("SpriteFrames_wiorm")
+autoplay = "default"
+
+[node name="PowerMeterArrow6" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(300, 4)
+sprite_frames = SubResource("SpriteFrames_wiorm")
+autoplay = "default"
+
+[node name="PowerMeterIcon" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(312, 4)
+sprite_frames = SubResource("SpriteFrames_85k8y")
+autoplay = "default"
+frame_progress = 0.555741

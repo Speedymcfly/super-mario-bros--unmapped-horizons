@@ -1,9 +1,14 @@
-[gd_resource type="SpriteFrames" load_steps=21 format=3 uid="uid://b3b5tl70el44e"]
+[gd_resource type="SpriteFrames" load_steps=23 format=3 uid="uid://b3b5tl70el44e"]
 
+[ext_resource type="Texture2D" uid="uid://c8cv0k256esfn" path="res://assets/sprites/characters/players/Mario/FireMarioDive.png" id="1_0ugi1"]
+[ext_resource type="Texture2D" uid="uid://cam4uyj327vbv" path="res://assets/sprites/characters/players/Mario/FireMarioJump.png" id="2_8q16d"]
 [ext_resource type="Texture2D" uid="uid://oyld6046n66m" path="res://assets/sprites/characters/players/Mario/FireMarioIdle.png" id="2_sq13a"]
-[ext_resource type="Texture2D" uid="uid://p1e5h8abam15" path="res://assets/sprites/characters/players/Mario/BigMarioJump.png" id="3_mlb55"]
 [ext_resource type="Texture2D" uid="uid://b7prwogm7u7rc" path="res://assets/sprites/characters/players/Mario/FireMarioWalking.png" id="4_8q16d"]
 [ext_resource type="Texture2D" uid="uid://bwt12mscuph78" path="res://assets/sprites/characters/players/Mario/SmallMarioLongJumping.png" id="4_okf0k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mylr"]
+atlas = ExtResource("1_0ugi1")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nphyv"]
 atlas = ExtResource("2_sq13a")
@@ -13,8 +18,8 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("2_sq13a")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_twojn"]
-atlas = ExtResource("3_mlb55")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs0lq"]
+atlas = ExtResource("2_8q16d")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_his3r"]
@@ -72,6 +77,14 @@ region = Rect2(160, 0, 32, 32)
 [resource]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mylr")
+}],
+"loop": true,
+"name": &"diving",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 8.0,
 "texture": SubResource("AtlasTexture_nphyv")
 }, {
@@ -84,7 +97,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_twojn")
+"texture": SubResource("AtlasTexture_fs0lq")
 }],
 "loop": true,
 "name": &"jumping",

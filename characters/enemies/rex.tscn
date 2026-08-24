@@ -1,0 +1,374 @@
+[gd_scene load_steps=41 format=3 uid="uid://tf6uec4vrxn3"]
+
+[ext_resource type="Script" uid="uid://brc8vhrtwqrs3" path="res://characters/enemies/rex.gd" id="1_8dw0q"]
+[ext_resource type="Texture2D" uid="uid://b6e3jfi7ndu70" path="res://assets/sprites/characters/enemies/Rex Big.png" id="2_ia6ac"]
+[ext_resource type="Texture2D" uid="uid://c8a6qwoycjul3" path="res://assets/sprites/characters/enemies/Rex Big Forward-facing.png" id="3_fk3ae"]
+[ext_resource type="Texture2D" uid="uid://blnpkpk6oycvg" path="res://assets/sprites/characters/enemies/Rex Small.png" id="3_ia6ac"]
+[ext_resource type="Texture2D" uid="uid://dpmwc3gm1fd1k" path="res://assets/sprites/characters/enemies/Rex Squished.png" id="4_y8uqe"]
+[ext_resource type="AudioStream" uid="uid://2n6uv6hd3ri2" path="res://assets/audio/SFX/Footsteps.wav" id="5_2ulb1"]
+[ext_resource type="AudioStream" uid="uid://3u0aggkdxuli" path="res://assets/audio/SFX/Stomp.wav" id="5_80oex"]
+[ext_resource type="Texture2D" uid="uid://cwsjubb7017nu" path="res://assets/sprites/characters/enemies/Rex Small Forward-facing.png" id="6_hb4d1"]
+[ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="6_huvch"]
+[ext_resource type="AudioStream" uid="uid://b45aonpcj3rjc" path="res://assets/audio/SFX/FootstepsRun.wav" id="6_r8ajc"]
+[ext_resource type="Texture2D" uid="uid://b8tulkkfhme0m" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x1.png" id="7_80oex"]
+[ext_resource type="Texture2D" uid="uid://cmdsa7rvrs5wp" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x2.png" id="7_huvch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dcu4"]
+atlas = ExtResource("2_ia6ac")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsunn"]
+atlas = ExtResource("3_fk3ae")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnq2p"]
+atlas = ExtResource("2_ia6ac")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8uqe"]
+atlas = ExtResource("2_ia6ac")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80oex"]
+atlas = ExtResource("2_ia6ac")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huvch"]
+atlas = ExtResource("2_ia6ac")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nctb3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dcu4")
+}],
+"loop": true,
+"name": &"bite",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_qsunn")
+}],
+"loop": false,
+"name": &"turn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnq2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8uqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80oex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huvch")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia6ac"]
+atlas = ExtResource("3_ia6ac")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb4d1"]
+atlas = ExtResource("4_y8uqe")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wnpe"]
+atlas = ExtResource("6_hb4d1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ss03l"]
+atlas = ExtResource("3_ia6ac")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ulb1"]
+atlas = ExtResource("3_ia6ac")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8ajc"]
+atlas = ExtResource("3_ia6ac")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fk3ae"]
+atlas = ExtResource("3_ia6ac")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_25j3x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ia6ac")
+}],
+"loop": true,
+"name": &"bite",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hb4d1")
+}],
+"loop": true,
+"name": &"squished",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_4wnpe")
+}],
+"loop": false,
+"name": &"turn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ss03l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ulb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8ajc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fk3ae")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ss03l"]
+size = Vector2(14, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hb4d1"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dcu4"]
+size = Vector2(8, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnq2p"]
+size = Vector2(8, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsunn"]
+size = Vector2(14, 0.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ia6ac"]
+size = Vector2(17, 33.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fk3ae"]
+size = Vector2(17, 32)
+
+[sub_resource type="Animation" id="Animation_ss03l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BigSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SmallSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_huvch"]
+resource_name = "frozen_shake"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BigSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SmallSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 8), Vector2(-1, 8), Vector2(1, 8), Vector2(-1, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FrozenSpriteBig:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FrozenSpriteSmall:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 8), Vector2(-1, 8), Vector2(1, 8), Vector2(-1, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ulb1"]
+_data = {
+&"RESET": SubResource("Animation_ss03l"),
+&"freeze_shake": SubResource("Animation_huvch")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8uqe"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80oex"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huvch"]
+size = Vector2(16, 2)
+
+[node name="Rex" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_8dw0q")
+
+[node name="BigSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nctb3")
+animation = &"turn"
+
+[node name="SmallSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_25j3x")
+animation = &"turn"
+
+[node name="CollisionBig" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ss03l")
+
+[node name="CollisionSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_hb4d1")
+
+[node name="HurtPlayer" type="Area2D" parent="."]
+position = Vector2(0, 4)
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtPlayer"]
+position = Vector2(-4, -3)
+shape = SubResource("RectangleShape2D_2dcu4")
+
+[node name="HurtPlayer2" type="Area2D" parent="."]
+position = Vector2(0, 4)
+
+[node name="HurtShape2" type="CollisionShape2D" parent="HurtPlayer2"]
+position = Vector2(4, -3)
+shape = SubResource("RectangleShape2D_vnq2p")
+
+[node name="SquishDetect" type="Area2D" parent="."]
+
+[node name="SquishShape" type="CollisionShape2D" parent="SquishDetect"]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_qsunn")
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 29
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+shape = SubResource("RectangleShape2D_ia6ac")
+debug_color = Color(0.956863, 0, 0.701961, 0.419608)
+
+[node name="IceKnockArea" type="Area2D" parent="."]
+
+[node name="IceKnockShape" type="CollisionShape2D" parent="IceKnockArea"]
+shape = SubResource("RectangleShape2D_fk3ae")
+debug_color = Color(0.750374, 0.459406, 0, 0.42)
+
+[node name="SFXWalk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2ulb1")
+volume_db = -15.0
+
+[node name="SFXWalkFast" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_r8ajc")
+volume_db = -15.0
+
+[node name="SFXSquish" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_80oex")
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_huvch")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2ulb1")
+}
+
+[node name="BiteTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="IceCollisionBig" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y8uqe")
+debug_color = Color(0.229354, 0.508829, 1, 0.42)
+
+[node name="IceCollisionSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_80oex")
+debug_color = Color(0, 0.544543, 0.943173, 0.42)
+
+[node name="FrozenSpriteBig" type="Sprite2D" parent="."]
+texture = ExtResource("7_huvch")
+
+[node name="FrozenSpriteSmall" type="Sprite2D" parent="."]
+position = Vector2(0, 8)
+texture = ExtResource("7_80oex")
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="FreezePoundArea" type="Area2D" parent="."]
+
+[node name="FreezePoundCollision" type="CollisionShape2D" parent="FreezePoundArea"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_huvch")
+debug_color = Color(0.205409, 0.470557, 0.611872, 0.42)
+
+[connection signal="body_entered" from="HurtPlayer" to="." method="_on_hurt_player_body_entered"]
+[connection signal="body_entered" from="HurtPlayer2" to="." method="_on_hurt_player_2_body_entered"]
+[connection signal="body_entered" from="SquishDetect" to="." method="_on_squish_detect_body_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
+[connection signal="body_entered" from="IceKnockArea" to="." method="_on_ice_knock_area_body_entered"]
+[connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]
+[connection signal="body_entered" from="FreezePoundArea" to="." method="_on_freeze_pound_area_body_entered"]

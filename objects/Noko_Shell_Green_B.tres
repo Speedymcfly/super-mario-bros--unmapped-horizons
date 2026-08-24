@@ -1,0 +1,79 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://b4ib5nspfu46w"]
+
+[ext_resource type="Texture2D" uid="uid://bewiqqbdhdgof" path="res://assets/sprites/objects/NokoBShellEm.png" id="1_l6y4l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6y4l"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ifpf"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ddlt"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbbax"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1okv"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7vmo"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pewnx"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w4kp"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmdsr"]
+atlas = ExtResource("1_l6y4l")
+region = Rect2(112, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6y4l")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ifpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ddlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbbax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1okv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7vmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pewnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w4kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmdsr")
+}],
+"loop": true,
+"name": &"Spin",
+"speed": 15.0
+}]

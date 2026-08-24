@@ -13,7 +13,7 @@ config_version=5
 config/name="Super Mario Bros: Unmapped Horizons"
 run/main_scene="uid://y53lh6tbbp4e"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://b8du1gwnslcor"
 
 [autoload]
 
@@ -25,6 +25,10 @@ Globals="*res://globals/globals.gd"
 window/size/viewport_width=320
 window/size/viewport_height=180
 window/stretch/mode="canvas_items"
+
+[global_group]
+
+terrain=""
 
 [input]
 
@@ -44,3 +48,4 @@ run={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true

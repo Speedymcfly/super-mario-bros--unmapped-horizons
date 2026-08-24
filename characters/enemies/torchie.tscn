@@ -1,0 +1,99 @@
+[gd_scene load_steps=13 format=3 uid="uid://dy8paomiv7xkt"]
+
+[ext_resource type="Script" uid="uid://bqwr20hlqq1m" path="res://characters/enemies/torchie.gd" id="1_56j5w"]
+[ext_resource type="Texture2D" uid="uid://b4yaqf7dqvd57" path="res://assets/sprites/characters/enemies/Torchies.png" id="1_t2rpu"]
+[ext_resource type="Texture2D" uid="uid://b2xkjj2u554r6" path="res://assets/sprites/particles/FireParticleOrange.png" id="2_rbll4"]
+
+[sub_resource type="Gradient" id="Gradient_q8dt5"]
+offsets = PackedFloat32Array(0.00909091, 0.209091)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cked5"]
+gradient = SubResource("Gradient_q8dt5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gj6nd"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -25, 0)
+color_ramp = SubResource("GradientTexture1D_cked5")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56j5w"]
+atlas = ExtResource("1_t2rpu")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbll4"]
+atlas = ExtResource("1_t2rpu")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q8dt5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56j5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbll4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2rpu"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56j5w"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbll4"]
+size = Vector2(16, 14)
+
+[node name="Torchie" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_56j5w")
+
+[node name="FlameParticle1" type="GPUParticles2D" parent="."]
+position = Vector2(0, -5)
+amount = 15
+texture = ExtResource("2_rbll4")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_gj6nd")
+
+[node name="FlameParticle2" type="GPUParticles2D" parent="."]
+position = Vector2(-3, -5)
+amount = 15
+texture = ExtResource("2_rbll4")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_gj6nd")
+
+[node name="FlameParticle3" type="GPUParticles2D" parent="."]
+position = Vector2(3, -5)
+amount = 15
+texture = ExtResource("2_rbll4")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_gj6nd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_q8dt5")
+autoplay = "default"
+frame_progress = 0.108323
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_t2rpu")
+
+[node name="HurtArea" type="Area2D" parent="."]
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtArea"]
+shape = SubResource("RectangleShape2D_56j5w")
+debug_color = Color(0.824401, 0.398876, 1.92523e-07, 0.42)
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 29
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_rbll4")
+
+[connection signal="body_entered" from="HurtArea" to="." method="_on_hurt_area_body_entered"]
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]

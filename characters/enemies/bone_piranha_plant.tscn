@@ -1,0 +1,119 @@
+[gd_scene load_steps=13 format=3 uid="uid://cop1ctqrq6mkc"]
+
+[ext_resource type="Script" uid="uid://cllxdo61dsew0" path="res://characters/enemies/bone_piranha_plant.gd" id="1_584kx"]
+[ext_resource type="SpriteFrames" uid="uid://bhjfh3gs2asq7" path="res://characters/enemies/Hone_Pakkun_Stem_Short_Dull.tres" id="2_584kx"]
+[ext_resource type="AudioStream" uid="uid://123artlbsw2n" path="res://assets/audio/SFX/Enemies/PakkunChomp.wav" id="3_t4vp2"]
+[ext_resource type="SpriteFrames" uid="uid://db0x75ycca7ry" path="res://characters/enemies/Hone_Pakkun_Head_Dull.tres" id="3_y6drx"]
+[ext_resource type="AudioStream" uid="uid://crasfws5r1qr0" path="res://assets/audio/SFX/EnemyHit.wav" id="4_y6drx"]
+[ext_resource type="Texture2D" uid="uid://bctadcq6qiaxo" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x1.5.png" id="5_5f4pd"]
+[ext_resource type="Texture2D" uid="uid://cmdsa7rvrs5wp" path="res://assets/sprites/objects/frozenblocks/FrozenBlock1x2.png" id="6_kso8o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bexwt"]
+size = Vector2(14, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgkt7"]
+size = Vector2(16, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6k7n7"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ho75t"]
+size = Vector2(16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qn1k6"]
+size = Vector2(16, 32)
+
+[node name="BonePiranhaPlant" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_584kx")
+
+[node name="MainCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_bexwt")
+debug_color = Color(0.674801, 0.506694, 0, 0.42)
+
+[node name="HitDetect" type="Area2D" parent="."]
+collision_mask = 29
+
+[node name="HitShape" type="CollisionShape2D" parent="HitDetect"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_hgkt7")
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+
+[node name="StemBone" type="Bone2D" parent="Skeleton2D"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Stem" type="AnimatedSprite2D" parent="Skeleton2D/StemBone"]
+position = Vector2(0, -4)
+sprite_frames = ExtResource("2_584kx")
+autoplay = "default"
+
+[node name="HeadBone" type="Bone2D" parent="Skeleton2D/StemBone"]
+position = Vector2(0, -4)
+rest = Transform2D(1, 0, 0, 1, 0, -4)
+
+[node name="Head" type="AnimatedSprite2D" parent="Skeleton2D/StemBone/HeadBone"]
+position = Vector2(0, -8)
+sprite_frames = ExtResource("3_y6drx")
+animation = &"hit"
+autoplay = "default"
+
+[node name="BiteArea" type="Area2D" parent="Skeleton2D/StemBone/HeadBone"]
+position = Vector2(0, -5)
+collision_mask = 13
+
+[node name="BiteShape" type="CollisionShape2D" parent="Skeleton2D/StemBone/HeadBone/BiteArea"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_6k7n7")
+debug_color = Color(0, 0.645028, 0.268832, 0.42)
+
+[node name="BiteTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="IntermissionTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="InOutTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="SFXChomp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_t4vp2")
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_y6drx")
+
+[node name="IceCollisionSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_ho75t")
+debug_color = Color(0, 0.544543, 0.943173, 0.42)
+
+[node name="IceCollisionBig" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_qn1k6")
+debug_color = Color(0.229354, 0.508829, 1, 0.42)
+
+[node name="FrozenSpriteSmall" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("5_5f4pd")
+
+[node name="FrozenSpriteBig" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+texture = ExtResource("6_kso8o")
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(5, 5)
+
+[connection signal="body_entered" from="HitDetect" to="." method="_on_hit_detect_body_entered"]
+[connection signal="body_entered" from="Skeleton2D/StemBone/HeadBone/BiteArea" to="." method="_on_bite_area_body_entered"]
+[connection signal="timeout" from="BiteTimer" to="." method="_on_bite_timer_timeout"]
+[connection signal="timeout" from="InOutTimer" to="." method="_on_in_out_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_freeze_timer_timeout"]

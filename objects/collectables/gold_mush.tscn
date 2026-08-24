@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://didyhrdeo5gc6"]
+
+[ext_resource type="Texture2D" uid="uid://den3qhv7wqk6c" path="res://assets/sprites/objects/collectables/Gold Mushroom.png" id="1_7qqpp"]
+[ext_resource type="Script" uid="uid://boatoeijo62og" path="res://objects/collectables/gold_mush.gd" id="1_gjfy8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjfy8"]
+size = Vector2(14, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7nfu7"]
+size = Vector2(15, 16)
+
+[node name="GoldMush" type="CharacterBody2D"]
+script = ExtResource("1_gjfy8")
+
+[node name="GoldMushCollision" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8.5)
+shape = SubResource("RectangleShape2D_gjfy8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7qqpp")
+centered = false
+
+[node name="GoldMushCollect" type="Area2D" parent="."]
+
+[node name="CollectCollision" type="CollisionShape2D" parent="GoldMushCollect"]
+position = Vector2(8, 8.125)
+shape = SubResource("RectangleShape2D_7nfu7")
+
+[connection signal="body_entered" from="GoldMushCollect" to="." method="_on_collect_body_entered"]

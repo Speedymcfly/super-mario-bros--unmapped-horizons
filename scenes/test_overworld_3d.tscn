@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://lm08b1tqccso"]
+
+[ext_resource type="PackedScene" uid="uid://dhkqoeey8lhc" path="res://characters/players/test_player_overworld_3d.tscn" id="1_dkl2t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dkl2t"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dkl2t"]
+
+[sub_resource type="Environment" id="Environment_dkl2t"]
+
+[node name="TestOverworld3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="TestPlayerOverworld3D" parent="." instance=ExtResource("1_dkl2t")]
+
+[node name="Camera3D" type="Camera3D" parent="TestPlayerOverworld3D"]
+transform = Transform3D(1, 0, 0, 0, 0.500756, 0.865589, 0, -0.865589, 0.500756, 0, 5.69798, 4.4209)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.38917, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_dkl2t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("BoxShape3D_dkl2t")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dkl2t")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 4.95162, 0)

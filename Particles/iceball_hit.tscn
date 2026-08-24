@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdmpl1i5k8qcf"]
+
+[ext_resource type="Texture2D" uid="uid://dy5rf7nkwqrbf" path="res://assets/sprites/particles/IceballHit.png" id="1_yk5wg"]
+[ext_resource type="Script" uid="uid://dayylqhovfxwl" path="res://Particles/fireiceball_hit.gd" id="2_slud8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lpeg"]
+atlas = ExtResource("1_yk5wg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywol3"]
+atlas = ExtResource("1_yk5wg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ds22"]
+atlas = ExtResource("1_yk5wg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1vvk"]
+atlas = ExtResource("1_yk5wg")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cdyds"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lpeg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywol3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ds22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1vvk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="IceballHit" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_cdyds")
+autoplay = "default"
+script = ExtResource("2_slud8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
